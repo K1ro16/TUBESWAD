@@ -239,21 +239,11 @@ h6 {
   border-bottom: 1px solid color-mix(in srgb, var(--accent-color), transparent 85%);
 }
 
-.header .logo {
-  line-height: 1;
-}
-
 .header .logo img {
-  max-height: 36px;
+  max-width: 120px;
   margin-right: 8px;
 }
 
-.header .logo h1 {
-  font-size: 30px;
-  margin: 0;
-  font-weight: 300;
-  color: var(--heading-color);
-}
 
 .header .btn-getstarted,
 .header .btn-getstarted:focus {
