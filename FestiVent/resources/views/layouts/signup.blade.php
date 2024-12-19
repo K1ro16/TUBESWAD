@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                        <input type="password" name="password" id="pass" placeholder="Password"/>
+                        <input type="password" name="password" id="pass" placeholder="Password (min. 6)"/>
                     </div>
                     <div class="form-group">
                         <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
