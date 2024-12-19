@@ -11,5 +11,9 @@ Route::get('/home', function () {
 });
 
 
+
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
+Route::get('/Category', function () {
+    return view('category');
+});
