@@ -176,7 +176,6 @@
       <p>Festivent is a trusted ticketing platform for various events, including concerts, festivals, sports, and seminars. With an easy-to-use interface and secure transaction system, we make it simple for you to discover and purchase tickets for your special moments.
         We are committed to delivering the best service to ensure every event becomes an unforgettable experience. Festivent – find, buy, and enjoy the excitement of your favorite events!</p>
       <p><strong>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</strong></p>
-
       </div>
       <!-- End Section Title -->
 
