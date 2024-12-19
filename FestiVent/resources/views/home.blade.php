@@ -86,7 +86,7 @@
         <div class="row justify-content-center" data-aos="zoom-out">
           <div class="col-xl-7 col-lg-9 text-center">
             <h1>FestiVent</h1>
-            <p>Kata-kata slogan festivent</p>
+            <p>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</p>
           </div>
         </div>
         <div class="text-center" data-aos="zoom-out" data-aos-delay="100">
@@ -147,36 +147,12 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>About Us<br></h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo</span></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-          </div>
-
-        </div>
-
+      <h2>About Us</h2>
+      <p>Festivent is a trusted ticketing platform for various events, including concerts, festivals, sports, and seminars. With an easy-to-use interface and secure transaction system, we make it simple for you to discover and purchase tickets for your special moments.
+        We are committed to delivering the best service to ensure every event becomes an unforgettable experience. Festivent – find, buy, and enjoy the excitement of your favorite events!</p>
+      <p><strong>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</strong></p>
       </div>
-
-    </section><!-- /About Section -->
+      <!-- End Section Title -->
 
     <!-- Stats Section -->
     <section id="stats" class="stats section light-background">
@@ -221,13 +197,13 @@
         <div class="row justify-content-center">
             <!-- Card 1 -->
             <div class="col-md-4 mb-4">
-              <button style = "border: none;">
+              <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card" >
-                    <div class="card-body" style = "text-align: left;">
-                        <h5 class="card-title" >Judul Card</h5>
-                        <p class="card-text">Sabtu, 08 FEB, 15:00 WIB.</p>
-                        <h6 class="card-title">Judul harga</h6>
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
+                    <div class="card-body">
+                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
+                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                        <h6 class= "card-title bold-text" style = "text-align: left;">Harga</h6>
                     </div>
                         <a href="#" class="btn btn-secondary" color="primary">LIHAT</a>
                 </div>
@@ -235,32 +211,33 @@
             </div>
             <!-- Card 2 -->
             <div class="col-md-4 mb-4">
+              <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
                     <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
                     <div class="card-body">
-                        <h5 class="card-title">Judul Card</h5>
-                        <p class="card-text">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sisssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssni.</p>
-                        <h6 class="card-title">Judul harga</h6>
-            
+                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
+                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                        <h6 class= "card-title bold-text" style = "text-align: left;">Harga</h6>
                     </div>
                 </div>
+              </button>
             </div>
             <!-- Card 3 -->
             <div class="col-md-4 mb-4">
+              <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
                     <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
                     <div class="card-body">
-                        <h5 class="card-title">Judul Card</h5>
-                        <p class="card-text">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
+                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                        <h6 class= "card-title bold-text" style = "text-align: left;">Harga</h6>
                     </div>
                 </div>
+              </button>
             </div>
         </div>
-
       </div>
-
     </section><!-- /Services Section -->
-
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
 
@@ -271,7 +248,6 @@
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="swiper init-swiper" data-speed="600" data-delay="5000" data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
           <script type="application/json" class="swiper-config">
             {
