@@ -221,13 +221,17 @@
         <div class="row justify-content-center">
             <!-- Card 1 -->
             <div class="col-md-4 mb-4">
+              <button style = "border: none;">
                 <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h5 class="card-title">Judul Card</h5>
-                        <p class="card-text">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card" >
+                    <div class="card-body" style = "text-align: left;">
+                        <h5 class="card-title" >Judul Card</h5>
+                        <p class="card-text">Sabtu, 08 FEB, 15:00 WIB.</p>
+                        <h6 class="card-title">Judul harga</h6>
                     </div>
+                        <a href="#" class="btn btn-secondary" color="primary">LIHAT</a>
                 </div>
+              </button>
             </div>
             <!-- Card 2 -->
             <div class="col-md-4 mb-4">
@@ -235,7 +239,9 @@
                     <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
                     <div class="card-body">
                         <h5 class="card-title">Judul Card</h5>
-                        <p class="card-text">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                        <p class="card-text">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sisssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssni.</p>
+                        <h6 class="card-title">Judul harga</h6>
+            
                     </div>
                 </div>
             </div>
