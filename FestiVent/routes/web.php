@@ -7,9 +7,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::middleware('web')->group(function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+
+    Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
+});
+
 
 
 
@@ -22,6 +27,12 @@ Route::get('/Category', function () {
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
+
+
+//untuk tombol logout
+Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
+
+
 
 
 

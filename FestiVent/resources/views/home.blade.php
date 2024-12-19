@@ -70,7 +70,16 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a href="{{ route('signin') }}" class="btn-getstarted" href="#about">Login</a>
+        @if(session('account_id'))
+            <a href="#" class="btn-getstarted">Community Signup</a>
+            <form action="{{ route('accounts.logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn-getstarted">Logout</button>
+            </form>
+        @else
+            <a href="{{ route('signin') }}" class="btn-getstarted">Login</a>
+        @endif
+
 
     </div>
   </header>
