@@ -154,7 +154,6 @@
       <div class="container">
 
         <div class="row gy-4">
-
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
