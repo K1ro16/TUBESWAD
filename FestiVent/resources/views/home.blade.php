@@ -72,9 +72,11 @@
 
         @if(session('account_id'))
             <a href="#" class="btn-getstarted">Community Signup</a>
-            <form action="{{ route('accounts.logout') }}" method="POST">
+            <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">
                 @csrf
-                <button type="submit" class="btn-getstarted">Logout</button>
+                <button type="submit" class="btn-icon">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
             </form>
         @else
             <a href="{{ route('signin') }}" class="btn-getstarted">Login</a>

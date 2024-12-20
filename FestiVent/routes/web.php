@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\AccountsController;
 
 Route::get('/', function () {
@@ -32,7 +33,15 @@ Route::post('/accounts/login', [AccountsController::class, 'login'])->name('acco
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
 
-
+// Menambahkan rute untuk Requests
+Route::prefix('requests')->name('requests.')->group(function () {
+    Route::get('/', [RequestController::class, 'index'])->name('index');
+    Route::get('/create', [RequestController::class, 'create'])->name('create');
+    Route::post('/', [RequestController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [RequestController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [RequestController::class, 'update'])->name('update');
+    Route::delete('/{id}', [RequestController::class, 'destroy'])->name('destroy');
+});
 
 
 

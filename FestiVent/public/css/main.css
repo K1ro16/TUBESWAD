@@ -18,7 +18,7 @@
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #124265; /* Color for headings, subheadings and title throughout the website */
@@ -884,6 +884,20 @@ section,
 .hero .btn-get-started:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-icon:hover {
+    color: #007bff;
+}
+
 
 .hero .icon-box {
   background-color: var(--surface-color);
