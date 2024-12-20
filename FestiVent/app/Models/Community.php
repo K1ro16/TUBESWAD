@@ -14,6 +14,7 @@ class Community extends Model
         'asal',
         'deskripsi',
         'gambar',
+        'kategori',
     ];
 
     public function events()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Community;
+use Illuminate\Support\Facades\Storage;
 
 class CommunityController extends Controller
 {
@@ -31,27 +32,31 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'nama_community' => 'required|string|max:255',
-            'asal' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
-        ]);
+    // Validasi input
+    $request->validate([
+        'nama_community' => 'required|string|max:255',
+        'asal' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
+        'kategori' => 'required|string|max:20',
+    ]);
 
-        // Simpan gambar ke storage
-        $imagePath = $request->file('gambar')->store('images/communities', 'public');
+    // Simpan gambar ke storage (folder "public/images/communities")
+    $imagePath = $request->file('gambar')->store('images/communities', 'public');
 
-        // Simpan data ke database
-        Community::create([
-            'nama_community' => $request->nama_community,
-            'asal' => $request->asal,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $imagePath,
-        ]);
+    // Simpan data ke database
+    Community::create([
+        'nama_community' => $request->nama_community,
+        'asal' => $request->asal,
+        'deskripsi' => $request->deskripsi,
+        'gambar' => 'storage/' . $imagePath, // Path yang dapat diakses di view
+        'kategori' => $request->kategori,
+    ]);
 
-        return redirect()->route('communities.index')->with('success', 'Komunitas berhasil ditambahkan!');
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('communities.index')->with('success', 'Komunitas berhasil ditambahkan!');
     }
+
 
     /**
      * Display the specified resource.
@@ -76,29 +81,39 @@ class CommunityController extends Controller
      */
     public function update(Request $request, Community $community)
     {
-        // Validasi input
-        $request->validate([
-            'nama_community' => 'required|string|max:255',
-            'asal' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Gambar opsional
-        ]);
+    // Validasi input
+    $request->validate([
+        'nama_community' => 'required|string|max:255',
+        'asal' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Gambar opsional
+        'kategori' => 'required|string|max:20',
+    ]);
 
-        // Update gambar jika ada file baru
-        if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('images/communities', 'public');
-            $community->gambar = $imagePath;
+    // Update gambar jika ada file baru
+    if ($request->hasFile('gambar')) {
+        // Hapus gambar lama jika ada
+        if ($community->gambar && Storage::disk('public')->exists($community->gambar)) {
+            Storage::disk('public')->delete($community->gambar);
         }
+    
+        // Simpan gambar baru
+        $imagePath = $request->file('gambar')->store('images/communities', 'public');
+        $community->gambar = $imagePath; // Gambar disimpan di storage/images/communities
+    }    
 
-        // Update data lainnya
-        $community->update([
-            'nama_community' => $request->nama_community,
-            'asal' => $request->asal,
-            'deskripsi' => $request->deskripsi,
-        ]);
+    // Update data lainnya
+    $community->nama_community = $request->nama_community;
+    $community->asal = $request->asal;
+    $community->deskripsi = $request->deskripsi;
+    $community->kategori = $request->kategori;
 
-        return redirect()->route('communities.index')->with('success', 'Komunitas berhasil diperbarui!');
+    // Simpan perubahan ke database
+    $community->save();
+
+    return redirect()->route('communities.index')->with('success', 'Komunitas berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.

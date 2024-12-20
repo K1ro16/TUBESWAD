@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('asal', 20);
             $table->text('deskripsi'); // Menggunakan text untuk deskripsi yang lebih panjang
             $table->string('gambar', 255); // Menyimpan path gambar
+            $table->string('kategori', 20); // Menyimpan path gambar
             $table->timestamps();
         });
     }

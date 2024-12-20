@@ -28,16 +28,16 @@
                       <a href="{{ route('home') }}"><span class="fa fa-home mr-3"></span> Dashboard</a>
                     </li>
                     <li class="active">
-                        <a href="{{ route('communities.index') }}"><span class="fa fa-user mr-3"></span> Data Komunitas</a>
+                        <a href="{{ route('communities.index') }}"><span class="fa fa-user mr-3"></span> Community</a>
                     </li>
                     <li>
-                    <a href="{{ route('eventss.index') }}"><span class="fa fa-briefcase mr-3"></span> Data Event</a>
+                        <a href="{{ route('communities.create') }}"><span class="fa fa-sticky-note mr-3"></span> Add Community</a>
                     </li>
                     <li>
-                    <a href="{{ route('communities.create') }}"><span class="fa fa-sticky-note mr-3"></span> Tambah Komunitas</a>
+                        <a href="{{ route('eventss.index') }}"><span class="fa fa-briefcase mr-3"></span> Events</a>
                     </li>
                     <li>
-                    <a href="{{ route('eventss.create') }}"><span class="fa fa-paper-plane mr-3"></span> Tambah Dosen</a>
+                        <a href="{{ route('eventss.create') }}"><span class="fa fa-paper-plane mr-3"></span> Add Event</a>
                     </li>
                   </ul>
 
@@ -51,59 +51,60 @@
     	</nav>
 
         <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5 pt-5">
-            <h2 class="mb-4">Dashboard <span style="font-weight: bold; font-style: italic;">Data Komunitas</span></h2>
-            <p>Sistem Aplikasi Manajemen Data Komunitas</p>
+        <div id="content" class="p-4 p-md-5 pt-5 ml-5">
+            <h2 class="mb-4"><span style="font-weight: bold; font-style: italic;">All Community</span></h2>
+            <p>Community System Management</p>
 
             <!-- Tabel Komunitas -->
             <div class="card mt-4">
                 <div class="card-body">
                     <table class="table table-striped">
-                        {{-- table title --}}
+                        {{-- Tabel Title --}}
                         <div class="text-left">
-                            <h5 class="card-title">Tabel Komunitas</h5>
+                            <h5 class="card-title">Community List</h5>
                         </div>
-
                         {{-- Button for add data mahasiswa --}}
                         <div class="text-right mb-3">
-                            <a href="{{ route('communities.create') }}" class="btn btn-primary">Tambah Komunitas</a>
+                            <a href="{{ route('communities.create') }}" class="btn btn-primary">New Community</a>
                         </div>
-
-                    <thead>
-                        <tr>
-                        <th>#</th>
-                        <th>Nama Komunitas</th>
-                        <th>Asal Kota</th>
-                        <th>Deskripsi</th>
-                        <th>Gambar</th>
-                        <th>Aksi</th> <!-- Menambahkan kolom untuk aksi -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {{-- Looping data komunitas --}}
-                    @php
-                        $community = App\Models\Community::all();
-                    @endphp
-
-                    @foreach ($community as $community)
-                    <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $community->nama_community }}</td>
-                        <td>{{ $community->asal }}</td>
-                        <td>{{ $community->deskripsi }}</td>
-                        <td>{{ $community->gambar }}</td>
-                        <td>
-                            <!-- Akses route 'mahasiswas.show' dengan ID mahasiswa -->
-                            <a href="{{ route('communities.edit', $community->id) }}" class="btn btn-info btn-sm">Edit</a>
-                            <form action="{{ route('communities.destroy', $community->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm">Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                    </tbody>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Komunitas</th>
+                                <th>Asal Kota</th>
+                                <th>Deskripsi</th>
+                                <th>Gambar</th>
+                                <th>Kategori</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- Looping data komunitas --}}
+                            @php
+                                $communities = App\Models\Community::all();
+                            @endphp
+                
+                            @foreach ($communities as $community)
+                            <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $community->nama_community }}</td>
+                                <td>{{ $community->asal }}</td>
+                                <td>{{ $community->deskripsi }}</td>
+                                <td>
+                                    <img src="{{ asset($community->gambar) }}" alt="{{ $community->nama_community }}" class="img-thumbnail" style="max-width: 100px; height: auto;">
+                                </td>
+                                <td>{{ $community->kategori }}</td>
+                                <td>
+                                    <a href="{{ route('communities.edit', $community->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                    <form action="{{ route('communities.destroy', $community->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus komunitas ini?')">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
