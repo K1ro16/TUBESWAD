@@ -4,17 +4,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Requests extends Model
+class EventReq extends Model
 {
     //
     use HasFactory;
-    protected $table = 'requests';
+
+    protected $table = "eventreq";
+
     protected $fillable = [
         'nama_event',
         'deskripsi',
         'lokasi',
         'waktu',
         'harga',
-        'nama_komunitas',
-    ] ;
+        'penyelenggara'
+    ];
 }

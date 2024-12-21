@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('eventreq', function (Blueprint $table) {
             $table->id();
             $table->string('nama_event');
             $table->string('deskripsi');
             $table->string('lokasi');
             $table->string('waktu');
-            $table->integer('harga');
-            $table->string('nama_komunitas'); // Foreign key
+            $table->string('harga');
+            $table->string('penyelenggara');
             $table->timestamps();
-
-            // Foreign key constraint
-            // $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('eventreq');
     }
 };
