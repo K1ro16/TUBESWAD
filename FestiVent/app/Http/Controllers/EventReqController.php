@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\EventReq;
 use Illuminate\Support\Facades\Storage;
 
-
 class EventReqController extends Controller
 {
     /**
@@ -40,12 +39,15 @@ class EventReqController extends Controller
             'nama_event' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'lokasi' => 'required|string',
-            'waktu' => 'required|date', // Updated to validate as a date or timestamp
-            'tanggal' => 'required|date', // Added validation for tanggal
+            'waktu' => 'required|date_format:H:i', // Changed this line
+            'tanggal' => 'required|date',
             'harga' => 'required|integer',
             'penyelenggara' => 'required|string',
-            'poster' => 'nullable|image|mimes:jpg,png|max:2048', // Validate image upload
+            'category' => 'nullable|string|max:255',
+            'poster' => 'nullable|image|mimes:jpg,png|max:2048',
         ]);
+
+        $validatedData['waktu'] = date('H:i:s', strtotime($request->waktu));
 
         // Handle the poster file upload
         if ($request->hasFile('poster')) {
@@ -55,6 +57,8 @@ class EventReqController extends Controller
 
         // Create a new event
         EventReq::create($validatedData);
+
+
 
         // Redirect to index with a success message
         return redirect()->route('eventreq.index')->with('success', 'Event created successfully!');
@@ -91,29 +95,40 @@ class EventReqController extends Controller
     {
         // Validate the request
         $validatedData = $request->validate([
-            'nama_event' => 'sometimes|string|max:255',
-            'deskripsi' => 'sometimes|string',
-            'lokasi' => 'sometimes|string',
-            'waktu' => 'sometimes|date', // Updated to validate as a date or timestamp
-            'tanggal' => 'sometimes|date', // Added validation for tanggal
-            'harga' => 'sometimes|integer',
-            'penyelenggara' => 'sometimes|string',
-            'poster' => 'nullable|image|mimes:jpg,png|max:2048', // Validate image upload
+            'nama_event' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'lokasi' => 'required|string',
+            'waktu' => 'required|date_format:H:i',
+            'tanggal' => 'required|date',
+            'harga' => 'required|integer',
+            'penyelenggara' => 'required|string',
+            'category' => 'nullable|string|max:255',
+            'poster' => 'nullable|image|mimes:jpg,png|max:2048',
         ]);
 
-        // Find the event and update
+        $validatedData['waktu'] = date('H:i:s', strtotime($request->waktu));
+
+        // Find the event by ID
         $event = EventReq::findOrFail($id);
 
-        // Handle the poster file upload
+
+        // Handle the poster file upload if a new file is provided
         if ($request->hasFile('poster')) {
+            // Remove old poster if exists
+            if ($event->poster && Storage::disk('public')->exists($event->poster)) {
+                Storage::disk('public')->delete($event->poster);
+            }
+
+            // Store the new poster
             $posterPath = $request->file('poster')->store('posters', 'public');
             $validatedData['poster'] = $posterPath;
         }
 
+        // Update the event with the validated data
         $event->update($validatedData);
 
         // Redirect to the show page with a success message
-        return redirect()->route('eventreq.show', $event->id)->with('success', 'Event updated successfully!');
+        return redirect()->route('eventreq.index', $event->id)->with('success', 'Event updated successfully!');
     }
 
     /**
@@ -123,10 +138,16 @@ class EventReqController extends Controller
     {
         // Find the event and delete it
         $event = EventReq::findOrFail($id);
+
+        // Delete the poster if exists
+        if ($event->poster && Storage::disk('public')->exists($event->poster)) {
+            Storage::disk('public')->delete($event->poster);
+        }
+
+        // Delete the event
         $event->delete();
 
         // Redirect to index with a success message
         return redirect()->route('eventreq.index')->with('success', 'Event deleted successfully!');
     }
-
 }

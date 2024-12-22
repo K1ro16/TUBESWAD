@@ -33,11 +33,10 @@ Route::post('/accounts/login', [AccountsController::class, 'login'])->name('acco
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
 
-// Route for the event list (index)
-Route::get('/events', [EventReqController::class, 'index'])->name('eventreq.index');
-Route::get('/events/create', [EventReqController::class, 'create'])->name('eventreq.create');
-Route::post('/events', [EventReqController::class, 'store'])->name('eventreq.store');
-Route::get('/events/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
-Route::get('/events/{id}/edit', [EventReqController::class, 'edit'])->name('eventreq.edit');
-Route::put('/events/{id}', [EventReqController::class, 'update'])->name('eventreq.update');
-Route::delete('/events/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
+// Routes for event handling
+Route::get('/eventreq', [EventReqController::class, 'index'])->name('eventreq.index');
+Route::post('/eventreq', [EventReqController::class, 'store'])->name('eventreq.store');
+Route::get('/eventreq/{id}/edit', [EventReqController::class, 'edit'])->name('eventreq.edit');
+Route::put('/eventreq/{id}', [EventReqController::class, 'update'])->name('eventreq.update');
+Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
+Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');

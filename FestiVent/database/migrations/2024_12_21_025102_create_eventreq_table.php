@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama_event');
             $table->text('deskripsi');
-            $table->string('poster'); // Added column for storing image file names
             $table->text('lokasi');
-            $table->timestamp('waktu'); // Changed to timestamp for date & time storage
-            $table->date('tanggal'); // Added column for storing date
-            $table->integer('harga'); // Fixed typo from interger to integer
+            $table->string('waktu');
+            $table->integer('harga');
             $table->string('penyelenggara');
             $table->timestamps();
         });

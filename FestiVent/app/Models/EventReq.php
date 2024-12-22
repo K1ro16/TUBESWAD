@@ -9,16 +9,18 @@ class EventReq extends Model
 {
     use HasFactory;
 
-    protected $table = "eventreq";
+    // Specify the table name if it doesn't follow the default pluralization convention
+    protected $table = 'eventreq';
 
     protected $fillable = [
         'nama_event',
         'deskripsi',
         'lokasi',
-        'waktu',       // Updated: 'waktu' is now a timestamp
-        'tanggal',     // Added: New column for date
+        'waktu',
+        'tanggal',
         'harga',
         'penyelenggara',
-        'poster'       // Added: New column for image filename
+        'poster',
+        'category',
     ];
 }
