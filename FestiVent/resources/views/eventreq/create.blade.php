@@ -1,56 +1,36 @@
-<!-- resources/views/requests/create.blade.php -->
-@extends('requests.index')
+@extends('eventreq.index')
+
+@section('title', 'Create Event')
 
 @section('content')
-<div class="container">
-    <h1>Buat Request Baru</h1>
+    <h1>Create Event</h1>
 
-    <form action="{{ route('requests.store') }}" method="POST">
+    <form action="{{ route('eventreq.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <label for="nama_event">Event Name:</label>
+        <input type="text" id="nama_event" name="nama_event" required>
 
-        <div class="form-group">
-            <label for="nama_event">Nama Event</label>
-            <input type="text" name="nama_event" id="nama_event" class="form-control" required>
-        </div>
+        <label for="deskripsi">Description:</label>
+        <textarea id="deskripsi" name="deskripsi" required></textarea>
 
-        <div class="form-group">
-            <label for="deskripsi">Deskripsi</label>
-            <textarea name="deskripsi" id="deskripsi" class="form-control" required></textarea>
-        </div>
+        <label for="poster">Poster:</label>
+        <input type="file" id="poster" name="poster" accept="image/jpeg, image/png">
 
-        <div class="form-group">
-            <label for="lokasi">Lokasi</label>
-            <input type="text" name="lokasi" id="lokasi" class="form-control" required>
-        </div>
+        <label for="lokasi">Location:</label>
+        <textarea id="lokasi" name="lokasi" required></textarea>
 
-        <div class="form-group">
-            <label for="waktu">Waktu</label>
-            <input type="datetime-local" name="waktu" id="waktu" class="form-control" required>
-        </div>
+        <label for="tanggal">Date:</label>
+        <input type="date" id="tanggal" name="tanggal" required>
 
-        <div class="form-group">
-            <label for="harga">Harga</label>
-            <input type="number" name="harga" id="harga" class="form-control" min="0" required>
-        </div>
+        <label for="waktu">Time:</label>
+        <input type="datetime-local" id="waktu" name="waktu" required>
 
-        <div class="form-group">
-            <label for="nama_komunitas">nama penyelenggara</label>
-            <input type="text" name="nama_komunitas" id="nama_komunitas" class="form-control" required>
-        </div>
+        <label for="harga">Price:</label>
+        <input type="number" id="harga" name="harga" required>
 
-        {{-- <div class="form-group">
-            <label for="community_id">Community</label>
-            <select name="community_id" id="community_id" class="form-control">
-                <option value="">Pilih Community (Opsional)</option>
-                <!-- Daftar community bisa ditarik dari model Community -->
-                @foreach ($communities as $community)
-                    <option value="{{ $community->id }}">{{ $community->name }}</option>
-                @endforeach
-            </select>
-        </div> --}}
+        <label for="penyelenggara">Organizer:</label>
+        <input type="text" id="penyelenggara" name="penyelenggara" required>
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('requests.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit">Create Event</button>
     </form>
-</div>
 @endsection

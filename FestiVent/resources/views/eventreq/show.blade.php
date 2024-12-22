@@ -1,21 +1,27 @@
-<!-- resources/views/requests/show.blade.php -->
-@extends('requests.index')
+@extends('eventreq.index')
+
+@section('title', 'Event Details')
 
 @section('content')
-<div class="container">
-    <h1>Detail Request</h1>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{ $request->nama_event }}</h5>
-            <p><strong>Deskripsi:</strong> {{ $request->deskripsi }}</p>
-            <p><strong>Lokasi:</strong> {{ $request->lokasi }}</p>
-            <p><strong>Waktu:</strong> {{ $request->waktu }}</p>
-            <p><strong>Harga:</strong> Rp {{ number_format($request->harga, 0, ',', '.') }}</p>
-            <p><strong>Nama Penyelenggara:</strong> {{ $request->nama_komunitas}}</p>
-            {{-- <p><strong>Community:</strong> {{ $request->community_id ? $request->community->name : 'Tidak ada' }}</p> --}}
-        </div>
-    </div>
+    <h1>{{ $event->nama_event }}</h1>
 
-    <a href="{{ route('requests.index') }}" class="btn btn-secondary mt-3">Kembali</a>
-</div>
+    <p><strong>Description:</strong> {{ $event->deskripsi }}</p>
+
+    @if($event->poster)
+        <p><strong>Poster:</strong></p>
+        <img src="{{ asset('storage/'.$event->poster) }}" alt="Poster" width="200">
+    @endif
+
+    <p><strong>Location:</strong> {{ $event->lokasi }}</p>
+    <p><strong>Date:</strong> {{ $event->tanggal->toDateString() }}</p>
+    <p><strong>Time:</strong> {{ $event->waktu->format('Y-m-d H:i') }}</p>
+    <p><strong>Price:</strong> {{ $event->harga }}</p>
+    <p><strong>Organizer:</strong> {{ $event->penyelenggara }}</p>
+
+    <a href="{{ route('eventreq.edit', $event->id) }}">Edit Event</a>
+    <form action="{{ route('eventreq.destroy', $event->id) }}" method="POST" style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this event?')">Delete Event</button>
+    </form>
 @endsection

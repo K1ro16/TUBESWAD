@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EventReq extends Model
 {
-    //
     use HasFactory;
 
     protected $table = "eventreq";
@@ -15,8 +15,10 @@ class EventReq extends Model
         'nama_event',
         'deskripsi',
         'lokasi',
-        'waktu',
+        'waktu',       // Updated: 'waktu' is now a timestamp
+        'tanggal',     // Added: New column for date
         'harga',
-        'penyelenggara'
+        'penyelenggara',
+        'poster'       // Added: New column for image filename
     ];
 }

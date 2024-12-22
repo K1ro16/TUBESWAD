@@ -1,22 +1,25 @@
-@extends('eventreq.index')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title')</title>
+    <!-- Include any common CSS files here -->
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ route('eventreq.index') }}">Event List</a>
+            <a href="{{ route('eventreq.create') }}">Create Event</a>
+        </nav>
+    </header>
 
-@section('title', 'Event List')
+    <main>
+        @yield('content')
+    </main>
 
-@section('content')
-    <h1>Event List</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <ul>
-        @foreach($events as $event)
-            <li>
-                <strong>{{ $event->nama_event }}</strong>
-                <p>{{ $event->deskripsi }}</p>
-                <a href="{{ route('eventreq.show', $event->id) }}">View Details</a>
-                <a href="{{ route('eventreq.edit', $event->id) }}">Edit</a>
-            </li>
-        @endforeach
-    </ul>
-@endsection
+    <footer>
+        <p>&copy; 2024 Event Management</p>
+    </footer>
+</body>
+</html>

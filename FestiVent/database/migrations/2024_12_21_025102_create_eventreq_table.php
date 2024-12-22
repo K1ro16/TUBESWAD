@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('eventreq', function (Blueprint $table) {
             $table->id();
             $table->string('nama_event');
-            $table->string('deskripsi');
-            $table->string('lokasi');
-            $table->string('waktu');
-            $table->string('harga');
+            $table->text('deskripsi');
+            $table->string('poster'); // Added column for storing image file names
+            $table->text('lokasi');
+            $table->timestamp('waktu'); // Changed to timestamp for date & time storage
+            $table->date('tanggal'); // Added column for storing date
+            $table->integer('harga'); // Fixed typo from interger to integer
             $table->string('penyelenggara');
             $table->timestamps();
         });
