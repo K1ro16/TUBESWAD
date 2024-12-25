@@ -37,6 +37,8 @@ Route::post('/accounts/login', [AccountsController::class, 'login'])->name('acco
 
 // go to add community
 Route::resource('communities', CommunityController::class);
+Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
+
 // go to add event
 Route::resource('eventss', EventController::class);
 //untuk tombol logout

@@ -71,7 +71,12 @@
       </nav>
 
         @if(session('account_id'))
-            <a href="#" class="btn-getstarted">Community Signup</a>
+            @if(session('community_signup_completed'))
+                <a href="{{ route('eventreq.index') }}" class="btn-getstarted">Request Event</a>
+            @else
+                <a href="#" class="btn-getstarted">Community Signup</a>
+            @endif
+
             <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">
                 @csrf
                 <button type="submit" class="btn-icon">
