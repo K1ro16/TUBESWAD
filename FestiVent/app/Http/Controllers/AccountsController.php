@@ -42,6 +42,7 @@ class AccountsController extends Controller
         'password' => Hash::make($request->password),
     ]);
 
+
     return redirect()->route('signin')->with('success', 'Account created successfully!');
 }
 
@@ -110,9 +111,23 @@ class AccountsController extends Controller
         return redirect()->back()->withErrors(['login' => 'Invalid email or password']);
     }
 
+
     session(['account_id' => $account->id]);
+
+    $adminEmail = 'admin@gmail.com'; // Replace with the actual admin email
+    if ($account->email === $adminEmail) {
+        return redirect()->route('communities.index'); // Redirect to communities.index for admin
+    }
+
 
     return redirect()->route('home')->with('success', 'Login successful');
     }
+
+    public function logout()
+{
+    session()->forget('account_id');  // Remove the account_id from the session
+    return redirect()->route('home')->with('success', 'Logged out successfully');
+}
+
 
 }
