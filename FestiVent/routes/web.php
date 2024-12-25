@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventReqController;
 use App\Http\Controllers\AccountsController;
-use App\Http\Controllers\Admin_CommunityController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
@@ -36,7 +36,7 @@ Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.s
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 
 // go to add community
-Route::resource('communities', Admin_CommunityController::class);
+Route::resource('communities', CommunityController::class);
 // go to add event
 Route::resource('eventss', EventController::class);
 //untuk tombol logout
