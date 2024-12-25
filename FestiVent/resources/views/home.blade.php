@@ -70,7 +70,18 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a href="{{ route('signin') }}" class="btn-getstarted" href="#about">Login</a>
+        @if(session('account_id'))
+            <a href="#" class="btn-getstarted">Community Signup</a>
+            <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">
+                @csrf
+                <button type="submit" class="btn-icon">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
+        @else
+            <a href="{{ route('signin') }}" class="btn-getstarted">Login</a>
+        @endif
+
 
     </div>
   </header>
@@ -216,6 +227,8 @@
                         <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
                         <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
                         <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
+                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
+                        <h6 class= "card-title bold-text" style = "text-align: left;">Harga</h6>
                     </div>
                 </div>
               </button>
