@@ -25,7 +25,11 @@ Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
 Route::get('/Category', function () {
-    return view('category');
+    return view('EVENT.Category');
+});
+
+Route::get('/tabevent', function () {
+    return view('EVENT.tabevent');
 });
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
