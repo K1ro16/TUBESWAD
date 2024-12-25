@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Community;
+use App\Models\Admin_Community;
 use Illuminate\Support\Facades\Storage;
 
 class CommunityController extends Controller
@@ -14,7 +14,7 @@ class CommunityController extends Controller
     public function index()
     {
         // Mengambil semua data komunitas
-        $communities = Community::all();
+        $communities = Admin_Community::all();
         return view('communities.index', compact('communities'));
     }
 
@@ -45,7 +45,7 @@ class CommunityController extends Controller
     $imagePath = $request->file('gambar')->store('images/communities', 'public');
 
     // Simpan data ke database
-    Community::create([
+    Admin_Community::create([
         'nama_community' => $request->nama_community,
         'asal' => $request->asal,
         'deskripsi' => $request->deskripsi,
@@ -61,7 +61,7 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Community $community)
+    public function show(Admin_Community $community)
     {
         // Menampilkan detail komunitas
         return view('communities.show', compact('community'));
@@ -70,7 +70,7 @@ class CommunityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Community $community)
+    public function edit(Admin_Community $community)
     {
         // Menampilkan form untuk edit komunitas
         return view('communities.edit', compact('community'));
@@ -79,7 +79,7 @@ class CommunityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Community $community)
+    public function update(Request $request, Admin_Community $community)
     {
     // Validasi input
     $request->validate([
@@ -118,7 +118,7 @@ class CommunityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Community $community)
+    public function destroy(Admin_Community $community)
     {
         // Hapus data komunitas
         $community->delete();

@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('nama_event');
             $table->text('deskripsi');
             $table->text('lokasi');
-            $table->string('waktu');
             $table->integer('harga');
             $table->string('penyelenggara');
+            $table->string('poster'); // Add the poster column
+            $table->date('tanggal'); // Add the tanggal column
+            $table->time('waktu')->nullable(); // Change this line if it was different
+            $table->string('category'); // Add the category column
             $table->timestamps();
         });
     }
