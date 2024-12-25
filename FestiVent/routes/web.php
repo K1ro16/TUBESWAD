@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventReqController;
 use App\Http\Controllers\AccountsController;
-use App\Http\Controllers\Admin_CommunityController;
-use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,10 +15,6 @@ Route::middleware('web')->group(function () {
 
     Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 });
-
-
-
-
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
@@ -34,7 +28,6 @@ Route::get('/tabevent', function () {
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
-
 // go to add community
 Route::resource('communities', CommunityController::class);
 Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
