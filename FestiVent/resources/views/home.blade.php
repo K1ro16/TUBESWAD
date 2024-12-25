@@ -71,10 +71,10 @@
       </nav>
 
         @if(session('account_id'))
-            @if(session('community_signup_completed'))
+            @if(session('community_id'))
                 <a href="{{ route('eventreq.index') }}" class="btn-getstarted">Request Event</a>
             @else
-                <a href="#" class="btn-getstarted">Community Signup</a>
+                <a href="{{ route('communities.index') }}" class="btn-getstarted">Community Signup</a>
             @endif
 
             <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">

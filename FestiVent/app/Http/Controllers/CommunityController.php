@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Community;
+use Illuminate\Support\Facades\Storage;
 
 class CommunityController extends Controller
 {
@@ -16,7 +17,7 @@ class CommunityController extends Controller
         $communities = Community::all();
         return view('communities.index', compact('communities'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -38,27 +39,29 @@ class CommunityController extends Controller
             'description' => 'required',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
+
         // Menyimpan gambar
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('logos', 'public');
         } else {
             $logoPath = null;
         }
-    
+
         // Menyimpan data komunitas ke database
-        Community::create([
+        $community = Community::create([
             'name' => $request->name,
             'category' => $request->category,
             'city' => $request->city,
             'description' => $request->description,
             'image_path' => $logoPath,
         ]);
-    
+
+        session(['community_id' => $community->id]);
+
         return redirect()->route('communities.index')->with('success', 'Community created successfully.');
     }
-    
-    
+
+
 
     /**
      * Display the specified resource.
@@ -93,34 +96,34 @@ class CommunityController extends Controller
             'description' => 'required',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         // Temukan komunitas yang akan diupdate
         $community = Community::findOrFail($id);
-    
+
         // Update data komunitas
         $community->name = $request->name;
         $community->category = $request->category;
         $community->city = $request->city;
         $community->description = $request->description;
-    
+
         // Cek jika ada logo baru yang diunggah
         if ($request->hasFile('logo')) {
             // Hapus logo lama jika ada
             if ($community->image_path) {
                 Storage::delete('public/' . $community->image_path);
             }
-    
+
             // Simpan logo baru
             $imagePath = $request->file('logo')->store('communities', 'public');
             $community->image_path = $imagePath;
         }
-    
+
         // Simpan perubahan ke database
         $community->save();
-    
+
         return redirect()->route('communities.index')->with('success', 'Community updated successfully');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -132,5 +135,11 @@ class CommunityController extends Controller
         $community->delete();
 
         return redirect()->route('communities.index')->with('success', 'Community deleted successfully!');
+    }
+
+    public function showAdminDashboard()
+    {
+        $community = Community::all(); // Fetch events from your database
+        return view('admin.communities', compact('communities'));
     }
 }
