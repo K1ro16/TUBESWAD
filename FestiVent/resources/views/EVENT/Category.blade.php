@@ -74,21 +74,22 @@
 
     </div>
   </header>
+  <div style="margin-top: 80px;"></div>
 <body>
     <div class = "container my-5">
       <div style = "display: flex; justify-content: center; gap: 50px;">
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 10px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Community Gathering</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 10px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Sports</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 10px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Live Show</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 10px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Festival</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 10px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Music</button>
+      <button class = "rounded-button" style = "background-color: #00fbff; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px ">Community Gathering</button>
+      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Sports</button>
+      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Live Show</button>
+      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Festival</button>
+      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Music</button>
       </button>
 </div>
     <div class= "container my-5">
     <div class="row justify-content-center">
                 <!-- Card 1 -->
                 <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
+              <button style = "border: none; background-color: transparent; ">
                 <div class="card shadow-sm h-100">
                     <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
                     <div class="card-body">
@@ -98,8 +99,8 @@
                     </div>
                 </div>
               </button>
-            </div>
-                  <!-- Card 1 -->
+              </div>
+                  <!-- Card 2 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -112,7 +113,7 @@
                 </div>
               </button>
             </div>
-                  <!-- Card 1 -->
+                  <!-- Card 3 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -125,7 +126,7 @@
                 </div>
               </button>
             </div>
-                  <!-- Card 1 -->
+                  <!-- Card 4 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -138,7 +139,7 @@
                 </div>
               </button>
             </div>
-                  <!-- Card 1 -->
+                  <!-- Card 5 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -151,7 +152,7 @@
                 </div>
               </button>
             </div>
-                  <!-- Card 1 -->
+                  <!-- Card 6 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -164,7 +165,20 @@
                 </div>
               </button>
             </div>
-                  <!-- Card 1 -->
+                  <!-- Card 7 -->
+                  <div class="col-md-4 mb-4">
+              <button style = "border: none; background-color: transparent;">
+                <div class="card shadow-sm h-100">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
+                    <div class="card-body">
+                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
+                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
+                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
+                    </div>
+                </div>
+              </button>
+            </div>
+                  <!-- Card 8 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -177,20 +191,7 @@
                 </div>
               </button>
             </div>
-                  <!-- Card 1 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 1 -->
+                  <!-- Card 9 -->
                   <div class="col-md-4 mb-4">
               <button style = "border: none; background-color: transparent;">
                 <div class="card shadow-sm h-100">
@@ -207,7 +208,7 @@
 
 
 
-  <footer id="footer" class="footer light-background">
+<footer id="footer" class="footer light-background">
 
 <div class="container footer-top">
   <div class="row gy-4">
@@ -257,6 +258,7 @@
 
   </div>
 </div>
+<div style="margin-top: 80px;"></div>
 
 <div class="container copyright text-center mt-4">
   <p>© <span>Copyright</span> <strong class="px-1 sitename">OnePage</strong> <span>All Rights Reserved</span></p>
@@ -289,5 +291,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
