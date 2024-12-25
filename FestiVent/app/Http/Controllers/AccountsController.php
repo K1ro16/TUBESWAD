@@ -124,10 +124,10 @@ class AccountsController extends Controller
     }
 
     public function logout()
-{
-    session()->forget('account_id');  // Remove the account_id from the session
-    return redirect()->route('home')->with('success', 'Logged out successfully');
-}
+    {
+        session()->forget('account_id');  // Remove the account_id from the session
+        return redirect()->route('home')->with('success', 'Logged out successfully');
+    }
 
 
 }

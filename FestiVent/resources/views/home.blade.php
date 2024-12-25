@@ -200,62 +200,52 @@
     <!-- /Stats Section -->
 
     <!-- Services Section -->
-    <section id="services" class="services section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Recommendations</h2>
-        <p>Pick your Events Right Here!!</p>
-      </div><!-- End Section Title -->
-
-      <div class="container my-5">
-        <div class="row justify-content-center">
-            <!-- Card 1 -->
-            <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-            <!-- Card 2 -->
-            <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</p>
-                        <h6 class= "card-title bold-text" style = "text-align: left;">Harga</h6>
-                    </div>
-                </div>
-              </button>
-            </div>
-            <!-- Card 3 -->
-            <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
+    <section id="services" class="services section">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Recommendation</h2>
+          <p>Discover exciting events tailored just for you</p>
         </div>
 
-      </div>
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
 
-    </section><!-- /Services Section -->
+        <div class="container">
+          <div class="row gy-4">
+            @foreach($events as $event)
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="service-item">
+                <div class="img">
+                  @if($event->poster)
+                  <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->nama_event }}" class="img-fluid">
+                  @else
+                  <img src="/api/placeholder/400/320" alt="No Image Available" class="img-fluid">
+                  @endif
+                </div>
+                <div class="details position-relative">
+                  <div class="icon">
+                    <i class="bi bi-calendar-event"></i>
+                  </div>
+                  <h3>{{ $event->nama_event }}</h3>
+                  <p>{{ Str::limit($event->deskripsi, 100) }}</p>
+                  <div class="event-meta">
+                    <p><i class="bi bi-geo-alt"></i> {{ $event->lokasi }}</p>
+                    <p><i class="bi bi-calendar"></i> {{ $event->tanggal }}</p>
+                    <p><i class="bi bi-clock"></i> {{ $event->waktu }}</p>
+                    <p><i class="bi bi-cash"></i> Rp {{ number_format($event->harga, 0, ',', '.') }}</p>
+                  </div>
+                  <a href="{{ url('tabevent') }}" class="stretched-link"></a>
+                </div>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+      </section>
+
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">

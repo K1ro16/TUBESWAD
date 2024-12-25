@@ -10,12 +10,11 @@ Route::get('/', function () {
 });
 
 Route::middleware('web')->group(function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
-
+    Route::get('/home', [EventReqController::class, 'showHome'])->name('home');
     Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 });
+
+
 
 Route::get('/admin/event', function () {
     $events = \App\Models\EventReq::all(); // Fetch all events
@@ -31,12 +30,12 @@ Route::get('/admin/communities', function () {
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
-Route::get('/Category', function () {
-    return view('EVENT.Category');
+Route::get('/category', function () {
+    return view('Category');
 });
 
 Route::get('/tabevent', function () {
-    return view('EVENT.tabevent');
+    return view('tabevent');
 });
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
