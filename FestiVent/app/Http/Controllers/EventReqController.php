@@ -154,7 +154,13 @@ class EventReqController extends Controller
     public function showAdminDashboard()
     {
         $events = EventReq::all(); // Fetch events from your database
-        return view('admin.event', compact('events'));
+        return view('admin.index', compact('events'));
+    }
+
+    public function showHome()
+    {
+        $events = EventReq::all(); // Fetch events from your database
+        return view('home', compact('events'));
     }
 
 }
