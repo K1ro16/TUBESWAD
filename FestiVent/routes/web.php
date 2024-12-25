@@ -16,6 +16,18 @@ Route::middleware('web')->group(function () {
 
     Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 });
+
+Route::get('/admin/event', function () {
+    $events = \App\Models\EventReq::all(); // Fetch all events
+    return view('admin.event', compact('events'));
+});
+
+Route::get('/admin/communities', function () {
+    $communities = \App\Models\Community::all(); // Fetch all communities
+    return view('admin.communities', compact('communities'));
+});
+
+
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
@@ -38,8 +50,7 @@ Route::get('/communities/{community}/edit', [CommunityController::class, 'edit']
 Route::put('/communities/{community}', [CommunityController::class, 'update'])->name('communities.update');
 
 Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
-// go to add event
-Route::resource('eventss', EventController::class);
+
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
 // Routes for event handling
