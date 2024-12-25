@@ -36,10 +36,10 @@
                         <a href="{{ route('communities.create') }}"><span class="fa fa-sticky-note mr-3"></span> Add Community</a>
                     </li>
                     <li>
-                        <a href="{{ route('eventss.index') }}"><span class="fa fa-briefcase mr-3"></span> Events</a>
+                        <a href="{{ route('event.index') }}"><span class="fa fa-briefcase mr-3"></span> Events</a>
                     </li>
                     <li>
-                        <a href="{{ route('eventss.create') }}"><span class="fa fa-paper-plane mr-3"></span> Add Event</a>
+                        <a href="{{ route('event.create') }}"><span class="fa fa-paper-plane mr-3"></span> Add Event</a>
                     </li>
                   </ul>
 

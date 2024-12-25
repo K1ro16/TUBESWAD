@@ -17,10 +17,6 @@ Route::middleware('web')->group(function () {
 
     Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 });
-
-
-
-
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
@@ -38,7 +34,7 @@ Route::post('/accounts/login', [AccountsController::class, 'login'])->name('acco
 // go to add community
 Route::resource('communities', CommunityController::class);
 // go to add event
-Route::resource('eventss', EventController::class);
+
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
 // Routes for event handling
