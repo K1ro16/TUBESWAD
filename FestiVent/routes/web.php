@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventReqController;
 use App\Http\Controllers\AccountsController;
-use App\Http\Controllers\CommunityController;
-use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,10 +28,6 @@ Route::get('/tabevent', function () {
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
-
-// go to add community
-Route::resource('communities', CommunityController::class);
-// go to add event
 
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
