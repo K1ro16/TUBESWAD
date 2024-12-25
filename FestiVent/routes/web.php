@@ -28,7 +28,11 @@ Route::get('/tabevent', function () {
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
-
+// go to add community
+Route::resource('communities', CommunityController::class);
+Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
+// go to add event
+Route::resource('eventss', EventController::class);
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
 // Routes for event handling
