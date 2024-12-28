@@ -36,21 +36,21 @@ class FeedbackController extends Controller
     }
 
     // Menampilkan detail feedback
-    public function show($id)
+    public function show(Feedback $feedback)
     {
-        $feedback = Feedback::findOrFail($id); // Cari data feedback berdasarkan ID
+        $feedbacks = Feedback::findOrFail($feedback); // Cari data feedback berdasarkan ID
         return view('feedback.show', compact('feedback')); // Return ke view feedback.show
     }
 
     // Menampilkan form untuk mengedit feedback
-    public function edit($id)
+    public function edit(Feedback $feedback)
     {
-        $feedback = Feedback::findOrFail($id); // Cari data feedback berdasarkan ID
+        $feedback = Feedback::findOrFail($feedback); // Cari data feedback berdasarkan ID
         return view('feedback.edit', compact('feedback')); // Return ke view feedback.edit
     }
 
     // Memperbarui feedback
-    public function update(Request $request, $id)
+    public function update(Request $request, Feedback $feedback)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -59,7 +59,7 @@ class FeedbackController extends Controller
             'rating' => 'required|integer|between:1,5',
         ]);
 
-        $feedback = Feedback::findOrFail($id); // Cari data feedback berdasarkan ID
+        $feedback = Feedback::findOrFail($feedback); // Cari data feedback berdasarkan ID
         $feedback->update($request->all()); // Update data di database
 
         return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui.');

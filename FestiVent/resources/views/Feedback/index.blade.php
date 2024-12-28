@@ -113,48 +113,61 @@
         </div>
 
         <div class="row justify-content-around">
+            {{-- show all feedback from database --}}
+            @foreach ($feedbacks as $feedback)
             <div class="col-md-5 shadow p-3 mb-5 bg-body-tertiary rounded" data-aos="fade-up" data-aos-delay="100">
                 <div class="feedback-item p-4">
                     <div class="feedback-content">
                         <p>
                             {{-- Pesan --}}
                             <i class="bi bi-quote quote-icon-left"></i>
-                            Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et.
+                            {{ $feedback->pesan }}
                             <i class="bi bi-quote quote-icon-right"></i>
                         </p>
                         {{-- Rating --}}
-                        <h5>ratings : 4/5</h5>
+                        <h5>ratings : {{ $feedback->rating }}/5</h5>
                     </div>
                     <div class="row justify-content-between mt-4">
                         <div class="col-10 feedback-profile">
                             {{-- Nama --}}
-                            <h3 id="name">Saul Goodman</h3>
+                            <h3 id="name">{{ $feedback->name }}</h3>
                             {{-- Email --}}
-                            <h4 id="email">saul@gmail.com</h4>
+                            <h4 id="email">{{ $feedback->email }}</h4>
                         </div>
-                        <div class="col-2 action-delete">
+                        <div class="col-2">
+                            <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-primary">Edit</a>
                             <a href="#" class="btn btn-outline-danger">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
-        
-            <div class="col-md-5 shadow p-3 mb-5 bg-body-tertiary rounded" data-aos="fade-up" data-aos-delay="200">
-                <div class="feedback-item">
-                    <div class="feedback-content">
-                        <p>
-                            <i class="bi bi-quote quote-icon-left"></i>
-                            Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                            <i class="bi bi-quote quote-icon-right"></i>
-                        </p>
-                    </div>
-                    <div class="feedback-profile">
-                        <img src="assets/img/testimonials/testimonials-2.jpg" class="feedback-profile-img" alt="">
-                        <h3>Sara Wilsson</h3>
-                        <h4>Designer</h4>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
+            {{-- <div class="col-md-5 shadow p-3 mb-5 bg-body-tertiary rounded" data-aos="fade-up" data-aos-delay="100"> --}}
+                {{-- <div class="feedback-item p-4"> --}}
+                    {{-- <div class="feedback-content"> --}}
+                        {{-- <p> --}}
+                            {{-- Pesan --}}
+                            {{-- <i class="bi bi-quote quote-icon-left"></i> --}}
+                            {{-- Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. --}}
+                            {{-- <i class="bi bi-quote quote-icon-right"></i> --}}
+                        {{-- </p> --}}
+                        {{-- Rating --}}
+                        {{-- <h5>ratings : 4/5</h5> --}}
+                    {{-- </div>
+                    <div class="row justify-content-between mt-4">
+                        <div class="col-10 feedback-profile">
+                            {{-- Nama --}}
+                            {{-- <h3 id="name">Saul Goodman</h3> --}}
+                            {{-- Email --}}
+                            {{-- <h4 id="email">saul@gmail.com</h4> --}}
+                        {{-- </div>
+                        <div class="col-2 action-delete">
+                            <a href="#" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    </div> --}}
+                {{-- </div> --}}
+            {{-- </div> --}}
         </div>
 
 

@@ -92,25 +92,64 @@
   </header>
 
   {{-- FEEDBACK CONTENT --}}
-
-  <main id="main">
-
     <section id="feedback" class="feedback">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row justify-content-between">
-            <div class="col-4 section-header mb-2">
+        <div class="container" data-aos="fade-up">
+        <div class="row justify-content-between mb-2">
+            <div class="col-4 section-header">
                 <h2>Feedback Form</h2>
             </div>
-            <div class="col-2 mb-2">
+            <div class="col-2">
                 {{-- Button back --}}
-                <a href="{{ route('feedback.index') }}" class="btn btn-outline-primary float-end w-50">Back</a>
+                <a href="{{ route('feedback.index') }}" class="btn btn-outline-primary float-end w-">Back</a>
             </div>
         </div>
 
         <div class="text-success mb-4">
             <hr>
         </div>
+
+        {{-- FORM Feedback --}}
+        <div class="form-container shadow p-4 mb-5 rounded">
+            <div class="form-content p-3">
+                <form action="{{ route('feedback.store') }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="nama">Name</label>
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Your Name" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="email">Email</label> 
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="pesan">Message</label>
+                                <textarea name="pesan" id="pesan" class="form-control" rows="5" placeholder="Message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="rating">Rating (1-5)</label>
+                                <input type="text" name="rating" id="rating" class="form-control" placeholder="rating" required>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end align-items-center mt-3">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        
+    </section>
 
 
 

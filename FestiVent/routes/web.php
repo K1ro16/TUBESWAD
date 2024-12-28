@@ -62,4 +62,10 @@ Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('e
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
 
 // go to feedback
-Route::resource('feedback', FeedbackController::class);
+Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
+Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+Route::get('/feedback/{feedback}', [FeedbackController::class, 'show'])->name('feedback.show');
+Route::get('/feedback/{feedback}/edit', [FeedbackController::class, 'edit'])->name('feedback.edit');
+Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
+Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
