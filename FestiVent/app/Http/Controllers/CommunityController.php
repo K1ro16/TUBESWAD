@@ -121,7 +121,15 @@ class CommunityController extends Controller
         return redirect()->route('communities.index')->with('success', 'Community updated successfully');
     }
     
-
+    public function home()
+    {
+        // Ambil semua data komunitas
+        $communities = Community::all();
+    
+        // Kirim data ke view home
+        return view('home', compact('communities'));
+    }
+    
     /**
      * Remove the specified resource from storage.
      */
