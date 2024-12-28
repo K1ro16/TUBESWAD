@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - OnePage Bootstrap Template</title>
+  <title>FestiVent</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -42,7 +42,7 @@
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('img/logo_app.png') }}" alt="">
       </a>
@@ -358,6 +358,23 @@
       </div>
 
     </section><!-- /Testimonials Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section accent-background">
+
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3>Send Us a Message</h3>
+              <p>"We value your thoughts and feedback because they help us grow and improve – take a moment to send us a message and let your voice be heard!"</p>
+              <a class="cta-btn" href="{{ route('feedback.index') }}">Give Feedback</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Call To Action Section -->
 
     <!-- Faq Section -->
     <section id="faq" class="faq section light-background">
