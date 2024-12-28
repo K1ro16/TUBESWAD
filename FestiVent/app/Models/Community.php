@@ -9,16 +9,15 @@ class Community extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama_community',
-        'asal',
-        'deskripsi',
-        'gambar',
-        'kategori',
-    ];
+    // Tentukan tabel yang digunakan (opsional jika nama tabel tidak plural)
+    protected $table = 'community';
 
-    public function events()
-    {
-        return $this->hasMany(Event::class);
-    }
+    // Mass assignable fields
+    protected $fillable = [
+        'name',
+        'city',
+        'description',
+        'category',
+        'image_path',
+    ];
 }

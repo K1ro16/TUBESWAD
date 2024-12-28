@@ -13,7 +13,7 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        // Mengambil semua data komunitas
+        // Ambil semua data komunitas
         $communities = Community::all();
         return view('communities.index', compact('communities'));
     }
@@ -23,7 +23,7 @@ class CommunityController extends Controller
      */
     public function create()
     {
-        // Menampilkan form untuk membuat komunitas
+        // Tampilkan form untuk membuat komunitas baru
         return view('communities.create');
     }
 
@@ -32,96 +32,114 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-    // Validasi input
-    $request->validate([
-        'nama_community' => 'required|string|max:255',
-        'asal' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
-        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
-        'kategori' => 'required|string|max:20',
-    ]);
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'city' => 'required',
+            'description' => 'required',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    // Simpan gambar ke storage (folder "public/images/communities")
-    $imagePath = $request->file('gambar')->store('images/communities', 'public');
+        // Menyimpan gambar
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'public');
+        } else {
+            $logoPath = null;
+        }
 
-    // Simpan data ke database
-    Community::create([
-        'nama_community' => $request->nama_community,
-        'asal' => $request->asal,
-        'deskripsi' => $request->deskripsi,
-        'gambar' => 'storage/' . $imagePath, // Path yang dapat diakses di view
-        'kategori' => $request->kategori,
-    ]);
+        // Menyimpan data komunitas ke database
+        $community = Community::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'city' => $request->city,
+            'description' => $request->description,
+            'image_path' => $logoPath,
+        ]);
 
-    // Redirect ke halaman index dengan pesan sukses
-    return redirect()->route('communities.index')->with('success', 'Komunitas berhasil ditambahkan!');
+        session(['community_id' => $community->id]);
+
+        return redirect()->route('communities.index')->with('success', 'Community created successfully.');
     }
+
 
 
     /**
      * Display the specified resource.
      */
-    public function show(Community $community)
+    public function show(string $id)
     {
-        // Menampilkan detail komunitas
+        // Tampilkan detail komunitas berdasarkan ID
+        $community = Community::findOrFail($id);
         return view('communities.show', compact('community'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Community $community)
+    public function edit(string $id)
     {
-        // Menampilkan form untuk edit komunitas
+        // Ambil data komunitas yang akan diedit
+        $community = Community::findOrFail($id);
         return view('communities.edit', compact('community'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Community $community)
+    public function update(Request $request, $id)
     {
-    // Validasi input
-    $request->validate([
-        'nama_community' => 'required|string|max:255',
-        'asal' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Gambar opsional
-        'kategori' => 'required|string|max:20',
-    ]);
+        // Validasi input
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'city' => 'required',
+            'description' => 'required',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    // Update gambar jika ada file baru
-    if ($request->hasFile('gambar')) {
-        // Hapus gambar lama jika ada
-        if ($community->gambar && Storage::disk('public')->exists($community->gambar)) {
-            Storage::disk('public')->delete($community->gambar);
+        // Temukan komunitas yang akan diupdate
+        $community = Community::findOrFail($id);
+
+        // Update data komunitas
+        $community->name = $request->name;
+        $community->category = $request->category;
+        $community->city = $request->city;
+        $community->description = $request->description;
+
+        // Cek jika ada logo baru yang diunggah
+        if ($request->hasFile('logo')) {
+            // Hapus logo lama jika ada
+            if ($community->image_path) {
+                Storage::delete('public/' . $community->image_path);
+            }
+
+            // Simpan logo baru
+            $imagePath = $request->file('logo')->store('communities', 'public');
+            $community->image_path = $imagePath;
         }
-    
-        // Simpan gambar baru
-        $imagePath = $request->file('gambar')->store('images/communities', 'public');
-        $community->gambar = $imagePath; // Gambar disimpan di storage/images/communities
-    }    
 
-    // Update data lainnya
-    $community->nama_community = $request->nama_community;
-    $community->asal = $request->asal;
-    $community->deskripsi = $request->deskripsi;
-    $community->kategori = $request->kategori;
+        // Simpan perubahan ke database
+        $community->save();
 
-    // Simpan perubahan ke database
-    $community->save();
-
-    return redirect()->route('communities.index')->with('success', 'Komunitas berhasil diperbarui!');
+        return redirect()->route('communities.index')->with('success', 'Community updated successfully');
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Community $community)
+    public function destroy(string $id)
     {
-        // Hapus data komunitas
+        // Hapus data komunitas berdasarkan ID
+        $community = Community::findOrFail($id);
         $community->delete();
-        return redirect()->route('communities.index')->with('success', 'Komunitas berhasil dihapus!');
+
+        return redirect()->route('communities.index')->with('success', 'Community deleted successfully!');
+    }
+
+    public function showAdminDashboard()
+    {
+        $community = Community::all(); // Fetch events from your database
+        return view('admin.communities', compact('communities'));
     }
 }

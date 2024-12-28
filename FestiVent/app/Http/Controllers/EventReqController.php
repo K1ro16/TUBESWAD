@@ -150,4 +150,17 @@ class EventReqController extends Controller
         // Redirect to index with a success message
         return redirect()->route('eventreq.index')->with('success', 'Event deleted successfully!');
     }
+
+    public function showAdminDashboard()
+    {
+        $events = EventReq::all(); // Fetch events from your database
+        return view('admin.index', compact('events'));
+    }
+
+    public function showHome()
+    {
+        $events = EventReq::all(); // Fetch events from your database
+        return view('home', compact('events'));
+    }
+
 }
