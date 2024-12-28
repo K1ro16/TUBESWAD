@@ -42,7 +42,7 @@
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('img/logo_app.png') }}" alt="">
       </a>
@@ -135,7 +135,14 @@
                         <div class="col-12">
                             <div class="form-group mb-3">
                                 <label for="rating">Rating (1-5)</label>
-                                <input type="text" name="rating" id="rating" class="form-control" placeholder="rating" required>
+                                <select class="form-select" name="rating" id="rating" required>
+                                  <option disabled="disabled" selected="selected">Rate us :)</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end align-items-center mt-3">

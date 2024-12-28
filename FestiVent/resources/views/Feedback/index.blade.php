@@ -42,7 +42,7 @@
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('img/logo_app.png') }}" alt="">
       </a>
@@ -115,7 +115,7 @@
         <div class="row justify-content-around">
             {{-- show all feedback from database --}}
             @foreach ($feedbacks as $feedback)
-            <div class="col-md-5 shadow p-3 mb-5 bg-body-tertiary rounded" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-md-5 shadow p-3 mb-5 rounded" data-aos="fade-up" data-aos-delay="100">
                 <div class="feedback-item p-4">
                     <div class="feedback-content">
                         <p>
@@ -125,18 +125,23 @@
                             <i class="bi bi-quote quote-icon-right"></i>
                         </p>
                         {{-- Rating --}}
-                        <h5>ratings : {{ $feedback->rating }}/5</h5>
+                        <p>Ratings : {{ $feedback->rating }}/5</p>
                     </div>
                     <div class="row justify-content-between mt-4">
-                        <div class="col-10 feedback-profile">
+                        <div class="col-8 feedback-profile">
                             {{-- Nama --}}
-                            <h3 id="name">{{ $feedback->name }}</h3>
+                            <h3 id="name">{{ $feedback->nama }}</h3>
                             {{-- Email --}}
                             <h4 id="email">{{ $feedback->email }}</h4>
                         </div>
-                        <div class="col-2">
-                            <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-primary">Edit</a>
-                            <a href="#" class="btn btn-outline-danger">Delete</a>
+                        <div class="col-4">
+                            <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-outline-primary">Edit</a>
+                            {{-- delete action with methode delete --}}
+                            <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
