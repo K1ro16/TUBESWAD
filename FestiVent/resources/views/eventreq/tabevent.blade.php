@@ -35,6 +35,31 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <style>
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-2px);
+    }
+
+    .card {
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .text-muted {
+        color: #6c757d !important;
+    }
+  </style>
 </head>
 
 <body class="index-page">
@@ -76,63 +101,87 @@
 
   <div style="margin-top: 50px;"></div>
 
-  <div class="container mt-5">
+  <div class="container mt-5 py-5">
     <div class="row">
-      <!-- Poster -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body" style="height: 400px; background-color: #36b9ff;">
-            <h5 class="text-center text-white" style="padding-top: 180px;">Poster event</h5>
-          </div>
+      <!-- Left Column - Poster -->
+      <div class="col-md-5">
+        <div class="position-sticky" style="top: 100px;">
+          @if($event->poster)
+            <img src="{{ Storage::url($event->poster) }}" 
+                 alt="{{ $event->nama_event }}" 
+                 class="img-fluid rounded shadow-sm" 
+                 style="width: 100%; height: auto; object-fit: cover;">
+          @else
+            <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
+              <p class="text-muted">No Image Available</p>
+            </div>
+          @endif
         </div>
       </div>
 
-      <!-- Detail event -->
-      <div class="col-md-8">
-        <!-- Nama event -->
-        <div class="card mb-3">
-          <div class="card-body" style="background-color: #36b9ff;">
-            <h4 class="text-center text-white">Nama Event</h4>
+      <!-- Right Column - Event Details -->
+      <div class="col-md-7">
+        <!-- Event Title -->
+        <h2 class="mb-4">{{ $event->nama_event }}</h2>
+
+        <!-- Event Meta Information -->
+        <div class="mb-4">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+            <span>{{ $event->lokasi }}</span>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-calendar-event text-primary me-2"></i>
+            <span>{{ \Carbon\Carbon::parse($event->tanggal)->format('l, d F Y') }}</span>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-clock text-success me-2"></i>
+            <span>{{ \Carbon\Carbon::parse($event->waktu)->format('H:i') }} WIB</span>
           </div>
         </div>
 
-        <!-- lokasi -->
-        <div class="mb-3">
-          <p class="text-dark">Lokasi Event</p>
-        </div>
-
-        <!-- waktu dan tanggal -->
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body" style="background-color: #36b9ff;">
-                <h6 class="text-center text-white">tanggal</h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body" style="background-color: #36b9ff;">
-                <h6 class="text-center text-white">Waktu</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Harga -->
-        <div class="card mb-3">
-          <div class="card-body" style="background-color: #36b9ff;">
+        <!-- Price and Action Button -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-              <h6 class="text-white mb-0">Harga Tiket</h6>
-              <button class="btn btn-light btn-sm">Beli Tiket</button>
+              <div>
+                <p class="text-muted mb-0">Starting from</p>
+                <h3 class="mb-0">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
+              </div>
+              <button class="btn btn-primary px-4 py-2">
+                Get Tickets
+                <i class="bi bi-arrow-right ms-2"></i>
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Deskripsi -->
-        <div class="card">
-          <div class="card-body" style="background-color: #36b9ff; height: 200px;">
-            <h6 class="text-center text-white">Deskripsi Event</h6>
+        <!-- Event Description -->
+        <div class="mb-4">
+          <h4 class="mb-3">About This Event</h4>
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <p class="text-muted mb-0">{{ $event->deskripsi }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Organizer -->
+        <div class="mb-4">
+          <h4 class="mb-3">Event Organizer</h4>
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="bi bi-building text-primary"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">{{ $event->penyelenggara }}</h5>
+                  <p class="text-muted mb-0">Event Organizer</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -221,7 +221,11 @@
                                     </button>
                                 </form>
                             </div>
+<<<<<<< HEAD
 
+=======
+                            
+>>>>>>> main
                             <!-- Add a link around the event content -->
                             <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
                                 <div class="img">

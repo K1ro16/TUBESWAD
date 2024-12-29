@@ -23,4 +23,10 @@ class EventReq extends Model
         'poster',
         'category',
     ];
+
+    // Add the wishlists relationship
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class, 'eventreq_id');
+    }
 }

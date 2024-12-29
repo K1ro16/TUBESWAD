@@ -160,21 +160,8 @@ class EventReqController extends Controller
 
     public function showHome()
     {
-        $eventreqs = EventReq::all();
-        $communities = \App\Models\Community::all();
-
-        $wishlisted = [];
-        if (session('accounts_id')) {
-            $wishlisted = Wishlist::where('accounts_id', session('accounts_id'))
-                ->pluck('eventreq_id')
-                ->toArray();
-        }
-
-        return view('home', [
-            'eventreqs' => $eventreqs,
-            'communities' => $communities,
-            'wishlisted' => $wishlisted
-        ]);
+        $events = EventReq::all(); // Fetch events from your database
+        return view('home', compact('events'));
     }
 
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventReqController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\FeedbackController;
 
 Route::get('/', function () {
@@ -35,10 +36,6 @@ Route::get('/category', function () {
     return view('Category');
 });
 
-Route::get('/tabevent', function () {
-    return view('tabevent');
-});
-
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 
@@ -49,6 +46,10 @@ Route::get('/communities', [CommunityController::class, 'index'])->name('communi
 Route::get('/communities/{community}/edit', [CommunityController::class, 'edit'])->name('communities.edit');
 Route::put('/communities/{community}', [CommunityController::class, 'update'])->name('communities.update');
 Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
+<<<<<<< HEAD
+=======
+// Route::get('/home', [CommunityController::class, 'home'])->name('home');
+>>>>>>> main
 Route::resource('communities', CommunityController::class);
 
 //untuk tombol logout
@@ -61,6 +62,15 @@ Route::put('/eventreq/{id}', [EventReqController::class, 'update'])->name('event
 Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
 
+
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+Route::delete('/wishlist/remove/{eventreq}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
+Route::get('/tabevent/{id}', function ($id) {
+    $event = \App\Models\EventReq::findOrFail($id);
+    return view('eventreq.tabevent', compact('event'));
+})->name('tabevent.show');
 // go to feedback
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
 Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
