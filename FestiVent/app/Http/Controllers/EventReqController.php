@@ -160,11 +160,8 @@ class EventReqController extends Controller
 
     public function showHome()
     {
-        // Add debugging
-        \Log::info('showHome method called');
-        
         $eventreqs = EventReq::all();
-        \Log::info('Events count: ' . $eventreqs->count());
+        $communities = \App\Models\Community::all();
         
         $wishlisted = [];
         if (session('accounts_id')) {
@@ -173,11 +170,9 @@ class EventReqController extends Controller
                 ->toArray();
         }
         
-        // Add debugging
-        \Log::info('Wishlisted count: ' . count($wishlisted));
-        
         return view('home', [
             'eventreqs' => $eventreqs,
+            'communities' => $communities,
             'wishlisted' => $wishlisted
         ]);
     }
