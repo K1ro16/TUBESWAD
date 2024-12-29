@@ -81,3 +81,17 @@ h2, h4 {
     font-weight: bold;
     color: #555;
 }
+
+.community-image {
+    object-fit: cover;
+    height: 180px;
+}
+
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
