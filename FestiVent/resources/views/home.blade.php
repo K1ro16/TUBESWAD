@@ -65,7 +65,7 @@
               <li><a href="#">Contact Us</a></li>
             </ul>
           </li>
-          <li><a href="#team">Wishlist</a></li>
+          <li><a href="{{ route('wishlist.index') }}"><i class="bi bi-heart"></i> Wishlist</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -202,47 +202,56 @@
     <!-- Services Section -->
     <section id="services" class="services section">
         <div class="container section-title" data-aos="fade-up">
-          <h2>Recommendation</h2>
-          <p>Discover exciting events tailored just for you</p>
+            <h2>Recommendation</h2>
+            <p>Discover exciting events tailored just for you</p>
         </div>
-
-        @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ session('success') }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
 
         <div class="container">
-          <div class="row gy-4">
-            @foreach($events as $event)
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-item">
-                <div class="img">
-                  @if($event->poster)
-                  <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->nama_event }}" class="img-fluid">
-                  @else
-                  <img src="/api/placeholder/400/320" alt="No Image Available" class="img-fluid">
-                  @endif
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-calendar-event"></i>
-                  </div>
-                  <h3>{{ $event->nama_event }}</h3>
-                  <p>{{ Str::limit($event->deskripsi, 100) }}</p>
-                  <div class="event-meta">
-                    <p><i class="bi bi-geo-alt"></i> {{ $event->lokasi }}</p>
-                    <p><i class="bi bi-calendar"></i> {{ $event->tanggal }}</p>
-                    <p><i class="bi bi-clock"></i> {{ $event->waktu }}</p>
-                    <p><i class="bi bi-cash"></i> Rp {{ number_format($event->harga, 0, ',', '.') }}</p>
-                  </div>
-                  <a href="{{ url('tabevent') }}" class="stretched-link"></a>
-                </div>
-              </div>
+            <div class="row gy-4">
+                @forelse($eventreqs as $eventreq)
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-item position-relative">
+                            <!-- Wishlist button - updated styling -->
+                            <div class="d-flex justify-content-end mb-2">
+                                <form action="{{ route('wishlist.toggle', $eventreq->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+                                        <i class="bi {{ in_array($eventreq->id, $wishlisted ?? []) ? 'bi-heart-fill' : 'bi-heart' }}" style="font-size: 20px;"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <!-- Add a link around the event content -->
+                            <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
+                                <div class="img">
+                                    @if($eventreq->poster)
+                                        <img src="{{ Storage::url($eventreq->poster) }}" alt="{{ $eventreq->nama_event }}" class="img-fluid">
+                                    @else
+                                        <img src="/api/placeholder/400/320" alt="No Image Available" class="img-fluid">
+                                    @endif
+                                </div>
+                            </a>
+                            <div class="details">
+                                <div class="icon">
+                                    <i class="bi bi-calendar-event"></i>
+                                </div>
+                                <h3>{{ $eventreq->nama_event }}</h3>
+                                <p>{{ Str::limit($eventreq->deskripsi, 100) }}</p>
+                                <div class="event-meta">
+                                    <p><i class="bi bi-geo-alt"></i> {{ $eventreq->lokasi }}</p>
+                                    <p><i class="bi bi-calendar"></i> {{ $eventreq->tanggal }}</p>
+                                    <p><i class="bi bi-clock"></i> {{ $eventreq->waktu }}</p>
+                                    <p><i class="bi bi-cash"></i> Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center">
+                        <p>No events available at the moment.</p>
+                    </div>
+                @endforelse
             </div>
-            @endforeach
-          </div>
         </div>
       </section>
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventReqController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\WishlistController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,10 +35,6 @@ Route::get('/category', function () {
     return view('Category');
 });
 
-Route::get('/tabevent', function () {
-    return view('tabevent');
-});
-
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 
@@ -59,3 +56,12 @@ Route::get('/eventreq/{id}/edit', [EventReqController::class, 'edit'])->name('ev
 Route::put('/eventreq/{id}', [EventReqController::class, 'update'])->name('eventreq.update');
 Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
+
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+Route::delete('/wishlist/remove/{eventreq}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
+Route::get('/tabevent/{id}', function ($id) {
+    $event = \App\Models\EventReq::findOrFail($id);
+    return view('eventreq.tabevent', compact('event'));
+})->name('tabevent.show');
