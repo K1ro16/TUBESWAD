@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventReq;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Wishlist;
 
 class EventReqController extends Controller
 {
@@ -159,8 +160,26 @@ class EventReqController extends Controller
 
     public function showHome()
     {
-        $events = EventReq::all(); // Fetch events from your database
-        return view('home', compact('events'));
+        // Add debugging
+        \Log::info('showHome method called');
+        
+        $eventreqs = EventReq::all();
+        \Log::info('Events count: ' . $eventreqs->count());
+        
+        $wishlisted = [];
+        if (session('accounts_id')) {
+            $wishlisted = Wishlist::where('accounts_id', session('accounts_id'))
+                ->pluck('eventreq_id')
+                ->toArray();
+        }
+        
+        // Add debugging
+        \Log::info('Wishlisted count: ' . count($wishlisted));
+        
+        return view('home', [
+            'eventreqs' => $eventreqs,
+            'wishlisted' => $wishlisted
+        ]);
     }
 
 }
