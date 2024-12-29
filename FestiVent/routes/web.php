@@ -46,10 +46,7 @@ Route::get('/communities', [CommunityController::class, 'index'])->name('communi
 Route::get('/communities/{community}/edit', [CommunityController::class, 'edit'])->name('communities.edit');
 Route::put('/communities/{community}', [CommunityController::class, 'update'])->name('communities.update');
 Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
-<<<<<<< HEAD
-=======
 // Route::get('/home', [CommunityController::class, 'home'])->name('home');
->>>>>>> main
 Route::resource('communities', CommunityController::class);
 
 //untuk tombol logout
