@@ -6,25 +6,98 @@
     <title>Event Management</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome (for icons) -->
+    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Add animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .fun-card {
+            background: white;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .fun-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 15px rgba(13, 110, 253, 0.2);
+            transform: scale(1.01);
+        }
+
+        .floating-label {
+            position: absolute;
+            pointer-events: none;
+            left: 24px;
+            top: 12px;
+            transition: 0.2s ease all;
+            color: #6c757d;
+        }
+
+        .form-control:focus ~ .floating-label,
+        .form-control:not(:placeholder-shown) ~ .floating-label {
+            transform: translateY(-20px) scale(0.8);
+            color: #0d6efd;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .submit-btn {
+            border: none;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Container for main content -->
-<div class="container-fluid px-4 mt-5">
-
-    <!-- Header Section - Made larger -->
-    <div class="row mb-5">
+<div class="container-fluid px-4 py-5">
+    <!-- Original Header -->
+    <div class="row mb-4">
         <div class="col-12">
-            <div class="bg-light p-4 rounded-3 shadow-sm">
+            <div class="bg-light p-2 rounded-3 shadow-sm">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h1 class="text-primary fw-bold mb-2">Manage Your Event</h1>
-                        <p class="text-muted fs-5 mb-0">FestiVent - Event Management System</p>
-                        <p class="text-muted mb-0">Create and manage your events efficiently with our comprehensive system</p>
+                        <h3 class="text-primary fw-bold mb-1">Manage Your Event</h3>
+                        <p class="text-muted mb-0 fs-8">Create and manage your events efficiently with our comprehensive system</p>
                     </div>
-                    <a href="{{ route('home') }}" class="btn btn-secondary">
+                    <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
                         <i class="fas fa-arrow-left"></i> Back to Home
                     </a>
                 </div>
@@ -32,140 +105,81 @@
         </div>
     </div>
 
-    <div class="row">
-        <!-- Form for Adding Event - Made smaller -->
-        <div class="col-md-4">
-            <div class="card shadow-sm p-3 mb-4 border-0 rounded">
-                <h4 class="mb-3 text-dark fw-bold">Event Data</h4>
-                <form action="{{ route('eventreq.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row g-2">
-                        <div class="col-12">
-                            <label for="nama_event" class="form-label text-muted small">Event Name:</label>
-                            <input type="text" name="nama_event" id="nama_event" class="form-control form-control-sm" placeholder="Enter event name" required>
-                        </div>
+    <!-- Form Container -->
+    <div class="mx-auto" style="max-width: 1200px;">
+        <div class="fun-card shadow p-5 animate__animated animate__fadeInUp">
+            <h4 class="mb-4 text-dark fw-bold">Event Data ✨</h4>
 
-                        <div class="col-12">
-                            <label for="category" class="form-label text-muted small">Category:</label>
-                            <select name="category" id="category" class="form-select form-select-sm" required>
-                                <option value="">Select a Category</option>
-                                <option value="community gathering">Community Gathering</option>
-                                <option value="sports">Sports</option>
-                                <option value="live show">Live Show</option>
-                                <option value="festival">Festival</option>
-                                <option value="music">Music</option>
-                            </select>
-                        </div>
+            <form action="{{ route('eventreq.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row g-4">
+                    <div class="col-md-6 position-relative">
+                        <input type="text" name="nama_event" class="form-control" placeholder=" " required>
+                        <span class="floating-label">✨ Event Name</span>
+                    </div>
 
-                        <div class="col-12">
-                            <label for="lokasi" class="form-label text-muted small">Location:</label>
-                            <input type="text" name="lokasi" id="lokasi" class="form-control form-control-sm" required>
-                        </div>
+                    <div class="col-md-6">
+                        <select name="category" class="form-select" required>
+                            <option value="">Select Event Type</option>
+                            <option value="community gathering">👥 Community Gathering</option>
+                            <option value="sports">⚽ Sports</option>
+                            <option value="live show">🎭 Live Show</option>
+                            <option value="festival">🎪 Festival</option>
+                            <option value="music">🎵 Music</option>
+                        </select>
+                    </div>
 
-                        <div class="col-12">
-                            <label for="deskripsi" class="form-label text-muted small">Description:</label>
-                            <textarea name="deskripsi" id="deskripsi" class="form-control form-control-sm" rows="2" required></textarea>
-                        </div>
+                    <div class="col-md-6 position-relative">
+                        <input type="text" name="lokasi" class="form-control" placeholder=" " required>
+                        <span class="floating-label">📍 Location</span>
+                    </div>
 
-                        <div class="col-12">
-                            <label for="poster" class="form-label text-muted small">Poster:</label>
-                            <input type="file" name="poster" id="poster" class="form-control form-control-sm" accept="image/jpeg, image/png">
-                        </div>
+                    <div class="col-md-6 position-relative">
+                        <input type="text" name="penyelenggara" class="form-control" placeholder=" " required>
+                        <span class="floating-label">👑 Organizer</span>
+                    </div>
 
-                        <div class="col-6">
-                            <label for="tanggal" class="form-label text-muted small">Date:</label>
-                            <input type="date" name="tanggal" id="tanggal" class="form-control form-control-sm" required>
-                        </div>
+                    <div class="col-12 position-relative">
+                        <textarea name="deskripsi" class="form-control" rows="4" placeholder=" " required></textarea>
+                        <span class="floating-label">✏️ Description</span>
+                    </div>
 
-                        <div class="col-6">
-                            <label for="waktu" class="form-label text-muted small">Time:</label>
-                            <input type="time" name="waktu" id="waktu" class="form-control form-control-sm" required>
-                        </div>
-
-                        <div class="col-6">
-                            <label for="harga" class="form-label text-muted small">Price:</label>
-                            <input type="number" name="harga" id="harga" class="form-control form-control-sm" required>
-                        </div>
-
-                        <div class="col-6">
-                            <label for="penyelenggara" class="form-label text-muted small">Organizer:</label>
-                            <input type="text" name="penyelenggara" id="penyelenggara" class="form-control form-control-sm" required>
+                    <div class="col-12">
+                        <div class="file-upload">
+                            <input type="file" name="poster" class="form-control" accept="image/jpeg, image/png">
+                            <div class="text-center p-4 border-2 border-dashed rounded-3">
+                                <i class="fas fa-image fa-2x text-primary"></i>
+                                <p class="mt-2">📸 Drop your event poster here!</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="text-end mt-3">
-                        <button type="submit" class="btn btn-primary btn-sm px-4 rounded-pill">
-                            <i class="fas fa-save"></i> Submit
-                        </button>
+                    <div class="col-md-4">
+                        <div class="position-relative">
+                            <input type="date" name="tanggal" class="form-control" required>
+                            <span class="floating-label">📅 Date</span>
+                        </div>
                     </div>
-                </form>
-            </div>
-        </div>
 
-        <!-- List of Events - Made larger -->
-        <div class="col-md-8">
-            <div class="card shadow-sm p-3 border-0 rounded">
-                <h4 class="mb-4 text-dark fw-bold">List of Events</h4>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="bg-primary text-white">
-                            <tr>
-                                <th>#</th>
-                                <th>Event Name</th>
-                                <th>Category</th>
-                                <th>Location</th>
-                                <th>Description</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Price</th>
-                                <th>Organizer</th>
-                                <th>Poster</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($events as $key => $event)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $event->nama_event }}</td>
-                                    <td>{{ $event->category }}</td>
-                                    <td>{{ $event->lokasi }}</td>
-                                    <td>{{ $event->deskripsi }}</td>
-                                    <td>{{ date('d M Y', strtotime($event->tanggal)) }}</td>
-                                    <td>{{ date('H:i', strtotime($event->waktu)) }}</td>
-                                    <td>Rp. {{ number_format($event->harga, 0, ',', '.') }}</td>
-                                    <td>{{ $event->penyelenggara }}</td>
-                                    <td>
-                                        @if ($event->poster)
-                                            <img src="{{ asset('storage/' . $event->poster) }}" alt="Poster" width="50">
-                                        @else
-                                            No Image
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('eventreq.edit', $event->id) }}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('eventreq.destroy', $event->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="11" class="text-center text-muted">No events found.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <div class="col-md-4">
+                        <div class="position-relative">
+                            <input type="time" name="waktu" class="form-control" required>
+                            <span class="floating-label">⏰ Time</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 position-relative">
+                        <input type="number" name="harga" class="form-control" placeholder=" " required>
+                        <span class="floating-label">💰 Price</span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="text-end mt-4">
+                    <button type="submit" class="submit-btn btn btn-primary rounded-pill">
+                        <i class="fas fa-paper-plane me-2"></i> Create Event ✨
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -173,5 +187,6 @@
 <!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -176,7 +176,7 @@
           <div class="col-lg-3 col-md-6 d-flex justify-content-center">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              
+
               <p>Community</p>
             </div>
           </div><!-- End Stats Item -->
@@ -221,7 +221,7 @@
                                     </button>
                                 </form>
                             </div>
-                            
+
                             <!-- Add a link around the event content -->
                             <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
                                 <div class="img">
@@ -232,6 +232,7 @@
                                     @endif
                                 </div>
                             </a>
+
                             <div class="details">
                                 <div class="icon">
                                     <i class="bi bi-calendar-event"></i>
@@ -248,89 +249,96 @@
                         </div>
                     </div>
                 @empty
+                    <!-- Show a fallback message even when no events are available -->
                     <div class="col-12 text-center">
-                        <p>No events available at the moment.</p>
+                        <p>No events available at the moment. Check back later for exciting recommendations!</p>
                     </div>
                 @endforelse
             </div>
         </div>
-      </section>
+    </section>
+
+
+
 
 
     <!-- /Community Section -->
+    <!-- Community Section -->
     <section id="community" class="services section light-background">
-      <div class="container section-title text-center my-5" data-aos="fade-up">
-      <h2 class="fw-bold">Community</h2>
-      <p class="text-muted">
-          The community feature on the Festivent platform allows users to connect, interact, 
-          and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
-      </p>
-  </div><!-- End Section Title -->
+        <div class="container section-title text-center my-5" data-aos="fade-up">
+            <h2 class="fw-bold">Community</h2>
+            <p class="text-muted">
+                The community feature on the Festivent platform allows users to connect, interact,
+                and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
+            </p>
+        </div><!-- End Section Title -->
 
-  <div class="container communities-section">
-      <div class="row gy-4 gx-4"> <!-- Tambahkan gx-4 untuk jarak horizontal -->
-          @if(session('success'))
-              <div class="alert alert-success">
-                  {{ session('success') }}
-              </div>
-          @endif
+        <div class="container communities-section">
+            <div class="row gy-4 gx-4"> <!-- Added gx-4 for horizontal spacing -->
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-          @forelse($communities as $community)
-              <div class="col-lg-4 col-md-6 col-sm-12">
-                  <!-- Kartu yang Klikable -->
-                  <div class="card h-100 shadow-lg border-0 rounded community-card" 
-                      data-bs-toggle="modal" 
-                      data-bs-target="#communityDetailModal{{ $community->id }}">
-                      @if($community->image_path)
-                          <img src="{{ asset('storage/' . $community->image_path) }}" 
-                              alt="{{ $community->name }}" 
-                              class="card-img-top community-image rounded-top">
-                      @else
-                          <img src="{{ asset('default-logo.png') }}" 
-                              alt="Default Logo" 
-                              class="card-img-top community-image rounded-top">
-                      @endif
-                      <div class="card-body text-center">
-                          <h5 class="card-title fw-bold text-primary">{{ $community->name }}</h5>
-                          <p class="card-text mb-1"><strong>Category:</strong> {{ $community->category }}</p>
-                          <p class="card-text"><strong>City:</strong> {{ $community->city }}</p>
-                      </div>
-                  </div>
-              </div>
+                @forelse($communities as $community)
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <!-- Clickable Card -->
+                        <div class="card h-100 shadow-lg border-0 rounded community-card"
+                            data-bs-toggle="modal"
+                            data-bs-target="#communityDetailModal{{ $community->id }}">
+                            @if($community->image_path)
+                                <img src="{{ asset('storage/' . $community->image_path) }}"
+                                    alt="{{ $community->name }}"
+                                    class="card-img-top community-image rounded-top">
+                            @else
+                                <img src="{{ asset('default-logo.png') }}"
+                                    alt="Default Logo"
+                                    class="card-img-top community-image rounded-top">
+                            @endif
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold text-primary">{{ $community->name }}</h5>
+                                <p class="card-text mb-1"><strong>Category:</strong> {{ $community->category }}</p>
+                                <p class="card-text"><strong>City:</strong> {{ $community->city }}</p>
+                            </div>
+                        </div>
+                    </div>
 
-              <!-- Modal Popup Detail -->
-              <div class="modal fade" id="communityDetailModal{{ $community->id }}" tabindex="-1" 
-                  aria-labelledby="communityDetailModalLabel{{ $community->id }}" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <h5 class="modal-title" id="communityDetailModalLabel{{ $community->id }}">
-                                  {{ $community->name }}
-                              </h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                              <img src="{{ asset('storage/' . $community->image_path) }}" 
-                                  alt="{{ $community->name }}" 
-                                  class="img-fluid mb-3">
-                              <p><strong>Category:</strong> {{ $community->category }}</p>
-                              <p><strong>City:</strong> {{ $community->city }}</p>
-                              <p><strong>Description:</strong> {{ $community->description ?? 'No description available.' }}</p>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          @empty
-              <div class="col-12 text-center">
-                  <p class="text-muted">No communities available. Please check back later!</p>
-              </div>
-          @endforelse
-      </div>
-  </div>
+                    <!-- Modal Popup Detail -->
+                    <div class="modal fade" id="communityDetailModal{{ $community->id }}" tabindex="-1"
+                        aria-labelledby="communityDetailModalLabel{{ $community->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="communityDetailModalLabel{{ $community->id }}">
+                                        {{ $community->name }}
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ asset('storage/' . $community->image_path) }}"
+                                        alt="{{ $community->name }}"
+                                        class="img-fluid mb-3">
+                                    <p><strong>Category:</strong> {{ $community->category }}</p>
+                                    <p><strong>City:</strong> {{ $community->city }}</p>
+                                    <p><strong>Description:</strong> {{ $community->description ?? 'No description available.' }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Show a fallback message even when no communities are available -->
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No communities available. Please check back later!</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
     </section><!-- /Community Section -->
+<!-- /Community Section -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
