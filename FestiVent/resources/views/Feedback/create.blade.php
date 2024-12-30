@@ -64,6 +64,7 @@
 </head>
 
 <body class="index-page">
+
     <!-- Keep existing header -->
     <header id="header" class="header d-flex align-items-center sticky-top">
         <!-- Header content remains the same -->
