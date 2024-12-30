@@ -59,10 +59,11 @@
               <li><a href="#">Music</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="#"><span class="active">Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="{{ route('home') }}">About Us</a></li>
+              <li><a href="{{ route('home') }}">Contact Us</a></li>
+              <li class="active"><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
           </li>
           <li><a href="#team">Wishlist</a></li>
@@ -147,38 +148,11 @@
                 </div>
             </div>
             @endforeach
-
-            {{-- <div class="col-md-5 shadow p-3 mb-5 bg-body-tertiary rounded" data-aos="fade-up" data-aos-delay="100"> --}}
-                {{-- <div class="feedback-item p-4"> --}}
-                    {{-- <div class="feedback-content"> --}}
-                        {{-- <p> --}}
-                            {{-- Pesan --}}
-                            {{-- <i class="bi bi-quote quote-icon-left"></i> --}}
-                            {{-- Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. --}}
-                            {{-- <i class="bi bi-quote quote-icon-right"></i> --}}
-                        {{-- </p> --}}
-                        {{-- Rating --}}
-                        {{-- <h5>ratings : 4/5</h5> --}}
-                    {{-- </div>
-                    <div class="row justify-content-between mt-4">
-                        <div class="col-10 feedback-profile">
-                            {{-- Nama --}}
-                            {{-- <h3 id="name">Saul Goodman</h3> --}}
-                            {{-- Email --}}
-                            {{-- <h4 id="email">saul@gmail.com</h4> --}}
-                        {{-- </div>
-                        <div class="col-2 action-delete">
-                            <a href="#" class="btn btn-outline-danger">Delete</a>
-                        </div>
-                    </div> --}}
-                {{-- </div> --}}
-            {{-- </div> --}}
         </div>
-
-
-
+      </div>
+    </section>
+  </main>
   <footer id="footer" class="footer light-background">
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-about">

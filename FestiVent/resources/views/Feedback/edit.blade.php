@@ -59,10 +59,11 @@
               <li><a href="#">Music</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="#"><span class="active">Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="{{ route('home') }}">About Us</a></li>
+              <li><a href="{{ route('home') }}">Contact Us</a></li>
+              <li class="active"><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
           </li>
           <li><a href="#team">Wishlist</a></li>
