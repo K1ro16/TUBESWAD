@@ -282,6 +282,14 @@
                 The community feature on the Festivent platform allows users to connect, interact,
                 and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
             </p>
+            <!-- Add Event Button (Only Visible After Login) -->
+            @if(session('account_id'))
+            <div class="mt-4 mb-3 align-items-center">
+                <a href="{{ route('communities.index') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Add Community
+                </a>
+            </div>
+      @endif
         </div><!-- End Section Title -->
 
         <div class="container communities-section">
