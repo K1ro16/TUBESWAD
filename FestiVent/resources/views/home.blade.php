@@ -276,92 +276,17 @@
     <!-- /Community Section -->
     <!-- Community Section -->
     <section id="community" class="services section light-background">
-        <div class="container section-title text-center my-5" data-aos="fade-up">
-            <h2 class="fw-bold">Community</h2>
-            <p class="text-muted">
-                The community feature on the Festivent platform allows users to connect, interact,
-                and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
-            </p>
-            <!-- Add Event Button (Only Visible After Login) -->
-            @if(session('account_id'))
-            <div class="mt-4 mb-3 align-items-center">
-                <a href="{{ route('communities.index') }}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> Add Community
-                </a>
-            </div>
-      @endif
-        </div><!-- End Section Title -->
-
-        <div class="container communities-section">
-            <div class="row gy-4 gx-4"> <!-- Added gx-4 for horizontal spacing -->
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @forelse($communities as $community)
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <!-- Clickable Card -->
-                        <div class="card h-100 shadow-lg border-0 rounded community-card"
-                            data-bs-toggle="modal"
-                            data-bs-target="#communityDetailModal{{ $community->id }}">
-                            @if($community->image_path)
-                                <img src="{{ asset('storage/' . $community->image_path) }}"
-                                    alt="{{ $community->name }}"
-                                    class="card-img-top community-image rounded-top">
-                            @else
-                                <img src="{{ asset('default-logo.png') }}"
-                                    alt="Default Logo"
-                                    class="card-img-top community-image rounded-top">
-                            @endif
-                            <div class="card-body text-center">
-                                <h5 class="card-title fw-bold text-primary">{{ $community->name }}</h5>
-                                <p class="card-text mb-1"><strong>Category:</strong> {{ $community->category }}</p>
-                                <p class="card-text"><strong>City:</strong> {{ $community->city }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Popup Detail -->
-                    <div class="modal fade" id="communityDetailModal{{ $community->id }}" tabindex="-1"
-                        aria-labelledby="communityDetailModalLabel{{ $community->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="communityDetailModalLabel{{ $community->id }}">
-                                        {{ $community->name }}
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="{{ asset('storage/' . $community->image_path) }}"
-                                        alt="{{ $community->name }}"
-                                        class="img-fluid mb-3">
-                                    <p><strong>Category:</strong> {{ $community->category }}</p>
-                                    <p><strong>City:</strong> {{ $community->city }}</p>
-                                    <p><strong>Description:</strong> {{ $community->description ?? 'No description available.' }}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <!-- Show a fallback message even when no communities are available -->
-                    <div class="col-12 text-center">
-                        <p class="text-muted">No communities available. Please check back later!</p>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </section><!-- /Community Section -->
-<!-- /Community Section -->
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Community</h2>
+          <p class="text-muted">
+            The community feature on the Festivent platform allows users to connect, interact, 
+            and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
+          </p>
+        </div>
 
-        <div class="swiper init-swiper" data-speed="600" data-delay="5000" data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
+        <!-- Swiper Container -->
+        <div class="swiper init-swiper">
           <script type="application/json" class="swiper-config">
             {
               "loop": true,
@@ -370,6 +295,10 @@
                 "delay": 5000
               },
               "slidesPerView": "auto",
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
               "pagination": {
                 "el": ".swiper-pagination",
                 "type": "bullets",
@@ -378,89 +307,124 @@
               "breakpoints": {
                 "320": {
                   "slidesPerView": 1,
-                  "spaceBetween": 40
+                  "spaceBetween": 20
+                },
+                "768": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 30
                 },
                 "1200": {
                   "slidesPerView": 3,
-                  "spaceBetween": 20
+                  "spaceBetween": 40
                 }
               }
             }
           </script>
+
+          <!-- Swiper Wrapper -->
           <div class="swiper-wrapper">
+            @forelse($communities as $community)
+              <div class="swiper-slide">
+                <div class="community-item">
+                  <div class="card shadow border-0 rounded-lg p-4 hover-card">
+                    <!-- Community Image -->
+                    <img src="{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}" 
+                        alt="{{ $community->name }}" 
+                        class="community-image mx-auto mb-3" 
+                        style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
 
-            <div class="swiper-slide">
-              <div class="testimonial-item" "="">
-            <p>
-              <i class=" bi bi-quote quote-icon-left"></i>
-                <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
+                    <!-- Community Details -->
+                    <div class="card-body text-center">
+                      <h5 class="fw-bold text-primary">{{ $community->name }}</h5>
+                      <p class="text-muted mb-1"><strong>Category:</strong> {{ $community->category }}</p>
+                      <p class="text-muted"><strong>City:</strong> {{ $community->city }}</p>
+                      <button class="btn btn-primary mt-3" onclick="showPopup('{{ $community->name }}', '{{ $community->category }}', '{{ $community->city }}', '{{ $community->description }}', '{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}')">Learn More</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
+            @empty
+              <div class="swiper-slide text-center">
+                <p class="text-muted">No communities available. Please check back later!</p>
               </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
+            @endforelse
           </div>
+
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <!-- Pagination -->
           <div class="swiper-pagination"></div>
         </div>
-
       </div>
+    </section>
 
-    </section><!-- /Testimonials Section -->
+    <!-- Popup Modal -->
+    <div id="community-popup" class="popup-modal" style="display: none;">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <img id="popup-image" src="" alt="Community Image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">
+        <h3 id="popup-name" class="fw-bold text-primary"></h3>
+        <p id="popup-category" class="text-muted"><strong>Category:</strong> </p>
+        <p id="popup-city" class="text-muted"><strong>City:</strong> </p>
+        <p id="popup-description" class="text-muted"></p>
+      </div>
+    </div>
+
+    <style>
+      /* Popup Modal Styling */
+      .popup-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .popup-content {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+      }
+    </style>
+
+    <script>
+      function showPopup(name, category, city, description, imagePath) {
+        const popup = document.getElementById('community-popup');
+        document.getElementById('popup-name').innerText = name;
+        document.getElementById('popup-category').innerText = `Category: ${category}`;
+        document.getElementById('popup-city').innerText = `City: ${city}`;
+        document.getElementById('popup-description').innerText = description;
+        document.getElementById('popup-image').src = imagePath;
+        popup.style.display = 'flex';
+      }
+
+      function closePopup() {
+        const popup = document.getElementById('community-popup');
+        popup.style.display = 'none';
+      }
+    </script>
+
+<!-- /Community Section -->
+<!-- /Community Section -->
 
     <!-- Feedback Section -->
     <section id="call-to-action" class="call-to-action section accent-background">
