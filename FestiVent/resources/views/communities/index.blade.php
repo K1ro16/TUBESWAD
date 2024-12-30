@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <style>
+        /* Previous styles remain the same */
         body {
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -66,6 +67,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
+        /* New styles for image preview */
         .file-upload {
             position: relative;
             overflow: hidden;
@@ -80,11 +82,25 @@
             opacity: 0;
             cursor: pointer;
         }
+
+        #imagePreview {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px auto;
+            display: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .preview-container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
 <div class="container-fluid px-4 py-5">
+    <!-- Previous header content remains the same -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="bg-light p-2 rounded-3 shadow-sm">
@@ -107,6 +123,7 @@
 
             <form action="{{ route('communities.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <!-- Previous form fields remain the same -->
                 <div class="row g-4">
                     <div class="col-md-6 position-relative">
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder=" " required value="{{ old('name') }}">
@@ -147,10 +164,13 @@
 
                     <div class="col-12">
                         <div class="file-upload">
-                            <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror" accept="image/*">
+                            <input type="file" name="logo" id="logoInput" class="form-control @error('logo') is-invalid @enderror" accept="image/*">
                             <div class="text-center p-4 border-2 border-dashed rounded-3">
                                 <i class="fas fa-image fa-2x text-primary"></i>
                                 <p class="mt-2">📸 Drop your community logo here!</p>
+                            </div>
+                            <div class="preview-container">
+                                <img id="imagePreview" src="#" alt="Logo Preview">
                             </div>
                             @error('logo')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -171,6 +191,27 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+<script>
+document.getElementById('logoInput').addEventListener('change', function(e) {
+    const preview = document.getElementById('imagePreview');
+    const file = e.target.files[0];
+    
+    if (file) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '#';
+        preview.style.display = 'none';
+    }
+});
+</script>
 
 </body>
 </html>
