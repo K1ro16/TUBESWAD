@@ -27,4 +27,9 @@ class Promosi extends Model
         'tanggal_mulai' => 'date',
         'tanggal_selesai' => 'date',
     ];
+
+    /**
+     * Specify the table name.
+     */
+    protected $table = 'promosi';
 }
