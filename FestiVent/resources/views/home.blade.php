@@ -203,61 +203,71 @@
 
     <!-- Services Section -->
     <section id="services" class="services section">
-        <div class="container section-title" data-aos="fade-up">
-            <h2>Recommendation</h2>
-            <p>Discover exciting events tailored just for you</p>
-        </div>
-
-        <div class="container">
-            <div class="row gy-4">
-                @forelse($eventreqs as $eventreq)
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="service-item position-relative">
-                            <!-- Wishlist button-->
-                            <div class="d-flex justify-content-end mb-2">
-                                <form action="{{ route('wishlist.toggle', $eventreq->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
-                                        <i class="bi {{ in_array($eventreq->id, $wishlisted ?? []) ? 'bi-heart-fill' : 'bi-heart' }}" style="font-size: 20px;"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <!--link image -->
-                            <!-- Add a link around the event content -->
-                            <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
-                                <div class="img">
-                                    @if($eventreq->poster)
-                                        <img src="{{ Storage::url($eventreq->poster) }}" alt="{{ $eventreq->nama_event }}" class="img-fluid">
-                                    @else
-                                        <img src="/api/placeholder/400/320" alt="No Image Available" class="img-fluid">
-                                    @endif
-                                </div>
-                            </a>
-
-                            <div class="details">
-                                <div class="icon">
-                                    <i class="bi bi-calendar-event"></i>
-                                </div>
-                                <h3>{{ $eventreq->nama_event }}</h3>
-                                <p>{{ Str::limit($eventreq->deskripsi, 100) }}</p>
-                                <div class="event-meta">
-                                    <p><i class="bi bi-geo-alt"></i> {{ $eventreq->lokasi }}</p>
-                                    <p><i class="bi bi-calendar"></i> {{ $eventreq->tanggal }}</p>
-                                    <p><i class="bi bi-clock"></i> {{ $eventreq->waktu }}</p>
-                                    <p><i class="bi bi-cash"></i> Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <!-- Show a fallback message even when no events are available -->
-                    <div class="col-12 text-center">
-                        <p>No events available at the moment. Check back later for exciting recommendations!</p>
-                    </div>
-                @endforelse
-            </div>
-        </div>
+      <div class="container section-title" data-aos="fade-up">
+          <h2>Recommendation</h2>
+          <p>Discover exciting events tailored just for you</p>
+  
+          <!-- Add Event Button (Only Visible After Login) -->
+          @if(session('account_id'))
+              <div class="mt-4 mb-3 align-items-center">
+                  <a href="{{ route('eventreq.index') }}" class="btn btn-primary">
+                      <i class="bi bi-plus-circle"></i> Add Event
+                  </a>
+              </div>
+          @endif
+      </div>
+  
+      <div class="container">
+          <div class="row gy-4">
+              @forelse($eventreqs as $eventreq)
+                  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                      <div class="service-item position-relative">
+                          <!-- Wishlist button-->
+                          <div class="d-flex justify-content-end mb-2">
+                              <form action="{{ route('wishlist.toggle', $eventreq->id) }}" method="POST">
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+                                      <i class="bi {{ in_array($eventreq->id, $wishlisted ?? []) ? 'bi-heart-fill' : 'bi-heart' }}" style="font-size: 20px;"></i>
+                                  </button>
+                              </form>
+                          </div>
+                          <!--link image -->
+                          <!-- Add a link around the event content -->
+                          <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
+                              <div class="img">
+                                  @if($eventreq->poster)
+                                      <img src="{{ Storage::url($eventreq->poster) }}" alt="{{ $eventreq->nama_event }}" class="img-fluid">
+                                  @else
+                                      <img src="/api/placeholder/400/320" alt="No Image Available" class="img-fluid">
+                                  @endif
+                              </div>
+                          </a>
+  
+                          <div class="details">
+                              <div class="icon">
+                                  <i class="bi bi-calendar-event"></i>
+                              </div>
+                              <h3>{{ $eventreq->nama_event }}</h3>
+                              <p>{{ Str::limit($eventreq->deskripsi, 100) }}</p>
+                              <div class="event-meta">
+                                  <p><i class="bi bi-geo-alt"></i> {{ $eventreq->lokasi }}</p>
+                                  <p><i class="bi bi-calendar"></i> {{ $eventreq->tanggal }}</p>
+                                  <p><i class="bi bi-clock"></i> {{ $eventreq->waktu }}</p>
+                                  <p><i class="bi bi-cash"></i> Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              @empty
+                  <!-- Show a fallback message even when no events are available -->
+                  <div class="col-12 text-center">
+                      <p>No events available at the moment. Check back later for exciting recommendations!</p>
+                  </div>
+              @endforelse
+          </div>
+      </div>
     </section>
+  
 
 
 
@@ -266,6 +276,89 @@
     <!-- /Community Section -->
     <!-- Community Section -->
     <section id="community" class="services section light-background">
+
+        <div class="container section-title text-center my-5" data-aos="fade-up">
+            <h2 class="fw-bold">Community</h2>
+            <p class="text-muted">
+                The community feature on the Festivent platform allows users to connect, interact,
+                and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
+            </p>
+            <!-- Add Event Button (Only Visible After Login) -->
+            @if(session('account_id'))
+            <div class="mt-4 mb-3 align-items-center">
+                <a href="{{ route('communities.index') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Add Community
+                </a>
+            </div>
+      @endif
+        </div><!-- End Section Title -->
+
+        <div class="container communities-section">
+            <div class="row gy-4 gx-4"> <!-- Added gx-4 for horizontal spacing -->
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @forelse($communities as $community)
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <!-- Clickable Card -->
+                        <div class="card h-100 shadow-lg border-0 rounded community-card"
+                            data-bs-toggle="modal"
+                            data-bs-target="#communityDetailModal{{ $community->id }}">
+                            @if($community->image_path)
+                                <img src="{{ asset('storage/' . $community->image_path) }}"
+                                    alt="{{ $community->name }}"
+                                    class="card-img-top community-image rounded-top">
+                            @else
+                                <img src="{{ asset('default-logo.png') }}"
+                                    alt="Default Logo"
+                                    class="card-img-top community-image rounded-top">
+                            @endif
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold text-primary">{{ $community->name }}</h5>
+                                <p class="card-text mb-1"><strong>Category:</strong> {{ $community->category }}</p>
+                                <p class="card-text"><strong>City:</strong> {{ $community->city }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Popup Detail -->
+                    <div class="modal fade" id="communityDetailModal{{ $community->id }}" tabindex="-1"
+                        aria-labelledby="communityDetailModalLabel{{ $community->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="communityDetailModalLabel{{ $community->id }}">
+                                        {{ $community->name }}
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ asset('storage/' . $community->image_path) }}"
+                                        alt="{{ $community->name }}"
+                                        class="img-fluid mb-3">
+                                    <p><strong>Category:</strong> {{ $community->category }}</p>
+                                    <p><strong>City:</strong> {{ $community->city }}</p>
+                                    <p><strong>Description:</strong> {{ $community->description ?? 'No description available.' }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Show a fallback message even when no communities are available -->
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No communities available. Please check back later!</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section><!-- /Community Section -->
+<!-- /Community Section -->
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="text-center mb-5">
           <h2 class="fw-bold">Community</h2>
@@ -412,10 +505,8 @@
         popup.style.display = 'none';
       }
     </script>
-
+    
 <!-- /Community Section -->
-<!-- /Community Section -->
-
     <!-- Feedback Section -->
     <section id="call-to-action" class="call-to-action section accent-background">
 
