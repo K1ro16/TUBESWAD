@@ -6,6 +6,7 @@ use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\PromosiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,11 @@ Route::get('/admin/event', function () {
 Route::get('/admin/communities', function () {
     $communities = \App\Models\Community::all(); // Fetch all communities
     return view('admin.communities', compact('communities'));
+});
+
+Route::get('/admin/promosi', function () {
+    $promosi = \App\Models\promosi::all(); // Fetch all promosi
+    return view('admin.promosi', compact('promosi'));
 });
 
 
@@ -76,3 +82,12 @@ Route::get('/feedback/{feedback}', [FeedbackController::class, 'show'])->name('f
 Route::get('/feedback/{feedback}/edit', [FeedbackController::class, 'edit'])->name('feedback.edit');
 Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
 Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
+
+// go to promotion
+Route::get('/promosi', [PromosiController::class, 'index'])->name('promosi.index');
+Route::get('/promosi/create', [PromosiController::class, 'create'])->name('promosi.create');
+Route::post('/promosi', [PromosiController::class, 'store'])->name('promosi.store');
+Route::get('/promosi/{promosi}', [PromosiController::class, 'show'])->name('promosi.show');
+Route::get('/promosi/{promosi}/edit', [PromosiController::class, 'edit'])->name('promosi.edit');
+Route::put('/promosi/{promosi}', [PromosiController::class, 'update'])->name('promosi.update');
+Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name('promosi.destroy');

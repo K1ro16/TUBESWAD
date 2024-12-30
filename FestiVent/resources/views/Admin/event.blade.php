@@ -30,6 +30,9 @@
                     <li class="active">
                         <a href="#"><span class="fa fa-briefcase mr-3"></span> Events</a>
                     </li>
+                    <li>
+                        <a href="{{ url('admin/promosi') }}"><span class="fa fa-user mr-3"></span> Promotion</a>
+                    </li>
                 </ul>
                 <div class="footer">
                     <p>FestiVent Project</p>
