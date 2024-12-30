@@ -148,10 +148,11 @@
                 <p class="text-muted mb-0">Starting from</p>
                 <h3 class="mb-0">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
               </div>
-              <button class="btn btn-primary px-4 py-2">
-                Get Tickets
-                <i class="bi bi-arrow-right ms-2"></i>
-              </button>
+              
+              {{-- add button to go to payment --}}
+              <form action="{{ route('payment.index', $event->id) }}" method="GET">
+                <button type="submit" class="btn btn-primary">Buy Ticket</button>
+              </form>
             </div>
           </div>
         </div>

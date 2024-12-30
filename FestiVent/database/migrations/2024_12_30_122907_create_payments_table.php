@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_tlp');
             $table->text('email');
             $table->string('jml_tiket');
+            $table->string('harga');
             $table->string('opsi_pay');
             $table->string('kode');
             $table->timestamps();

@@ -7,6 +7,8 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PromosiController;
+use App\Http\Controllers\PaymentController;
+use App\Models\Payment;
 
 Route::get('/', function () {
     return view('welcome');
@@ -91,3 +93,10 @@ Route::get('/promosi/{promosi}', [PromosiController::class, 'show'])->name('prom
 Route::get('/promosi/{promosi}/edit', [PromosiController::class, 'edit'])->name('promosi.edit');
 Route::put('/promosi/{promosi}', [PromosiController::class, 'update'])->name('promosi.update');
 Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name('promosi.destroy');
+
+// go to payment
+Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+Route::get('/payment/{payment}', [PaymentController::class, 'show'])->name('payment.show');
+Route::get('/payment/{payment}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
+Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
+
