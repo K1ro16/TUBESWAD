@@ -212,7 +212,7 @@
                 @forelse($eventreqs as $eventreq)
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-item position-relative">
-                            <!-- Wishlist button - updated styling -->
+                            <!-- Wishlist button-->
                             <div class="d-flex justify-content-end mb-2">
                                 <form action="{{ route('wishlist.toggle', $eventreq->id) }}" method="POST">
                                     @csrf
@@ -221,7 +221,7 @@
                                     </button>
                                 </form>
                             </div>
-
+                            <!--link image -->
                             <!-- Add a link around the event content -->
                             <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
                                 <div class="img">
