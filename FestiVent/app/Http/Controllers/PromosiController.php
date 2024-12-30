@@ -13,7 +13,7 @@ class PromosiController extends Controller
     public function index()
     {
         $promosi = Promosi::all(); // Mengambil semua data promosi
-        return view('promosi.index', compact('promosi')); // Menampilkan data ke view
+        return view('admin.promosi', compact('promosi')); // Menampilkan data ke view
     }
 
     /**

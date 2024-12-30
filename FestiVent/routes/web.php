@@ -29,6 +29,11 @@ Route::get('/admin/communities', function () {
     return view('admin.communities', compact('communities'));
 });
 
+Route::get('/admin/promosi', function () {
+    $promosi = \App\Models\promosi::all(); // Fetch all promosi
+    return view('admin.promosi', compact('promosi'));
+});
+
 
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');

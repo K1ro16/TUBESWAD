@@ -64,7 +64,6 @@
               <li><a href="#about">About Us</a></li>
               <li><a href="#contact">Contact Us</a></li>
               <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
-              <li><a href="{{ route('promosi.index') }}">promotion</a></li>
             </ul>
           </li>
           <li><a href="{{ route('wishlist.index') }}"><i class="bi bi-heart"></i> Wishlist</a></li>
