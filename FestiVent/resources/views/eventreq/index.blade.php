@@ -157,14 +157,14 @@
                     <div class="col-md-4">
                         <div class="position-relative">
                             <input type="date" name="tanggal" class="form-control" required>
-                            <span class="floating-label">📅 Date</span>
+                            <!-- <span class="floating-label">📅 Date</span> -->
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="position-relative">
                             <input type="time" name="waktu" class="form-control" required>
-                            <span class="floating-label">⏰ Time</span>
+                            <!-- <span class="floating-label">⏰ Time</span> -->
                         </div>
                     </div>
 

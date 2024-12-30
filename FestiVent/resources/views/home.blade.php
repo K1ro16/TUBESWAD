@@ -61,8 +61,9 @@
           </li>
           <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+              <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
           </li>
           <li><a href="{{ route('wishlist.index') }}"><i class="bi bi-heart"></i> Wishlist</a></li>
@@ -106,7 +107,7 @@
           </div>
         </div>
         <div class="text-center" data-aos="zoom-out" data-aos-delay="100">
-          <a href="#about" class="btn-get-started">See More</a>
+          <a href="#services" class="btn-get-started">See More</a>
         </div>
 
         <!-- Card -->
@@ -443,7 +444,7 @@
 
     </section><!-- /Testimonials Section -->
 
-    <!-- Call To Action Section -->
+    <!-- Feedback Section -->
     <section id="call-to-action" class="call-to-action section accent-background">
 
       <div class="container">
@@ -452,13 +453,14 @@
             <div class="text-center">
               <h3>Send Us a Message</h3>
               <p>"We value your thoughts and feedback because they help us grow and improve – take a moment to send us a message and let your voice be heard!"</p>
-              <a class="cta-btn" href="{{ route('feedback.index') }}">Give Feedback</a>
+              <a class="cta-btn" href="{{ route('feedback.index') }}">See Feedbacks</a>
             </div>
           </div>
         </div>
       </div>
 
-    </section><!-- /Call To Action Section -->
+    </section>
+    <!-- Feedback Section -->
 
     <!-- Faq Section -->
     <section id="faq" class="faq section light-background">
@@ -640,13 +642,13 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">OnePage</strong> <span>All Rights Reserved</span></p>
+      <p><strong class="px-1 sitename">FestiVent</strong> <span>Project</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you've purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="#">Manprosi X WAD</a>
       </div>
     </div>
 
