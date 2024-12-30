@@ -1,110 +1,176 @@
-@extends('layouts.app') <!-- Sesuaikan dengan layout Anda -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-@section('content')
-<div class="container mt-5">
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="text-primary fw-bold">Register Your Community</h2>
-        <a href="{{ route('home') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to Home
-        </a>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .fun-card {
+            background: white;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .fun-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 15px rgba(13, 110, 253, 0.2);
+            transform: scale(1.01);
+        }
+
+        .floating-label {
+            position: absolute;
+            pointer-events: none;
+            left: 24px;
+            top: 12px;
+            transition: 0.2s ease all;
+            color: #6c757d;
+        }
+
+        .form-control:focus ~ .floating-label,
+        .form-control:not(:placeholder-shown) ~ .floating-label {
+            transform: translateY(-20px) scale(0.8);
+            color: #0d6efd;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .submit-btn {
+            border: none;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid px-4 py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="bg-light p-2 rounded-3 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="text-primary fw-bold mb-1">Register Your Community</h3>
+                        <p class="text-muted mb-0 fs-8">FestiVent - Community System Management</p>
+                    </div>
+                    <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <p class="text-muted">FestiVent - Community System Management</p>
 
-    <!-- Form Tambah Komunitas -->
-    <div class="card shadow p-4 mb-5 border-0 rounded">
-        <h4 class="mb-4 text-dark fw-bold">Community Data</h4>
-        <form action="{{ route('communities.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <!-- Nama Komunitas -->
-                <div class="col-md-6 mb-3">
-                    <label for="name" class="form-label text-muted">Nama Komunitas</label>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        id="name" 
-                        class="form-control rounded-3 @error('name') is-invalid @enderror" 
-                        placeholder="Nama Komunitas" 
-                        value="{{ old('name') }}" 
-                        required>
-                    @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+    <div class="mx-auto" style="max-width: 1200px;">
+        <div class="fun-card shadow p-5 animate__animated animate__fadeInUp">
+            <h4 class="mb-4 text-dark fw-bold">Community Data ✨</h4>
+
+            <form action="{{ route('communities.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row g-4">
+                    <div class="col-md-6 position-relative">
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder=" " required value="{{ old('name') }}">
+                        <span class="floating-label">👥 Community Name</span>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6">
+                        <select name="category" class="form-select @error('category') is-invalid @enderror" required>
+                            <option value="">Select Category</option>
+                            <option value="Music" {{ old('category') == 'Music' ? 'selected' : '' }}>🎵 Music</option>
+                            <option value="Art" {{ old('category') == 'Art' ? 'selected' : '' }}>🎨 Art</option>
+                            <option value="Sport" {{ old('category') == 'Sport' ? 'selected' : '' }}>⚽ Sport</option>
+                            <option value="Technology" {{ old('category') == 'Technology' ? 'selected' : '' }}>💻 Technology</option>
+                        </select>
+                        @error('category')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" placeholder=" " required value="{{ old('city') }}">
+                        <span class="floating-label">📍 City</span>
+                        @error('city')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 position-relative">
+                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="4" placeholder=" " required>{{ old('description') }}</textarea>
+                        <span class="floating-label">✏️ Description</span>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12">
+                        <div class="file-upload">
+                            <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror" accept="image/*">
+                            <div class="text-center p-4 border-2 border-dashed rounded-3">
+                                <i class="fas fa-image fa-2x text-primary"></i>
+                                <p class="mt-2">📸 Drop your community logo here!</p>
+                            </div>
+                            @error('logo')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Kategori -->
-                <div class="col-md-6 mb-3">
-                    <label for="category" class="form-label text-muted">Kategori</label>
-                    <select 
-                        name="category" 
-                        id="category" 
-                        class="form-select rounded-3 @error('category') is-invalid @enderror" 
-                        required>
-                        <option value="" disabled selected>Pilih Kategori</option>
-                        <option value="Music" {{ old('category') == 'Music' ? 'selected' : '' }}>Music</option>
-                        <option value="Art" {{ old('category') == 'Art' ? 'selected' : '' }}>Art</option>
-                        <option value="Sport" {{ old('category') == 'Sport' ? 'selected' : '' }}>Sport</option>
-                        <option value="Technology" {{ old('category') == 'Technology' ? 'selected' : '' }}>Technology</option>
-                    </select>
-                    @error('category')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                <div class="text-end mt-4">
+                    <button type="submit" class="submit-btn btn btn-primary rounded-pill">
+                        <i class="fas fa-paper-plane me-2"></i> Register Community ✨
+                    </button>
                 </div>
-
-                <!-- Asal Kota -->
-                <div class="col-md-6 mb-3">
-                    <label for="city" class="form-label text-muted">Asal Kota</label>
-                    <input 
-                        type="text" 
-                        name="city" 
-                        id="city" 
-                        class="form-control rounded-3 @error('city') is-invalid @enderror" 
-                        placeholder="Asal Kota" 
-                        value="{{ old('city') }}" 
-                        required>
-                    @error('city')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <!-- Deskripsi Komunitas -->
-                <div class="col-md-6 mb-3">
-                    <label for="description" class="form-label text-muted">Deskripsi Komunitas</label>
-                    <textarea 
-                        name="description" 
-                        id="description" 
-                        class="form-control rounded-3 @error('description') is-invalid @enderror" 
-                        rows="3" 
-                        placeholder="Deskripsi Komunitas" 
-                        required>{{ old('description') }}</textarea>
-                    @error('description')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <!-- Gambar/Logo -->
-                <div class="col-md-12 mb-3">
-                    <label for="logo" class="form-label text-muted">Gambar/Logo</label>
-                    <input 
-                        type="file" 
-                        name="logo" 
-                        id="logo" 
-                        class="form-control rounded-3 @error('logo') is-invalid @enderror" 
-                        accept="image/*">
-                    @error('logo')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-
-            <!-- Tombol Simpan -->
-            <div class="text-end">
-                <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill">
-                    <i class="fas fa-save"></i> Save
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-@endsection
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
