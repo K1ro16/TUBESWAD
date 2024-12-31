@@ -42,7 +42,7 @@
 
         <!-- Main content -->
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h1>Dashboard</h1>
+            <h1>Promotion</h1>
 
             <div class="container mt-5">
                 <h2 class="mb-4">Tambah Promosi</h2>
@@ -50,15 +50,15 @@
                     @csrf
                     
                     <div class="mb-3">
-                        <label for="judul" class="form-label">Kode Promo</label>
+                        <span class="floating-label">🏷️ Promo Code</span>
                         <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan judul promosi" required>
                     </div>
                     <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <span class="floating-label">✏️ Description</span>
                         <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" placeholder="Masukkan deskripsi promosi" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="diskon" class="form-label">Diskon (%)</label>
+                        <span class="floating-label">💰 Discount (%)</span>
                         <input type="number" class="form-control" id="diskon" name="diskon" placeholder="Masukkan diskon dalam persen" required>
                     </div>
                     <div class="mb-3">
@@ -69,7 +69,7 @@
                         <label for="tanggal_selesai" class="form-label">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Simpan ✨</button>
                 </form>
             </div>
 
