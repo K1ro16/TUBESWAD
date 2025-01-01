@@ -27,13 +27,11 @@ class PaymentController extends Controller
         return view('payment.index', compact('payments', 'events', 'promosi'));
     }
 
-
     public function create()
     {
         $promosi = Promosi::all();
         return view('payment.index', compact('promosi')); // Tambahkan data promosi
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -46,13 +44,35 @@ class PaymentController extends Controller
             'no_tlp' => 'required|string|max:15',
             'email' => 'required|email',
             'jml_tiket' => 'required|integer|min:1',
-            'harga' => 'required|integer|min:1',
+            'eventreq_id' => 'required|exists:eventreq,id', // Validasi relasi eventreq
             'opsi_pay' => 'required|string',
-            'kode' => 'required|exists:promosi,id', // Pastikan kode ada di tabel promosi
-        ]);        
+            'kode' => 'nullable|exists:promosi,id', // Kode promo opsional
+        ]);
+
+        // Ambil data event berdasarkan ID
+        $event = EventReq::findOrFail($request->eventreq_id);
+
+        // Hitung harga berdasarkan jumlah tiket dan harga per tiket
+        $totalHarga = $event->harga * $request->jml_tiket;
+
+        // Periksa jika ada diskon/promosi
+        if ($request->kode) {
+            $promo = Promosi::findOrFail($request->kode);
+            $totalHarga -= ($totalHarga * $promo->diskon / 100); // Terapkan diskon
+        }
 
         // Simpan data ke database
-        $payment = Payment::create($request->all());
+        $payment = new Payment([
+            'nama' => $request->nama,
+            'no_tlp' => $request->no_tlp,
+            'email' => $request->email,
+            'jml_tiket' => $request->jml_tiket,
+            'harga' => $totalHarga,
+            'opsi_pay' => $request->opsi_pay,
+            'kode' => $request->kode,
+            'eventreq_id' => $request->eventreq_id, // Simpan relasi
+        ]);
+        $payment->save();
 
         return redirect()->route('payment.index')->with('success', 'Payment created successfully');
     }
@@ -71,7 +91,6 @@ class PaymentController extends Controller
 
         return view('payment.index', compact('payment'));
     }
-
 
     /**
      * Show the form for editing the specified resource.

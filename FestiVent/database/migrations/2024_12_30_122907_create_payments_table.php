@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('jml_tiket');
             $table->string('harga');
             $table->string('opsi_pay');
-            $table->string('kode');
+            $table->string('kode')->nullable();
             $table->timestamps();
         });
     }
