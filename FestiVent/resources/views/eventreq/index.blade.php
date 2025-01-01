@@ -107,7 +107,7 @@
 
     <!-- Form Container -->
     <div class="mx-auto" style="max-width: 1200px;">
-        <div class="fun-card shadow p-5 animate__animated animate__fadeInUp">
+        <div class="fun-card shadow p-5 animate_animated animate_fadeInUp">
             <h4 class="mb-4 text-dark fw-bold">Event Data ✨</h4>
 
             <form action="{{ route('eventreq.store') }}" method="POST" enctype="multipart/form-data">
@@ -141,7 +141,7 @@
 
                     <div class="col-12 position-relative">
                         <textarea name="deskripsi" class="form-control" rows="4" placeholder=" " required></textarea>
-                        <span class="floating-label">✏️ Description</span>
+                        <span class="floating-label">✏ Description</span>
                     </div>
 
                     <div class="col-12">

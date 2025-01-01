@@ -172,13 +172,12 @@
 
         <!-- Swiper Container -->
         <div class="swiper init-swiper">
+            <!-- Swiper Configuration -->
             <script type="application/json" class="swiper-config">
                 {
                     "loop": true,
                     "speed": 600,
-                    "autoplay": {
-                        "delay": 5000
-                    },
+                    "autoplay": { "delay": 5000 },
                     "slidesPerView": "auto",
                     "navigation": {
                         "nextEl": ".swiper-button-next",
@@ -190,46 +189,36 @@
                         "clickable": true
                     },
                     "breakpoints": {
-                        "320": {
-                            "slidesPerView": 1,
-                            "spaceBetween": 20
-                        },
-                        "768": {
-                            "slidesPerView": 2,
-                            "spaceBetween": 30
-                        },
-                        "1200": {
-                            "slidesPerView": 3,
-                            "spaceBetween": 40
-                        }
+                        "320": { "slidesPerView": 1, "spaceBetween": 20 },
+                        "768": { "slidesPerView": 2, "spaceBetween": 30 },
+                        "1200": { "slidesPerView": 3, "spaceBetween": 40 }
                     }
                 }
             </script>
 
-            <!-- Swiper Wrapper -->
+            <!-- Swiper Content -->
             <div class="swiper-wrapper">
                 @forelse($eventreqs as $eventreq)
                     <div class="swiper-slide">
                         <div class="card shadow border-0 rounded-lg p-4 hover-card">
-                            <!-- Wishlist button -->
+                            <!-- Wishlist Button -->
                             <div class="d-flex justify-content-end mb-2">
                                 <form action="{{ route('wishlist.toggle', $eventreq->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
-                                        <i class="bi {{ in_array($eventreq->id, $wishlisted ?? []) ? 'bi-heart-fill' : 'bi-heart' }}" style="font-size: 20px;"></i>
+                                    <button type="submit" class="btn btn-danger rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+                                        <i class="bi {{ in_array($eventreq->id, $wishlisted ?? []) ? 'bi-heart-fill' : 'bi-heart' }} fs-5"></i>
                                     </button>
                                 </form>
                             </div>
 
                             <!-- Event Image -->
-                            <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
+                            <a href="{{ route('tabevent.show', $eventreq->id) }}" class="text-decoration-none text-inherit">
                                 @if($eventreq->poster)
                                     <img src="{{ Storage::url($eventreq->poster) }}"
-                                         alt="{{ $eventreq->nama_event }}"
-                                         class="img-fluid rounded"
-                                         style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 15px;">
+                                        alt="{{ $eventreq->nama_event }}"
+                                        class="img-fluid rounded event-image mb-3">
                                 @else
-                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center event-image mb-3">
                                         <p class="text-muted">No Image Available</p>
                                     </div>
                                 @endif
@@ -238,10 +227,12 @@
                             <!-- Event Details -->
                             <div class="text-center">
                                 <h5 class="fw-bold text-primary">{{ $eventreq->nama_event }}</h5>
-                                <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> {{ $eventreq->lokasi }}</p>
-                                <p class="text-muted mb-1"><i class="bi bi-calendar"></i> {{ \Carbon\Carbon::parse($eventreq->tanggal)->format('l, d F Y') }}</p>
-                                <p class="text-muted mb-1"><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($eventreq->waktu)->format('H:i') }} WIB</p>
-                                <p class="text-muted"><i class="bi bi-cash"></i> Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</p>
+                                <div class="event-info">
+                                    <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> {{ $eventreq->lokasi }}</p>
+                                    <p class="text-muted mb-1"><i class="bi bi-calendar"></i> {{ \Carbon\Carbon::parse($eventreq->tanggal)->format('l, d F Y') }}</p>
+                                    <p class="text-muted mb-1"><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($eventreq->waktu)->format('H:i') }} WIB</p>
+                                    <p class="text-muted"><i class="bi bi-cash"></i> Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</p>
+                                </div>
                                 <a href="{{ route('tabevent.show', $eventreq->id) }}" class="btn btn-primary mt-3">Learn More</a>
                             </div>
                         </div>
@@ -253,10 +244,9 @@
                 @endforelse
             </div>
 
-            <!-- Navigation Arrows -->
+            <!-- Swiper Navigation -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
-            <!-- Pagination -->
             <div class="swiper-pagination"></div>
         </div>
     </section>
@@ -405,6 +395,20 @@
         color: #333;
         cursor: pointer;
       }
+
+      .event-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .event-info p {
+        margin-bottom: 0.5rem;
+      }
+
+      .text-inherit {
+        color: inherit;
+      }
     </style>
 
     <script>
@@ -485,7 +489,7 @@
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>What should I do if I haven’t received my ticket after a successful payment?</h3>
+                <h3>What should I do if I haven't received my ticket after a successful payment?</h3>
                 <div class="faq-content">
                   <p>If you haven't received your ticket, please check your spam folder or contact our customer support team.</p>
                 </div>

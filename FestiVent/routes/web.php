@@ -10,12 +10,12 @@ use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Payment;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware('web')->group(function () {
-    Route::get('/home', [EventReqController::class, 'showHome'])->name('home');
+    Route::get('/', [EventReqController::class, 'showHome'])->name('home');
     Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 });
 
