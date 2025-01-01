@@ -80,7 +80,7 @@ class PaymentController extends Controller
         ]);
         $payment->save();
 
-        return redirect()->route('payment.index')->with('success', 'Payment created successfully');
+        return redirect()->route('home')->with('success', 'Payment created successfully');
     }
 
     /**
