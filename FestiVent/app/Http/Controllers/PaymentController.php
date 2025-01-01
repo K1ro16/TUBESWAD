@@ -15,22 +15,21 @@ class PaymentController extends Controller
     public function index($eventId = null)
     {
         // Fetch all payments
-        $payments = Payment::all();
+        $payments = Payment::with(['eventreq', 'promosi'])->get();
 
-        // Fetch all events (EventReq)
+        // Fetch all events
         $events = EventReq::all();
 
-        // Fetch all promos (optional)
+        // Fetch all promos
         $promosi = Promosi::all();
 
-        // Fetch selected event if the eventId is passed
-        $selectedEvent = null;
+        // Fetch selected event if eventId is passed
+        $eventreq = null;
         if ($eventId) {
-            $selectedEvent = EventReq::find($eventId);
+            $eventreq = EventReq::findOrFail($eventId);
         }
 
-        // Pass the payments, events, promos, and selected event to the view
-        return view('payment.index', compact('payments', 'events', 'promosi', 'selectedEvent'));
+        return view('payment.index', compact('payments', 'events', 'promosi', 'eventreq'));
     }
 
 
