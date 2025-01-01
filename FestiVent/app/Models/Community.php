@@ -20,4 +20,10 @@ class Community extends Model
         'category',
         'image_path',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'community_user');
+    }
+
 }
