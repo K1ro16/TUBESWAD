@@ -40,9 +40,9 @@ Route::get('/admin/promosi', function () {
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
-Route::get('/category', function () {
-    return view('Category');
-});
+// Route::get('/category', function () {
+//     return view('Category');
+// });
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
@@ -94,9 +94,9 @@ Route::get('/promosi/{promosi}/edit', [PromosiController::class, 'edit'])->name(
 Route::put('/promosi/{promosi}', [PromosiController::class, 'update'])->name('promosi.update');
 Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name('promosi.destroy');
 
+Route::get('/category/{category?}', [EventReqController::class, 'showCategory'])->name('category.show');
 // go to payment
 Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
 Route::get('/payment/{payment}', [PaymentController::class, 'show'])->name('payment.show');
 Route::get('/payment/{payment}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
 Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
-

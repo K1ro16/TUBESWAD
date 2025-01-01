@@ -42,7 +42,7 @@
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('img/logo_app.png') }}" alt="">
       </a>
@@ -50,13 +50,12 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home<br></a></li>
-          <li class="dropdown"><a href="#"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown">
+            <a href="#"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Community Gathering</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Live Show</a></li>
-              <li><a href="#">Festival</a></li>
-              <li><a href="#">Music</a></li>
+              @foreach($categories as $cat)
+                <li><a href="{{ route('category.show', $cat) }}">{{ $cat }}</a></li>
+              @endforeach
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -76,134 +75,61 @@
   </header>
   <div style="margin-top: 80px;"></div>
 <body>
-    <div class = "container my-5">
-      <div style = "display: flex; justify-content: center; gap: 50px;">
-      <button class = "rounded-button" style = "background-color: #00fbff; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px ">Community Gathering</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Sports</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Live Show</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Festival</button>
-      <button class = "rounded-button" style = "background-color: #FFFFFF; border: 2px solid #5CE1E6; padding: 13px 50px; font-size: 12px; cursor: pointer; margin-top: 5px; margin-bottom: 5px; margin-right: 10px; border-radius: 20px">Music</button>
-      </button>
-</div>
-    <div class= "container my-5">
-    <div class="row justify-content-center">
-                <!-- Card 1 -->
-                <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent; ">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
+    <div class="container my-5">
+        <div style="display: flex; justify-content: center; gap: 50px;">
+            @foreach($categories as $cat)
+                <a href="{{ route('category.show', $cat) }}" 
+                   class="rounded-button {{ $category === $cat ? 'active' : '' }}"
+                   style="background-color: {{ $category === $cat ? '#00fbff' : '#FFFFFF' }}; 
+                          border: 2px solid #5CE1E6; 
+                          padding: 13px 50px; 
+                          font-size: 12px; 
+                          cursor: pointer; 
+                          margin: 5px 10px;
+                          border-radius: 20px;
+                          text-decoration: none;
+                          color: #000;">
+                    {{ $cat }}
+                </a>
+            @endforeach
+        </div>
+
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                @forelse($events as $event)
+                    <div class="col-md-4 mb-4">
+                        <a href="{{ route('tabevent.show', $event->id) }}" style="text-decoration: none; color: inherit;">
+                            <div class="card shadow-sm h-100">
+                                @if($event->poster)
+                                    <img src="{{ Storage::url($event->poster) }}" 
+                                         class="card-img-top" 
+                                         alt="{{ $event->nama_event }}"
+                                         style="height: 200px; object-fit: cover;">
+                                @else
+                                    <img src="https://via.placeholder.com/350x200" 
+                                         class="card-img-top" 
+                                         alt="Placeholder">
+                                @endif
+                                <div class="card-body">
+                                    <h6 class="card-title" style="text-align: left;">{{ $event->nama_event }}</h6>
+                                    <p class="card-text" style="text-align: left">
+                                        {{ Str::limit($event->deskripsi, 100) }}
+                                    </p>
+                                    <h4 class="card-title bold-text" style="text-align: left;">
+                                        Rp {{ number_format($event->harga, 0, ',', '.') }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-              </button>
-              </div>
-                  <!-- Card 2 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
+                @empty
+                    <div class="col-12 text-center">
+                        <p>No events found in this category.</p>
                     </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 3 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 4 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 5 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 6 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 7 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 8 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
-                  <!-- Card 9 -->
-                  <div class="col-md-4 mb-4">
-              <button style = "border: none; background-color: transparent;">
-                <div class="card shadow-sm h-100">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Gambar Card">
-                    <div class="card-body">
-                        <h6 class="card-title" style = "text-align: left;">Judul Card</h6>
-                        <p class="card-text" style = "text-align: left">Deskripsi singkat tentang card ini. Anda bisa menambahkan informasi lebih lanjut di sini.</>
-                        <h4 class= "card-title bold-text" style = "text-align: left;">Harga</h4>
-                    </div>
-                </div>
-              </button>
-            </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
 </body>
 
 
