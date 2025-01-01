@@ -38,9 +38,9 @@ Route::get('/admin/promosi', function () {
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
-Route::get('/category', function () {
-    return view('Category');
-});
+// Route::get('/category', function () {
+//     return view('Category');
+// });
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
@@ -91,3 +91,5 @@ Route::get('/promosi/{promosi}', [PromosiController::class, 'show'])->name('prom
 Route::get('/promosi/{promosi}/edit', [PromosiController::class, 'edit'])->name('promosi.edit');
 Route::put('/promosi/{promosi}', [PromosiController::class, 'update'])->name('promosi.update');
 Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name('promosi.destroy');
+
+Route::get('/category/{category?}', [EventReqController::class, 'showCategory'])->name('category.show');
