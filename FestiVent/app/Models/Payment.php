@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    //
-    use HasFactory;
-
     protected $table = 'payments';
 
     protected $fillable = [
@@ -20,20 +16,16 @@ class Payment extends Model
         'harga',
         'opsi_pay',
         'kode',
+        'eventreq_id'
     ];
 
-    // relasi ke model promosi kolom judul
-    public function promosi()
-    {
-        return $this->belongsTo(Promosi::class, 'kode', 'id');
-    }
-
-    // buat relasi one to one dengan model eventreq kolom harga
-    // Di model Payment, pastikan ada relasi dengan EventReq
     public function eventreq()
     {
-        return $this->hasOne(EventReq::class, 'harga', 'harga');
+        return $this->belongsTo(EventReq::class);
     }
 
-
+    public function promosi()
+    {
+        return $this->belongsTo(Promosi::class, 'kode');
+    }
 }
