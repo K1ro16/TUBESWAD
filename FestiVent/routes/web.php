@@ -96,7 +96,7 @@ Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name
 
 Route::get('/category/{category?}', [EventReqController::class, 'showCategory'])->name('category.show');
 // go to payment
-Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+Route::get('/payment/{eventId?}', [PaymentController::class, 'index'])->name('payment.index');
 Route::get('/payment/{payment}', [PaymentController::class, 'show'])->name('payment.show');
 Route::get('/payment/{payment}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
 Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');

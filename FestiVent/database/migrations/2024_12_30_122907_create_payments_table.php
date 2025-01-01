@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('no_tlp');
-            $table->text('email');
-            $table->string('jml_tiket');
-            $table->string('harga');
+            $table->string('email');
+            $table->integer('jml_tiket');
+            $table->decimal('harga', 10, 2);
             $table->string('opsi_pay');
-            $table->string('kode')->nullable();
+            $table->unsignedBigInteger('eventreq_id');
+            $table->unsignedBigInteger('kode')->nullable();
             $table->timestamps();
         });
     }
