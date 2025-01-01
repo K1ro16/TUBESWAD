@@ -160,47 +160,6 @@
     </section><!-- /Hero Section -->
 
     <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About Us<br></h2>
-      <p>Festivent is a trusted ticketing platform for various events, including concerts, festivals, sports, and seminars. With an easy-to-use interface and secure transaction system, we make it simple for you to discover and purchase tickets for your special moments.
-        We are committed to delivering the best service to ensure every event becomes an unforgettable experience. Festivent – find, buy, and enjoy the excitement of your favorite events!</p>
-      <p><strong>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</strong></p>
-      </div><!-- End Section Title -->
-
-    <!-- Stats Section -->
-    <section id="stats" class="stats section light-background">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center gy-4">
-          <div class="col-lg-3 col-md-6 d-flex justify-content-center">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-
-              <p>Community</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6 d-flex justify-content-center">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Events</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6 d-flex justify-content-center">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Users</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-      </div>
-    </section>
-    <!-- /Stats Section -->
-
     <!-- Services/Recommendation Section -->
     <section id="services" class="services section light-background">
         <div class="container section-title" data-aos="fade-up">
@@ -271,9 +230,9 @@
                             <!-- Event Image -->
                             <a href="{{ route('tabevent.show', $eventreq->id) }}" style="text-decoration: none; color: inherit;">
                                 @if($eventreq->poster)
-                                    <img src="{{ Storage::url($eventreq->poster) }}" 
-                                         alt="{{ $eventreq->nama_event }}" 
-                                         class="img-fluid rounded" 
+                                    <img src="{{ Storage::url($eventreq->poster) }}"
+                                         alt="{{ $eventreq->nama_event }}"
+                                         class="img-fluid rounded"
                                          style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 15px;">
                                 @else
                                     <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 200px;">
@@ -317,7 +276,7 @@
             <div class="text-center mb-5">
                 <h2 class="fw-bold">Community</h2>
                 <p class="text-muted">
-                    The community feature on the Festivent platform allows users to connect, interact, 
+                    The community feature on the Festivent platform allows users to connect, interact,
                     and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
                 </p>
                 <!-- Add Community Button (Only Visible After Login) -->
@@ -376,9 +335,9 @@
                     <div class="community-item">
                       <div class="card shadow border-0 rounded-lg p-4 hover-card">
                         <!-- Community Image -->
-                        <img src="{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}" 
-                            alt="{{ $community->name }}" 
-                            class="community-image mx-auto mb-3" 
+                        <img src="{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}"
+                            alt="{{ $community->name }}"
+                            class="community-image mx-auto mb-3"
                             style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
 
                         <!-- Community Details -->
@@ -470,7 +429,7 @@
         popup.style.display = 'none';
       }
     </script>
-    
+
 <!-- /Community Section -->
     <!-- Feedback Section -->
     <section id="call-to-action" class="call-to-action section accent-background">
@@ -562,6 +521,46 @@
         </div>
 
       </div>
+
+      <section id="about" class="about section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>About Us<br></h2>
+        <p>Festivent is a trusted ticketing platform for various events, including concerts, festivals, sports, and seminars. With an easy-to-use interface and secure transaction system, we make it simple for you to discover and purchase tickets for your special moments.
+          We are committed to delivering the best service to ensure every event becomes an unforgettable experience. Festivent – find, buy, and enjoy the excitement of your favorite events!</p>
+        <p><strong>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</strong></p>
+        </div><!-- End Section Title -->
+
+      <!-- Stats Section -->
+      <section id="stats" class="stats section light-background">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row justify-content-center gy-4">
+            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+
+                <p>Community</p>
+              </div>
+            </div><!-- End Stats Item -->
+
+            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Events</p>
+              </div>
+            </div><!-- End Stats Item -->
+
+            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Users</p>
+              </div>
+            </div><!-- End Stats Item -->
+
+          </div>
+        </div>
+      </section>
 
     </section><!-- /Faq Section -->
 

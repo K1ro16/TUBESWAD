@@ -82,9 +82,9 @@
       <div class="col-md-5">
         <div style="top: 100px; height: fit-content;">
           @if($event->poster)
-            <img src="{{ Storage::url($event->poster) }}" 
-                 alt="{{ $event->nama_event }}" 
-                 class="img-fluid rounded shadow-sm" 
+            <img src="{{ Storage::url($event->poster) }}"
+                 alt="{{ $event->nama_event }}"
+                 class="img-fluid rounded shadow-sm"
                  style="width: 100%; max-height: calc(100vh - 200px); object-fit: contain;">
           @else
             <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
@@ -123,11 +123,9 @@
                 <p class="text-muted mb-0">Starting from</p>
                 <h3 class="mb-0">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
               </div>
-              
+
               {{-- add button to go to payment --}}
-              <form action="{{ route('payment.index', $event->id) }}" method="GET">
-                <button type="submit" class="btn btn-primary">Buy Ticket</button>
-              </form>
+              <a href="{{ route('payment.index', $event->id) }}" class="btn btn-primary">Buy Ticket</a>
             </div>
           </div>
         </div>
@@ -148,7 +146,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <div class="d-flex align-items-center">
-                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" 
+                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3"
                      style="width: 50px; height: 50px;">
                   <i class="bi bi-building text-primary"></i>
                 </div>

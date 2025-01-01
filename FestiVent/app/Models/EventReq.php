@@ -33,6 +33,7 @@ class EventReq extends Model
     // Buat relasi one-to-one dengan model payment pada kolom harga
     public function payment()
     {
-        return $this->hasOne(Payment::class, 'harga', 'id');
+        return $this->hasOne(Payment::class, 'harga', 'harga');
     }
+
 }

@@ -32,7 +32,8 @@ class Payment extends Model
     // Di model Payment, pastikan ada relasi dengan EventReq
     public function eventreq()
     {
-        return $this->belongsTo(EventReq::class, 'eventreq_id'); // Sesuaikan dengan kolom eventreq_id
+        return $this->hasOne(EventReq::class, 'harga', 'harga');
     }
+
 
 }
