@@ -52,8 +52,8 @@
                         <option value="">-- Choose Event --</option>
                         @foreach($events as $event)
                             <option value="{{ $event->id }}"
-                                {{ old('eventreq_id') == $event->id ? 'selected' : '' }}>
-                                {{ $event->nama_event }}
+                                {{ $selectedEvent && $selectedEvent->id == $event->id ? 'selected' : '' }}>
+                                {{ $event->nama_event }} - Rp {{ number_format($event->harga, 0, ',', '.') }}
                             </option>
                         @endforeach
                     </select>

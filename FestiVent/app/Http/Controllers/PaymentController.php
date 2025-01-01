@@ -12,7 +12,7 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($eventId = null)
     {
         // Fetch all payments
         $payments = Payment::all();
@@ -23,9 +23,16 @@ class PaymentController extends Controller
         // Fetch all promos (optional)
         $promosi = Promosi::all();
 
-        // Pass the payments, events, and promos to the view
-        return view('payment.index', compact('payments', 'events', 'promosi'));
+        // Fetch selected event if the eventId is passed
+        $selectedEvent = null;
+        if ($eventId) {
+            $selectedEvent = EventReq::find($eventId);
+        }
+
+        // Pass the payments, events, promos, and selected event to the view
+        return view('payment.index', compact('payments', 'events', 'promosi', 'selectedEvent'));
     }
+
 
     public function create()
     {
