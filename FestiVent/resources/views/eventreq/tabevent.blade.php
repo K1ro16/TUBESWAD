@@ -35,31 +35,6 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
-  <style>
-    .btn-primary {
-        background-color: #0d6efd;
-        border: none;
-        transition: all 0.3s ease;
-    }
-    
-    .btn-primary:hover {
-        background-color: #0b5ed7;
-        transform: translateY(-2px);
-    }
-
-    .card {
-        transition: all 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .text-muted {
-        color: #6c757d !important;
-    }
-  </style>
 </head>
 
 <body class="index-page">
@@ -105,12 +80,12 @@
     <div class="row">
       <!-- Left Column - Poster -->
       <div class="col-md-5">
-        <div class="position-sticky" style="top: 100px;">
+        <div style="top: 100px; height: fit-content;">
           @if($event->poster)
             <img src="{{ Storage::url($event->poster) }}" 
                  alt="{{ $event->nama_event }}" 
                  class="img-fluid rounded shadow-sm" 
-                 style="width: 100%; height: auto; object-fit: cover;">
+                 style="width: 100%; max-height: calc(100vh - 200px); object-fit: contain;">
           @else
             <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
               <p class="text-muted">No Image Available</p>
@@ -148,10 +123,11 @@
                 <p class="text-muted mb-0">Starting from</p>
                 <h3 class="mb-0">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
               </div>
-              <button class="btn btn-primary px-4 py-2">
-                Get Tickets
-                <i class="bi bi-arrow-right ms-2"></i>
-              </button>
+              
+              {{-- add button to go to payment --}}
+              <form action="{{ route('payment.index', $event->id) }}" method="GET">
+                <button type="submit" class="btn btn-primary">Buy Ticket</button>
+              </form>
             </div>
           </div>
         </div>

@@ -17,7 +17,22 @@ class Payment extends Model
         'no_tlp',
         'email',
         'jml_tiket',
+        'harga',
         'opsi_pay',
         'kode',
     ];
+
+    // relasi ke model promosi kolom judul
+    public function promosi()
+    {
+        return $this->belongsTo(Promosi::class, 'kode', 'id');
+    }
+
+    // buat relasi one to one dengan model eventreq kolom harga
+    // Di model Payment, pastikan ada relasi dengan EventReq
+    public function eventreq()
+    {
+        return $this->belongsTo(EventReq::class, 'eventreq_id'); // Sesuaikan dengan kolom eventreq_id
+    }
+
 }

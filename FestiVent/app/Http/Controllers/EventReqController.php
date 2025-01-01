@@ -59,8 +59,6 @@ class EventReqController extends Controller
         // Create a new event
         EventReq::create($validatedData);
 
-
-
         // Redirect to index with a success message
         return redirect()->route('eventreq.index')->with('success', 'Event created successfully!');
     }
@@ -175,6 +173,25 @@ class EventReqController extends Controller
             'communities' => $communities,
             'wishlisted' => $wishlisted
         ]);
+    }
+
+    public function showCategory($category = null)
+    {
+        if ($category) {
+            $events = EventReq::where('category', $category)->get();
+        } else {
+            $events = EventReq::all();
+        }
+
+        $categories = [
+            'Community Gathering',
+            'Sports',
+            'Live Show',
+            'Festival',
+            'Music'
+        ];
+
+        return view('eventreq.Category', compact('events', 'categories', 'category'));
     }
 
 }
