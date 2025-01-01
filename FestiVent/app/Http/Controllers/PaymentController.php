@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\Promosi;
+use App\Models\EventReq;
 
 class PaymentController extends Controller
 {
@@ -12,19 +14,26 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        // Mengambil semua data payments
+        // Fetch all payments
         $payments = Payment::all();
-        return view('payments.index', compact('payments'));
+
+        // Fetch all events (EventReq)
+        $events = EventReq::all();
+
+        // Fetch all promos (optional)
+        $promosi = Promosi::all();
+
+        // Pass the payments, events, and promos to the view
+        return view('payment.index', compact('payments', 'events', 'promosi'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        // Menampilkan form untuk membuat payment baru
-        return view('payments.create');
+        $promosi = Promosi::all();
+        return view('payment.index', compact('promosi')); // Tambahkan data promosi
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,14 +46,15 @@ class PaymentController extends Controller
             'no_tlp' => 'required|string|max:15',
             'email' => 'required|email',
             'jml_tiket' => 'required|integer|min:1',
+            'harga' => 'required|integer|min:1',
             'opsi_pay' => 'required|string',
-            'kode' => 'required|string|unique:payments,kode',
-        ]);
+            'kode' => 'required|exists:promosi,id', // Pastikan kode ada di tabel promosi
+        ]);        
 
         // Simpan data ke database
         $payment = Payment::create($request->all());
 
-        return redirect()->route('payments.index')->with('success', 'Payment created successfully');
+        return redirect()->route('payment.index')->with('success', 'Payment created successfully');
     }
 
     /**
@@ -56,10 +66,10 @@ class PaymentController extends Controller
         $payment = Payment::find($id);
 
         if (!$payment) {
-            return redirect()->route('payments.index')->with('error', 'Payment not found');
+            return redirect()->route('payment.index')->with('error', 'Payment not found');
         }
 
-        return view('payments.show', compact('payment'));
+        return view('payment.index', compact('payment'));
     }
 
 
