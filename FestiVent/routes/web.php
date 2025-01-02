@@ -60,12 +60,7 @@ Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy
 // routes/web.php
 Route::get('/community/{id}', [CommunityController::class, 'show'])->name('communities.show');
 
-Route::resource('communities', CommunityController::class);
-Route::get('/communities/export', [CommunityController::class, 'export'])->name('communities.export');
-Route::get('admin/communities/export', [CommunityController::class, 'export'])->name('admin.communities.export');
-Route::get('/test-export', function () {
-    return App\Models\Community::all(); // Debug apakah tabel communities bisa diakses
-});
+Route::get('/communities/export', [CommunityController::class, 'exportToExcel'])->name('communities.export');
 
 
 //untuk tombol logout
@@ -77,7 +72,7 @@ Route::get('/eventreq/{id}/edit', [EventReqController::class, 'edit'])->name('ev
 Route::put('/eventreq/{id}', [EventReqController::class, 'update'])->name('eventreq.update');
 Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
-
+Route::get('/eventreqs/export', [EventReqController::class, 'exportToExcel'])->name('eventreqs.export');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
