@@ -4,26 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\Promosi;
+use App\Models\EventReq;
 
 class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($eventId = null)
     {
-        // Mengambil semua data payments
-        $payments = Payment::all();
-        return view('payments.index', compact('payments'));
+        // Fetch all payments
+        $payments = Payment::with(['eventreq', 'promosi'])->get();
+
+        // Fetch all events
+        $events = EventReq::all();
+
+        // Fetch all promos
+        $promosi = Promosi::all();
+
+        // Fetch selected event if eventId is passed
+        $eventreq = null;
+        if ($eventId) {
+            $eventreq = EventReq::findOrFail($eventId);
+        }
+
+        return view('payment.index', compact('payments', 'events', 'promosi', 'eventreq'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        // Menampilkan form untuk membuat payment baru
-        return view('payments.create');
+        $promosi = Promosi::all();
+        return view('payment.index', compact('promosi')); // Tambahkan data promosi
     }
 
     /**
@@ -37,14 +50,37 @@ class PaymentController extends Controller
             'no_tlp' => 'required|string|max:15',
             'email' => 'required|email',
             'jml_tiket' => 'required|integer|min:1',
+            'eventreq_id' => 'required|exists:eventreq,id', // Validasi relasi eventreq
             'opsi_pay' => 'required|string',
-            'kode' => 'required|string|unique:payments,kode',
+            'kode' => 'nullable|exists:promosi,id', // Kode promo opsional
         ]);
 
-        // Simpan data ke database
-        $payment = Payment::create($request->all());
+        // Ambil data event berdasarkan ID
+        $event = EventReq::findOrFail($request->eventreq_id);
 
-        return redirect()->route('payments.index')->with('success', 'Payment created successfully');
+        // Hitung harga berdasarkan jumlah tiket dan harga per tiket
+        $totalHarga = $event->harga * $request->jml_tiket;
+
+        // Periksa jika ada diskon/promosi
+        if ($request->kode) {
+            $promo = Promosi::findOrFail($request->kode);
+            $totalHarga -= ($totalHarga * $promo->diskon / 100); // Terapkan diskon
+        }
+
+        // Simpan data ke database
+        $payment = new Payment([
+            'nama' => $request->nama,
+            'no_tlp' => $request->no_tlp,
+            'email' => $request->email,
+            'jml_tiket' => $request->jml_tiket,
+            'harga' => $totalHarga,
+            'opsi_pay' => $request->opsi_pay,
+            'kode' => $request->kode,
+            'eventreq_id' => $request->eventreq_id, // Simpan relasi
+        ]);
+        $payment->save();
+
+        return redirect()->route('home')->with('success', 'Payment created successfully');
     }
 
     /**
@@ -56,12 +92,11 @@ class PaymentController extends Controller
         $payment = Payment::find($id);
 
         if (!$payment) {
-            return redirect()->route('payments.index')->with('error', 'Payment not found');
+            return redirect()->route('payment.index')->with('error', 'Payment not found');
         }
 
-        return view('payments.show', compact('payment'));
+        return view('payment.index', compact('payment'));
     }
-
 
     /**
      * Show the form for editing the specified resource.

@@ -7,13 +7,17 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PromosiController;
+use App\Http\Controllers\PaymentController;
+use App\Exports\CommunitiesExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Payment;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware('web')->group(function () {
-    Route::get('/home', [EventReqController::class, 'showHome'])->name('home');
+    Route::get('/', [EventReqController::class, 'showHome'])->name('home');
     Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
 });
 
@@ -38,9 +42,9 @@ Route::get('/admin/promosi', function () {
 Route::view('/signup', 'layouts.signup')->name('signup');
 Route::view('/signin', 'layouts.signin')->name('signin');
 
-Route::get('/category', function () {
-    return view('Category');
-});
+// Route::get('/category', function () {
+//     return view('Category');
+// });
 
 Route::post('/accounts', [AccountsController::class, 'store'])->name('accounts.store');
 Route::post('/accounts/login', [AccountsController::class, 'login'])->name('accounts.login');
@@ -53,7 +57,11 @@ Route::get('/communities/{community}/edit', [CommunityController::class, 'edit']
 Route::put('/communities/{community}', [CommunityController::class, 'update'])->name('communities.update');
 Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
 // Route::get('/home', [CommunityController::class, 'home'])->name('home');
-Route::resource('communities', CommunityController::class);
+// routes/web.php
+Route::get('/community/{id}', [CommunityController::class, 'show'])->name('communities.show');
+
+Route::get('/communities/export', [CommunityController::class, 'exportToExcel'])->name('communities.export');
+
 
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
@@ -64,11 +72,14 @@ Route::get('/eventreq/{id}/edit', [EventReqController::class, 'edit'])->name('ev
 Route::put('/eventreq/{id}', [EventReqController::class, 'update'])->name('eventreq.update');
 Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
-
+Route::get('/eventreqs/export', [EventReqController::class, 'exportToExcel'])->name('eventreqs.export');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 Route::delete('/wishlist/remove/{eventreq}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::post('/wishlist/groups', [WishlistController::class, 'createGroup'])->name('wishlist.createGroup');
+Route::post('/wishlist/{wishlist}/move', [WishlistController::class, 'moveToGroup'])->name('wishlist.moveToGroup');
+Route::delete('/wishlist/groups/{group}', [WishlistController::class, 'deleteGroup'])->name('wishlist.deleteGroup');
 
 Route::get('/tabevent/{id}', function ($id) {
     $event = \App\Models\EventReq::findOrFail($id);
@@ -91,3 +102,10 @@ Route::get('/promosi/{promosi}', [PromosiController::class, 'show'])->name('prom
 Route::get('/promosi/{promosi}/edit', [PromosiController::class, 'edit'])->name('promosi.edit');
 Route::put('/promosi/{promosi}', [PromosiController::class, 'update'])->name('promosi.update');
 Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name('promosi.destroy');
+
+Route::get('/category/{category?}', [EventReqController::class, 'showCategory'])->name('category.show');
+// go to payment
+Route::get('/payment/{eventId?}', [PaymentController::class, 'index'])->name('payment.index');
+Route::get('/payment/{payment}', [PaymentController::class, 'show'])->name('payment.show');
+Route::get('/payment/{payment}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
+Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');

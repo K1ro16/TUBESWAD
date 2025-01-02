@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EventReq;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Wishlist;
+use Illuminate\Http\Response;
 
 class EventReqController extends Controller
 {
@@ -58,8 +59,6 @@ class EventReqController extends Controller
 
         // Create a new event
         EventReq::create($validatedData);
-
-
 
         // Redirect to index with a success message
         return redirect()->route('eventreq.index')->with('success', 'Event created successfully!');
@@ -175,6 +174,62 @@ class EventReqController extends Controller
             'communities' => $communities,
             'wishlisted' => $wishlisted
         ]);
+    }
+
+    public function showCategory($category = null)
+    {
+        if ($category) {
+            $events = EventReq::where('category', $category)->get();
+        } else {
+            $events = EventReq::all();
+        }
+
+        $categories = [
+            'Community Gathering',
+            'Sports',
+            'Live Show',
+            'Festival',
+            'Music'
+        ];
+
+        return view('eventreq.Category', compact('events', 'categories', 'category'));
+    }
+
+    public function exportToExcel()
+    {
+        $fileName = 'eventreqs.xls';
+        $headers = [
+            'Content-Type' => 'application/vnd.ms-excel',
+            'Content-Disposition' => "attachment; filename=\"$fileName\"",
+        ];
+
+        $columns = ['Nama Event', 'Deskripsi', 'Lokasi', 'Waktu', 'Tanggal', 'Harga', 'Penyelenggara', 'Category'];
+
+        $callback = function () use ($columns) {
+            echo "<table border='1'>";
+            echo "<tr>";
+            foreach ($columns as $column) {
+                echo "<th>" . htmlspecialchars($column) . "</th>";
+            }
+            echo "</tr>";
+
+            $events = EventReq::all();
+            foreach ($events as $event) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($event->nama_event) . "</td>";
+                echo "<td>" . htmlspecialchars($event->deskripsi) . "</td>";
+                echo "<td>" . htmlspecialchars($event->lokasi) . "</td>";
+                echo "<td>" . htmlspecialchars($event->waktu) . "</td>";
+                echo "<td>" . htmlspecialchars($event->tanggal) . "</td>";
+                echo "<td>" . htmlspecialchars($event->harga) . "</td>";
+                echo "<td>" . htmlspecialchars($event->penyelenggara) . "</td>";
+                echo "<td>" . htmlspecialchars($event->category) . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        };
+
+        return response()->stream($callback, Response::HTTP_OK, $headers);
     }
 
 }
