@@ -212,6 +212,12 @@
                                 <h3 class="mb-0">Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</h3>
                             </div>
 
+                            <!-- Discount Display -->
+                            <div class="price-display" id="discount-container" style="display: none;">
+                                <p class="text-muted mb-1">Discount Applied</p>
+                                <h3 id="discount-amount" class="mb-0 text-success">- Rp 0</h3>
+                            </div>
+
                             <form action="{{ route('payment.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="eventreq_id" value="{{ $eventreq->id }}">
@@ -253,7 +259,7 @@
                                     <select id="kode" name="kode" class="form-control">
                                         <option value="">Select Promo Code</option>
                                         @foreach($promosi as $promo)
-                                            <option value="{{ $promo->id }}">{{ $promo->kode }} - {{ $promo->diskon }}% off</option>
+                                            <option value="{{ $promo->id }}">{{ $promo->judul }} - {{ $promo->diskon }}% off</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -263,7 +269,7 @@
                                     <h3 id="total-price" class="mb-0">Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</h3>
                                 </div>
 
-                                <button type="button" class="btn btn-primary w-100 mt-4" data-bs-toggle="modal" data-bs-target="#successModal">
+                                <button type="submit" class="btn btn-primary w-100 mt-4">
                                     Proceed to Payment
                                 </button>
                             </form>
@@ -297,9 +303,45 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Your payment has been processed successfully!
+                    <div class="text-center mb-4">
+                        <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-2">Thank you for your purchase!</h4>
+                    </div>
+
+                    <!-- Receipt Details -->
+                    <div class="receipt-container border rounded p-3">
+                        <h5 class="border-bottom pb-2">Purchase Receipt</h5>
+                        
+                        <!-- Event Details -->
+                        <div class="mb-3">
+                            <h6 class="text-muted">Event Details</h6>
+                            <p class="mb-1"><strong>Event:</strong> <span id="receipt-event">{{ $eventreq->nama_event }}</span></p>
+                            <p class="mb-1"><strong>Date:</strong> <span>{{ \Carbon\Carbon::parse($eventreq->tanggal)->format('l, d F Y') }}</span></p>
+                            <p class="mb-1"><strong>Time:</strong> <span>{{ \Carbon\Carbon::parse($eventreq->waktu)->format('H:i') }} WIB</span></p>
+                        </div>
+
+                        <!-- Customer Details -->
+                        <div class="mb-3">
+                            <h6 class="text-muted">Customer Details</h6>
+                            <p class="mb-1"><strong>Name:</strong> <span id="receipt-name"></span></p>
+                            <p class="mb-1"><strong>Email:</strong> <span id="receipt-email"></span></p>
+                            <p class="mb-1"><strong>Phone:</strong> <span id="receipt-phone"></span></p>
+                        </div>
+
+                        <!-- Payment Details -->
+                        <div class="mb-3">
+                            <h6 class="text-muted">Payment Details</h6>
+                            <p class="mb-1"><strong>Number of Tickets:</strong> <span id="receipt-tickets"></span></p>
+                            <p class="mb-1"><strong>Price per Ticket:</strong> <span>Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</span></p>
+                            <p class="mb-1"><strong>Payment Method:</strong> <span id="receipt-payment"></span></p>
+                            <p class="mb-1"><strong>Promo Code:</strong> <span id="receipt-promo">-</span></p>
+                            <p class="mb-1"><strong>Discount:</strong> <span id="receipt-discount">-</span></p>
+                            <p class="mb-0 mt-2 border-top pt-2"><strong>Total Amount:</strong> <span id="receipt-total" class="text-primary fw-bold"></span></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <a href="{{ route('home') }}" class="btn btn-primary">Back to Home</a>
                 </div>
             </div>
@@ -310,22 +352,82 @@
     @if($eventreq)
         function updateTotal() {
             const ticketInput = document.getElementById('jml_tiket');
+            const promoSelect = document.getElementById('kode');
             const totalPrice = document.getElementById('total-price');
-            const price = {{ $eventreq->harga }};
+            const discountContainer = document.getElementById('discount-container');
+            const discountAmount = document.getElementById('discount-amount');
+            const basePrice = {{ $eventreq->harga }};
             const quantity = parseInt(ticketInput.value) || 0;
-            const total = price * quantity;
+            let subtotal = basePrice * quantity;
+            let discount = 0;
 
-            totalPrice.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            // Get selected promotion discount
+            const selectedOption = promoSelect.options[promoSelect.selectedIndex];
+            if (selectedOption.value) {
+                // Find the discount percentage from the option text
+                const discountText = selectedOption.text;
+                const discountMatch = discountText.match(/(\d+)%/);
+                if (discountMatch) {
+                    const discountPercentage = parseInt(discountMatch[1]);
+                    discount = (subtotal * discountPercentage) / 100;
+                    subtotal -= discount;
+                    
+                    // Show discount container and update amount
+                    discountContainer.style.display = 'block';
+                    discountAmount.textContent = `- Rp ${discount.toLocaleString('id-ID')}`;
+                }
+            } else {
+                // Hide discount container if no promotion selected
+                discountContainer.style.display = 'none';
+            }
+
+            totalPrice.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
         }
 
         document.getElementById('jml_tiket').addEventListener('input', updateTotal);
+        document.getElementById('kode').addEventListener('change', updateTotal);
         updateTotal();
-    @endif
 
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        $('#successModal').modal('show');
-    });
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('nama').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('no_tlp').value,
+                tickets: document.getElementById('jml_tiket').value,
+                paymentMethod: document.getElementById('opsi_pay').options[document.getElementById('opsi_pay').selectedIndex].text,
+                promoCode: document.getElementById('kode').options[document.getElementById('kode').selectedIndex].text,
+                discount: document.getElementById('discount-amount') ? document.getElementById('discount-amount').textContent : '-',
+                total: document.getElementById('total-price').textContent,
+                pricePerTicket: `Rp {{ number_format($eventreq->harga, 0, ',', '.') }}`
+            };
+
+            // Populate receipt with form data
+            document.getElementById('receipt-name').textContent = formData.name;
+            document.getElementById('receipt-email').textContent = formData.email;
+            document.getElementById('receipt-phone').textContent = formData.phone;
+            document.getElementById('receipt-tickets').textContent = formData.tickets;
+            document.getElementById('receipt-payment').textContent = formData.paymentMethod;
+            
+            // Handle promo code and discount
+            if (formData.promoCode && formData.promoCode !== 'Select Promo Code') {
+                document.getElementById('receipt-promo').textContent = formData.promoCode;
+                document.getElementById('receipt-discount').textContent = formData.discount;
+            } else {
+                document.getElementById('receipt-promo').textContent = '-';
+                document.getElementById('receipt-discount').textContent = '-';
+            }
+
+            // Update total amount
+            document.getElementById('receipt-total').textContent = formData.total;
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('successModal'));
+            modal.show();
+        });
+    @endif
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
