@@ -44,6 +44,10 @@
         <div id="content" class="p-4 p-md-5 pt-5">
             <h1>Dashboard</h1>
 
+            <a href="{{ route('eventreqs.export') }}" class="btn btn-success mb-3">
+                <i class="fa fa-file-excel-o"></i> Export to XLS
+            </a>
+
             <!-- Event List Section -->
             <div class="row">
                 <div class="col-md-12">
