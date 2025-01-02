@@ -46,6 +46,12 @@
 
             <div class="card shadow p-4 border-0 rounded">
                 <h4 class="mb-4 text-dark fw-bold">List of Communities</h4>
+                
+                <!-- Export XLS Button -->
+                <a href="{{ route('admin.communities.export') }}" class="btn btn-success mb-3">
+                    <i class="fa fa-file-excel-o"></i> Export to XLS
+                </a>
+
                 <table class="table table-hover align-middle">
                     <thead class="bg-primary text-white">
                         <tr>
@@ -72,7 +78,6 @@
                                     @else
                                         No Image
                                     @endif
-
                                 </td>
                                 <td>
                                     <a href="{{ route('communities.edit', $community->id) }}" class="btn btn-warning btn-sm me-1">

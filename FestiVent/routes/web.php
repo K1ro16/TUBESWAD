@@ -8,6 +8,8 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\PaymentController;
+use App\Exports\CommunitiesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Payment;
 
 // Route::get('/', function () {
@@ -55,7 +57,16 @@ Route::get('/communities/{community}/edit', [CommunityController::class, 'edit']
 Route::put('/communities/{community}', [CommunityController::class, 'update'])->name('communities.update');
 Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
 // Route::get('/home', [CommunityController::class, 'home'])->name('home');
+// routes/web.php
+Route::get('/community/{id}', [CommunityController::class, 'show'])->name('communities.show');
+
 Route::resource('communities', CommunityController::class);
+Route::get('/communities/export', [CommunityController::class, 'export'])->name('communities.export');
+Route::get('admin/communities/export', [CommunityController::class, 'export'])->name('admin.communities.export');
+Route::get('/test-export', function () {
+    return App\Models\Community::all(); // Debug apakah tabel communities bisa diakses
+});
+
 
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
@@ -71,6 +82,9 @@ Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventre
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 Route::delete('/wishlist/remove/{eventreq}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::post('/wishlist/groups', [WishlistController::class, 'createGroup'])->name('wishlist.createGroup');
+Route::post('/wishlist/{wishlist}/move', [WishlistController::class, 'moveToGroup'])->name('wishlist.moveToGroup');
+Route::delete('/wishlist/groups/{group}', [WishlistController::class, 'deleteGroup'])->name('wishlist.deleteGroup');
 
 Route::get('/tabevent/{id}', function ($id) {
     $event = \App\Models\EventReq::findOrFail($id);

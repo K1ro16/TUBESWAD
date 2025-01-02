@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Community;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CommunitiesExport;
 
 class CommunityController extends Controller
 {
@@ -66,11 +68,13 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        // Tampilkan detail komunitas berdasarkan ID
+        // Fetch the community by ID or throw a 404 error if not found
         $community = Community::findOrFail($id);
-        return view('communities.show', compact('community'));
+        
+        // Return a view with the community details
+        return view('community.show', compact('community'));
     }
 
     /**
@@ -149,4 +153,12 @@ class CommunityController extends Controller
         $community = Community::all(); // Fetch events from your database
         return view('admin.communities', compact('communities'));
     }
+
+    public function export()
+    {
+        return Excel::download(new CommunitiesExport, 'communities.xlsx');
+    }
+
+
+
 }
