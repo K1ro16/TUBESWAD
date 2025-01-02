@@ -82,6 +82,9 @@ Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventre
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 Route::delete('/wishlist/remove/{eventreq}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::post('/wishlist/groups', [WishlistController::class, 'createGroup'])->name('wishlist.createGroup');
+Route::post('/wishlist/{wishlist}/move', [WishlistController::class, 'moveToGroup'])->name('wishlist.moveToGroup');
+Route::delete('/wishlist/groups/{group}', [WishlistController::class, 'deleteGroup'])->name('wishlist.deleteGroup');
 
 Route::get('/tabevent/{id}', function ($id) {
     $event = \App\Models\EventReq::findOrFail($id);
