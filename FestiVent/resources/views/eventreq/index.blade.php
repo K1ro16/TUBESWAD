@@ -237,11 +237,14 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="file-upload">
-                            <input type="file" name="poster" class="form-control" accept="image/jpeg, image/png">
+                        <div class="file-upload text-center">
+                            <input type="file" name="poster" id="posterInput" class="form-control" accept="image/jpeg, image/png" onchange="document.getElementById('posterPreview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('posterPreview').style.display = 'block';">
                             <div class="text-center p-4 border-2 border-dashed rounded-3">
                                 <i class="fas fa-image fa-2x text-primary"></i>
                                 <p class="mt-2">📸 Drop your event poster here!</p>
+                            </div>
+                            <div class="preview-container mt-3">
+                                <img id="posterPreview" src="#" alt="Poster Preview" style="max-width: 200px; max-height: 200px; margin: 0 auto; display: none; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                             </div>
                         </div>
                     </div>
