@@ -11,6 +11,7 @@ use App\Http\Controllers\PaymentController;
 use App\Exports\CommunitiesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Payment;
+use App\Http\Controllers\AdminController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -109,3 +110,6 @@ Route::get('/payment/{eventId?}', [PaymentController::class, 'index'])->name('pa
 Route::get('/payment/{payment}', [PaymentController::class, 'show'])->name('payment.show');
 Route::get('/payment/{payment}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
 Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
+
+// Admin Dashboard Route
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
