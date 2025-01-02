@@ -72,7 +72,7 @@ Route::get('/eventreq/{id}/edit', [EventReqController::class, 'edit'])->name('ev
 Route::put('/eventreq/{id}', [EventReqController::class, 'update'])->name('eventreq.update');
 Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('eventreq.destroy');
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
-
+Route::get('/eventreqs/export', [EventReqController::class, 'exportToExcel'])->name('eventreqs.export');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
