@@ -46,9 +46,9 @@
 
             <div class="card shadow p-4 border-0 rounded">
                 <h4 class="mb-4 text-dark fw-bold">List of Communities</h4>
-                
+
                 <!-- Export XLS Button -->
-                <a href="{{ route('admin.communities.export') }}" class="btn btn-success mb-3">
+                <a href="{{ route('communities.export') }}" class="btn btn-success mb-3">
                     <i class="fa fa-file-excel-o"></i> Export to XLS
                 </a>
 
