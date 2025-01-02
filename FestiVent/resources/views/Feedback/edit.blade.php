@@ -92,6 +92,15 @@
 <body class="index-page">
   {{-- Replace the FEEDBACK CONTENT section with: --}}
   <div class="container-fluid px-4 py-5">
+    <!-- Add Alert Section -->
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-2"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <div class="row mb-4">
         <div class="col-12">
             <div class="bg-light p-2 rounded-3 shadow-sm">
@@ -234,6 +243,16 @@
   <!-- Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Initialize Bootstrap alerts
+    document.addEventListener('DOMContentLoaded', function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            new bootstrap.Alert(alert);
+        });
+    });
+  </script>
 
 </body>
 

@@ -24,15 +24,16 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'pesan' => 'required|string|max:500',
-            'rating' => 'required|integer|between:1,5',
+            'nama' => 'required',
+            'email' => 'required|email',
+            'pesan' => 'required',
+            'rating' => 'required'
         ]);
 
         Feedback::create($request->all()); // Simpan data ke database
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil ditambahkan.');
+        return redirect()->route('feedback.index')
+                        ->with('success', 'Thank you! Your feedback has been submitted successfully.');
     }
 
     // Menampilkan detail feedback
@@ -51,23 +52,24 @@ class FeedbackController extends Controller
     public function update(Request $request, Feedback $feedback)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'pesan' => 'required|string|max:500',
-            'rating' => 'required|integer|between:1,5',
+            'nama' => 'required',
+            'email' => 'required|email',
+            'pesan' => 'required',
+            'rating' => 'required'
         ]);
 
         $feedback->update($request->all()); // Update data di database
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui.');
+        return redirect()->route('feedback.index')
+                        ->with('success', 'Feedback updated successfully!');
     }
 
     // Menghapus feedback
-    public function destroy($id)
+    public function destroy(Feedback $feedback)
     {
-        $feedback = Feedback::findOrFail($id); // Cari data feedback berdasarkan ID
         $feedback->delete(); // Hapus data dari database
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus.');
+        return redirect()->route('feedback.index')
+                        ->with('success', 'Feedback deleted successfully!');
     }
 }
