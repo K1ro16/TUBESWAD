@@ -49,8 +49,8 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home<br></a></li>
-          <li class="dropdown"><a href="#"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a href="{{ route('home') }}">Home<br></a></li>
+          <li class="dropdown"><a href="#" class="active"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="{{ route('category.show', 'Community Gathering') }}">Community Gathering</a></li>
               <li><a href="{{ route('category.show', 'Sports') }}">Sports</a></li>
@@ -59,10 +59,10 @@
               <li><a href="{{ route('category.show', 'Music') }}">Music</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="{{ route('home') }}"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#contact">Contact Us</a></li>
+              <li><a href="{{ route('home') }}">About Us</a></li>
+              <li><a href="{{ route('home') }}">Contact Us</a></li>
               <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
           </li>

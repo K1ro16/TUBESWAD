@@ -22,7 +22,7 @@
                 <h1><a href="#" class="logo">FestiVent</a></h1>
                 <ul class="list-unstyled components mb-5">
                     <li>
-                        <a href="#"><span class="fa fa-home mr-3"></span> Dashboard</a>
+                        <a href="{{ route('admin.dashboard') }}"><span class="fa fa-home mr-3"></span> Dashboard</a>
                     </li>
                     <li class="active">
                         <a href="#"><span class="fa fa-user mr-3"></span> Community</a>
@@ -32,6 +32,9 @@
                     </li>
                     <li>
                         <a href="{{ url('admin/promosi') }}"><span class="fa fa-user mr-3"></span> Promotion</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('home') }}"><span class="fa fa-arrow-left mr-3"></span> Back to Home</a>
                     </li>
                 </ul>
                 <div class="footer">
