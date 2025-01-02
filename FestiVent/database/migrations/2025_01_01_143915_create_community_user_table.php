@@ -9,25 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    protected $table = 'community';
-    public function up(): void
+    public function up()
     {
-        Schema::create('communities', function (Blueprint $table) {
+        Schema::create('community_user', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('city');
-            $table->text('description');
-            $table->string('category');
-            $table->string('image_path')->nullable();
+            $table->foreignId('community_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
+    
+    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('communities');
+        Schema::dropIfExists('community_user');
     }
 };

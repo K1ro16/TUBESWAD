@@ -329,7 +329,17 @@
                           <h5 class="fw-bold text-primary">{{ $community->name }}</h5>
                           <p class="text-muted mb-1"><strong>Category:</strong> {{ $community->category }}</p>
                           <p class="text-muted"><strong>City:</strong> {{ $community->city }}</p>
-                          <button class="btn btn-primary mt-3" onclick="showPopup('{{ $community->name }}', '{{ $community->category }}', '{{ $community->city }}', '{{ $community->description }}', '{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}')">Learn More</button>
+                          <button class="btn btn-primary mt-3" 
+                            onclick="showPopup(
+                                '{{ addslashes($community->name) }}', 
+                                '{{ addslashes($community->category) }}', 
+                                '{{ addslashes($community->city) }}', 
+                                '{{ addslashes($community->description) }}', 
+                                '{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}'
+                            )">
+                            Learn More
+                        </button>
+
                         </div>
                       </div>
                     </div>
