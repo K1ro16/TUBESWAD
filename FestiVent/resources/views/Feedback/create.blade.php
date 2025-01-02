@@ -72,6 +72,15 @@
 
     <!-- Enhanced Feedback Section -->
     <div class="container-fluid px-4 py-5">
+        <!-- Add Alert Section -->
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="bg-light p-2 rounded-3 shadow-sm">
@@ -147,5 +156,15 @@
     <!-- Keep existing scripts -->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+
+    <script>
+        // Initialize Bootstrap alerts
+        document.addEventListener('DOMContentLoaded', function() {
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                new bootstrap.Alert(alert);
+            });
+        });
+    </script>
 </body>
 </html>
