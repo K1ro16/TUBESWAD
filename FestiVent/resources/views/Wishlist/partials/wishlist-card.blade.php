@@ -34,10 +34,10 @@
         @endif
         
         <!-- Remove Button -->
-        <form action="{{ route('wishlist.remove', $item->event->id) }}" method="POST">
+        <form action="{{ route('wishlist.remove', $item->event->id) }}" method="POST" class="d-inline">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-sm">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this item?');">
                 <i class="bi bi-trash"></i> Remove from Wishlist
             </button>
         </form>
