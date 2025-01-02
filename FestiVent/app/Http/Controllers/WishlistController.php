@@ -66,4 +66,17 @@ class WishlistController extends Controller
         
         return back()->with('success', 'Item moved to group');
     }
+
+    public function remove($eventreq_id)
+    {
+        $accounts_id = 1; // Or however you're getting the account ID
+        
+        $wishlist = Wishlist::where('accounts_id', $accounts_id)
+            ->where('eventreq_id', $eventreq_id)
+            ->firstOrFail();
+            
+        $wishlist->delete();
+        
+        return back()->with('success', 'Event removed from wishlist');
+    }
 } 
