@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Community;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class CommunityController extends Controller
 {
@@ -123,15 +124,7 @@ class CommunityController extends Controller
 
         return redirect()->route('communities.index')->with('success', 'Community updated successfully');
     }
-    
-    public function home()
-    {
-        // Ambil semua data komunitas
-        $communities = Community::all();
-    
-        // Kirim data ke view home
-        return view('home', compact('communities'));
-    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -148,5 +141,38 @@ class CommunityController extends Controller
     {
         $community = Community::all(); // Fetch events from your database
         return view('admin.communities', compact('communities'));
+    }
+
+    public function exportToExcel()
+    {
+        $fileName = 'communities.xls';
+        $headers = [
+            'Content-Type' => 'application/vnd.ms-excel',
+            'Content-Disposition' => "attachment; filename=\"$fileName\"",
+        ];
+
+        $columns = ['Name', 'Category', 'City', 'Description'];
+
+        $callback = function () use ($columns) {
+            echo "<table border='1'>";
+            echo "<tr>";
+            foreach ($columns as $column) {
+                echo "<th>" . htmlspecialchars($column) . "</th>";
+            }
+            echo "</tr>";
+
+            $communities = Community::all();
+            foreach ($communities as $community) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($community->name) . "</td>";
+                echo "<td>" . htmlspecialchars($community->category) . "</td>";
+                echo "<td>" . htmlspecialchars($community->city) . "</td>";
+                echo "<td>" . htmlspecialchars($community->description) . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        };
+
+        return response()->stream($callback, Response::HTTP_OK, $headers);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
-use App\Models\EventReq;
+use App\Models\WishlistGroup;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -12,11 +12,13 @@ class WishlistController extends Controller
     {
         $accounts_id = 1;
         
-        $wishlist_items = Wishlist::with('event')
+        $groups = WishlistGroup::where('accounts_id', $accounts_id)->get();
+        $ungrouped_items = Wishlist::with('event')
             ->where('accounts_id', $accounts_id)
+            ->whereNull('group_id')
             ->get();
             
-        return view('Wishlist.index', compact('wishlist_items'));
+        return view('Wishlist.index', compact('groups', 'ungrouped_items'));
     }
 
     public function toggle($eventreq_id)
@@ -41,14 +43,27 @@ class WishlistController extends Controller
         return back()->with('success', $message);
     }
 
-    public function remove($eventreq_id)
+    public function createGroup(Request $request)
     {
         $accounts_id = 1;
         
-        Wishlist::where('accounts_id', $accounts_id)
-            ->where('eventreq_id', $eventreq_id)
-            ->delete();
-            
-        return back()->with('success', 'Event removed from wishlist');
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+        
+        WishlistGroup::create([
+            'name' => $request->name,
+            'accounts_id' => $accounts_id
+        ]);
+        
+        return back()->with('success', 'Group created successfully');
+    }
+
+    public function moveToGroup(Request $request, $wishlist_id)
+    {
+        $wishlist = Wishlist::findOrFail($wishlist_id);
+        $wishlist->update(['group_id' => $request->group_id]);
+        
+        return back()->with('success', 'Item moved to group');
     }
 } 

@@ -35,66 +35,53 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
-  <style>
-    .btn-primary {
-        background-color: #0d6efd;
-        border: none;
-        transition: all 0.3s ease;
-    }
-    
-    .btn-primary:hover {
-        background-color: #0b5ed7;
-        transform: translateY(-2px);
-    }
-
-    .card {
-        transition: all 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .text-muted {
-        color: #6c757d !important;
-    }
-  </style>
 </head>
 
 <body class="index-page">
 
-<header id="header" class="header d-flex align-items-center">
+  <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('img/logo_app.png') }}" alt="">
       </a>
+
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home<br></a></li>
-          <li class="dropdown"><a href="#"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a href="#hero">Home<br></a></li>
+          <li class="dropdown"><a href="#" class="active"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Community Gathering</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Live Show</a></li>
-              <li><a href="#">Festival</a></li>
-              <li><a href="#">Music</a></li>
+              <li><a href="{{ route('category.show', 'Community Gathering') }}">Community Gathering</a></li>
+              <li><a href="{{ route('category.show', 'Sports') }}">Sports</a></li>
+              <li><a href="{{ route('category.show', 'Live Show') }}">Live Show</a></li>
+              <li><a href="{{ route('category.show', 'Festival') }}">Festival</a></li>
+              <li><a href="{{ route('category.show', 'Music') }}">Music</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="{{ route('home') }}">About Us</a></li>
+              <li><a href="{{ route('home') }}">Contact Us</a></li>
+              <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
           </li>
-          <li><a href="#team">Wishlist</a></li>
+          <li><a href="{{ route('wishlist.index') }}"><i class="bi"></i> Wishlist</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a href="{{ route('signin') }}" class="btn-getstarted" href="#about">Login</a>
+        @if(session('account_id'))
+            <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">
+                @csrf
+                <button type="submit" class="btn-icon">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
+        @else
+            <a href="{{ route('signin') }}" class="btn-getstarted">Login</a>
+        @endif
+
 
     </div>
   </header>
@@ -105,12 +92,12 @@
     <div class="row">
       <!-- Left Column - Poster -->
       <div class="col-md-5">
-        <div class="position-sticky" style="top: 100px;">
+        <div style="top: 100px; height: fit-content;">
           @if($event->poster)
-            <img src="{{ Storage::url($event->poster) }}" 
-                 alt="{{ $event->nama_event }}" 
-                 class="img-fluid rounded shadow-sm" 
-                 style="width: 100%; height: auto; object-fit: cover;">
+            <img src="{{ Storage::url($event->poster) }}"
+                 alt="{{ $event->nama_event }}"
+                 class="img-fluid rounded shadow-sm"
+                 style="width: 100%; max-height: calc(100vh - 200px); object-fit: contain;">
           @else
             <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
               <p class="text-muted">No Image Available</p>
@@ -148,10 +135,9 @@
                 <p class="text-muted mb-0">Starting from</p>
                 <h3 class="mb-0">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
               </div>
-              <button class="btn btn-primary px-4 py-2">
-                Get Tickets
-                <i class="bi bi-arrow-right ms-2"></i>
-              </button>
+
+              {{-- add button to go to payment --}}
+              <a href="{{ route('payment.index', $event->id) }}" class="btn btn-primary">Buy Ticket</a>
             </div>
           </div>
         </div>
@@ -172,7 +158,7 @@
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <div class="d-flex align-items-center">
-                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" 
+                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3"
                      style="width: 50px; height: 50px;">
                   <i class="bi bi-building text-primary"></i>
                 </div>

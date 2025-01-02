@@ -39,7 +39,7 @@
 
 <body class="index-page">
 
-  <header id="header" class="header d-flex align-items-center sticky-top">
+  <header id="header" class="header d-flex align-items-center sticky-top mb-5">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
@@ -50,116 +50,114 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="{{ route('home') }}">Home<br></a></li>
+
           <li class="dropdown"><a href="#"><span>Events</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Community Gathering</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Live Show</a></li>
-              <li><a href="#">Festival</a></li>
-              <li><a href="#">Music</a></li>
+              <li><a href="{{ route('category.show', 'Community Gathering') }}">Community Gathering</a></li>
+              <li><a href="{{ route('category.show', 'Sports') }}">Sports</a></li>
+              <li><a href="{{ route('category.show', 'Live Show') }}">Live Show</a></li>
+              <li><a href="{{ route('category.show', 'Festival') }}">Festival</a></li>
+              <li><a href="{{ route('category.show', 'Music') }}">Music</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span class="active">Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="{{ route('home') }}" class="active"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="{{ route('home') }}">About Us</a></li>
               <li><a href="{{ route('home') }}">Contact Us</a></li>
-              <li class="active"><a href="{{ route('feedback.index') }}">Feedback</a></li>
+              <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
           </li>
-          <li><a href="#team">Wishlist</a></li>
+          <li><a href="{{ route('wishlist.index') }}"><i class="bi"></i> Wishlist</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
-        @if(session('account_id'))
-            @if(session('community_id'))
-                <a href="{{ route('eventreq.index') }}" class="btn-getstarted">Request Event</a>
-            @else
-                <a href="{{ route('communities.index') }}" class="btn-getstarted">Community Signup</a>
-            @endif
-
-            <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">
-                @csrf
-                <button type="submit" class="btn-icon">
-                    <i class="bi bi-box-arrow-right"></i>
-                </button>
-            </form>
-        @else
-            <a href="{{ route('signin') }}" class="btn-getstarted">Login</a>
-        @endif
-
-
+      @if(session('account_id'))
+          <form action="{{ route('accounts.logout') }}" method="POST" style="display: inline; margin-left: 20px;">
+              @csrf
+              <button type="submit" class="btn-icon">
+                  <i class="bi bi-box-arrow-right"></i>
+              </button>
+          </form>
+      @else
+          <a href="{{ route('signin') }}" class="btn-getstarted">Login</a>
+      @endif
     </div>
   </header>
-
   {{-- FEEDBACK CONTENT --}}
 
   <main id="main">
-
     <section id="feedback" class="feedback">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row justify-content-between">
-            <div class="col-4 section-header mb-2">
-                <h2>Feedback</h2>
-            </div>
-            <div class="col-2 mb-2">
-                {{-- Button for add feedback --}}
-                <a href="{{ route('feedback.create') }}" class="btn btn-outline-primary w-100 float-end">Add Feedback</a>
-            </div>
-        </div>
-
-        <div class="text-success mb-4">
-            <hr>
-        </div>
-
-        <div class="row justify-content-around">
-            {{-- show all feedback from database --}}
-            @foreach ($feedbacks as $feedback)
-            <div class="col-md-5 shadow p-3 mb-5 rounded" data-aos="fade-up" data-aos-delay="100">
-                <div class="feedback-item p-4">
-                    <div class="feedback-content">
-                        <p>
-                            {{-- Pesan --}}
-                            <i class="bi bi-quote quote-icon-left"></i>
-                            {{ $feedback->pesan }}
-                            <i class="bi bi-quote quote-icon-right"></i>
-                        </p>
-                        {{-- Rating --}}
-                        <p>Ratings : {{ $feedback->rating }}/5</p>
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-between align-items-center mb-4">
+                <div class="col-md-6">
+                    <div class="section-header">
+                        <h2>Community Feedback</h2>
+                        <p class="text-muted">See what others are saying about our events</p>
                     </div>
-                    <div class="row justify-content-between mt-4">
-                        <div class="col-8 feedback-profile">
-                            {{-- Nama --}}
-                            <h3 id="name">{{ $feedback->nama }}</h3>
-                            {{-- Email --}}
-                            <h4 id="email">{{ $feedback->email }}</h4>
-                        </div>
-                        <div class="col-4">
-                            <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-outline-primary">Edit</a>
-                            {{-- delete action with methode delete --}}
-                            <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger">Delete</button>
-                            </form>
+                </div>
+                <div class="col-md-3 text-end">
+                    <a href="{{ route('feedback.create') }}" class="btn btn-add-feedback">
+                        <i class="bi bi-plus-circle me-2"></i>Add Feedback
+                    </a>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @foreach ($feedbacks as $feedback)
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feedback-item shadow-sm">
+                        <div class="feedback-content">
+                            <p class="mb-4">
+                                <i class="bi bi-quote quote-icon-left"></i>
+                                {{ $feedback->pesan }}
+                                <i class="bi bi-quote quote-icon-right"></i>
+                            </p>
+                            <div class="rating mb-3">
+                                @for($i = 0; $i < $feedback->rating; $i++)
+                                    <i class="bi bi-star-fill"></i>
+                                @endfor
+                                @for($i = $feedback->rating; $i < 5; $i++)
+                                    <i class="bi bi-star"></i>
+                                @endfor
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <div class="feedback-profile">
+                                        <h3>{{ $feedback->nama }}</h3>
+                                        <h4>{{ $feedback->email }}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-action btn-edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-action btn-delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
-      </div>
     </section>
   </main>
-  <footer id="footer" class="footer light-background">
+
+
+  <footer id="footer" class="footer light-background mt-5">
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-about">
           <a href="#" class="logo d-flex align-items-center">
             <img src="{{ asset('img/logo_app.png') }}" style="width: 130px; height: 180px;">
           </a>
-          <p>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</p>
+          <p>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</p>
           <div class="social-links d-flex mt-4">
             <a href=""><i class="bi bi-twitter-x"></i></a>
             <a href=""><i class="bi bi-facebook"></i></a>
@@ -167,29 +165,22 @@
             <a href=""><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
-
+  
         <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
+        
+        </div>
+  
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Pages</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
+            <li><a href="{{ route('wishlist.index') }}">Wishlist</a></li>
           </ul>
         </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
+  
         <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
           <h4>Contact Us</h4>
           <p>A108 Adam Street</p>
@@ -198,10 +189,10 @@
           <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
           <p><strong>Email:</strong> <span>info@example.com</span></p>
         </div>
-
+  
       </div>
     </div>
-
+  
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">OnePage</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
@@ -212,8 +203,10 @@
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
-
+  
   </footer>
+
+  
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

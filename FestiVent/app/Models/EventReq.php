@@ -29,4 +29,11 @@ class EventReq extends Model
     {
         return $this->hasMany(Wishlist::class, 'eventreq_id');
     }
+
+    // Buat relasi one-to-one dengan model payment pada kolom harga
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'harga', 'harga');
+    }
+
 }

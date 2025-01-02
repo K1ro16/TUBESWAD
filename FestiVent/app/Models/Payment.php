@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    //
-    use HasFactory;
-
     protected $table = 'payments';
 
     protected $fillable = [
@@ -17,7 +13,19 @@ class Payment extends Model
         'no_tlp',
         'email',
         'jml_tiket',
+        'harga',
         'opsi_pay',
         'kode',
+        'eventreq_id'
     ];
+
+    public function eventreq()
+    {
+        return $this->belongsTo(EventReq::class);
+    }
+
+    public function promosi()
+    {
+        return $this->belongsTo(Promosi::class, 'kode');
+    }
 }

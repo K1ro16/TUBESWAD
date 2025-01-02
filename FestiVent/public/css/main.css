@@ -2048,3 +2048,144 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+:root {
+  --primary-color: #4E6BFF;
+  --secondary-color: #F5F7FF;
+  --text-color: #2D3748;
+  --light-gray: #EDF2F7;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+  background-color: #FAFAFA;
+}
+
+.header {
+  background: white;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  padding: 15px 0;
+}
+
+.logo img {
+  max-height: 50px;
+}
+
+.navmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navmenu > ul > li {
+  position: relative;
+  display: inline-block;
+  padding: 0 15px;
+}
+
+.btn-getstarted {
+  background: var(--primary-color);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-getstarted:hover {
+  background: #3651CC;
+  color: white;
+}
+
+.section-header h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.feedback-item {
+  background: white;
+  border-radius: 16px;
+  transition: all 0.3s;
+  height: 100%;
+}
+
+.feedback-item:hover {
+  transform: translateY(-5px);
+}
+
+.feedback-content {
+  position: relative;
+  padding: 20px;
+}
+
+.quote-icon-left, .quote-icon-right {
+  color: var(--primary-color);
+  font-size: 18px;
+  opacity: 0.3;
+}
+
+.feedback-profile h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.feedback-profile h4 {
+  font-size: 14px;
+  color: #718096;
+  margin: 5px 0 0 0;
+}
+
+.rating {
+  color: #FFD700;
+  font-size: 18px;
+}
+
+.btn-action {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.btn-edit {
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  margin-right: 8px;
+}
+
+.btn-edit:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-delete {
+  color: #E53E3E;
+  border: 1px solid #E53E3E;
+}
+
+.btn-delete:hover {
+  background: #E53E3E;
+  color: white;
+}
+
+.btn-add-feedback {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 25px;
+  padding: 8px 24px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-add-feedback:hover {
+  background: #3651CC;
+  transform: translateY(-2px);
+}
+
+.footer {
+  background: var(--secondary-color);
+  padding: 60px 0 30px;
+}
