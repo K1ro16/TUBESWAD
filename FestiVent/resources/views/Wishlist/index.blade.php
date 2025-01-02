@@ -77,53 +77,62 @@
   <!-- Header -->
 
   <!-- isi -->
-  <div class="container">
+  <div class="container mt-4">
     @if(session('success'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      @forelse($wishlist_items as $item)
-        <div class="col">
-          <div class="card h-100">
-            @if($item->event->poster)
-              <img src="{{ Storage::url($item->event->poster) }}" class="card-img-top" alt="{{ $item->event->nama_event }}">
-            @else
-              <img src="/api/placeholder/400/200" class="card-img-top" alt="No Image Available">
-            @endif
-            <div class="card-body">
-              <h5 class="card-title">{{ $item->event->nama_event }}</h5>
-              <p class="card-text">{{ Str::limit($item->event->deskripsi, 100) }}</p>
-              
-              <div class="mb-3">
-                <small class="text-muted">
-                  <i class="bi bi-geo-alt"></i> {{ $item->event->lokasi }}<br>
-                  <i class="bi bi-calendar"></i> {{ $item->event->tanggal }}<br>
-                  <i class="bi bi-clock"></i> {{ $item->event->waktu }}<br>
-                  <i class="bi bi-cash"></i> Rp {{ number_format($item->event->harga, 0, ',', '.') }}
-                </small>
-              </div>
-              
-              <form action="{{ route('wishlist.remove', $item->event->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">
-                  <i class="bi bi-trash"></i> Remove from Wishlist
-                </button>
-              </form>
+    <!-- Create Group Form -->
+    <div class="mb-4">
+        <form action="{{ route('wishlist.createGroup') }}" method="POST" class="row g-3">
+            @csrf
+            <div class="col-auto">
+                <input type="text" name="name" class="form-control" placeholder="New Group Name" required>
             </div>
-          </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Create Group</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Groups -->
+    @foreach($groups as $group)
+        <div class="mb-4">
+            <h3>{{ $group->name }}</h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @forelse($group->wishlists as $item)
+                    <!-- Wishlist Item Card -->
+                    <div class="col">
+                        @include('Wishlist.partials.wishlist-card', ['item' => $item])
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-muted">No items in this group</p>
+                    </div>
+                @endforelse
+            </div>
         </div>
-      @empty
-        <div class="col-12">
-          <div class="alert alert-info text-center">
-            Your wishlist is empty. Browse events to add some!
-          </div>
+    @endforeach
+
+    <!-- Ungrouped Items -->
+    <div class="mb-4">
+        <h3>Ungrouped Items</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @forelse($ungrouped_items as $item)
+                <div class="col">
+                    @include('Wishlist.partials.wishlist-card', ['item' => $item, 'groups' => $groups])
+                </div>
+            @empty
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        No ungrouped items in your wishlist
+                    </div>
+                </div>
+            @endforelse
         </div>
-      @endforelse
     </div>
   </div>
   
