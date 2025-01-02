@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Community;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\CommunitiesExport;
+use Illuminate\Http\Response;
 
 class CommunityController extends Controller
 {
@@ -68,13 +67,11 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
-        // Fetch the community by ID or throw a 404 error if not found
+        // Tampilkan detail komunitas berdasarkan ID
         $community = Community::findOrFail($id);
-        
-        // Return a view with the community details
-        return view('community.show', compact('community'));
+        return view('communities.show', compact('community'));
     }
 
     /**
@@ -127,15 +124,7 @@ class CommunityController extends Controller
 
         return redirect()->route('communities.index')->with('success', 'Community updated successfully');
     }
-    
-    public function home()
-    {
-        // Ambil semua data komunitas
-        $communities = Community::all();
-    
-        // Kirim data ke view home
-        return view('home', compact('communities'));
-    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -154,11 +143,36 @@ class CommunityController extends Controller
         return view('admin.communities', compact('communities'));
     }
 
-    public function export()
+    public function exportToExcel()
     {
-        return Excel::download(new CommunitiesExport, 'communities.xlsx');
+        $fileName = 'communities.xls';
+        $headers = [
+            'Content-Type' => 'application/vnd.ms-excel',
+            'Content-Disposition' => "attachment; filename=\"$fileName\"",
+        ];
+
+        $columns = ['Name', 'Category', 'City', 'Description'];
+
+        $callback = function () use ($columns) {
+            echo "<table border='1'>";
+            echo "<tr>";
+            foreach ($columns as $column) {
+                echo "<th>" . htmlspecialchars($column) . "</th>";
+            }
+            echo "</tr>";
+
+            $communities = Community::all();
+            foreach ($communities as $community) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($community->name) . "</td>";
+                echo "<td>" . htmlspecialchars($community->category) . "</td>";
+                echo "<td>" . htmlspecialchars($community->city) . "</td>";
+                echo "<td>" . htmlspecialchars($community->description) . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        };
+
+        return response()->stream($callback, Response::HTTP_OK, $headers);
     }
-
-
-
 }

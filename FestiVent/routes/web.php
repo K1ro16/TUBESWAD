@@ -60,12 +60,7 @@ Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy
 // routes/web.php
 Route::get('/community/{id}', [CommunityController::class, 'show'])->name('communities.show');
 
-Route::resource('communities', CommunityController::class);
-Route::get('/communities/export', [CommunityController::class, 'export'])->name('communities.export');
-Route::get('admin/communities/export', [CommunityController::class, 'export'])->name('admin.communities.export');
-Route::get('/test-export', function () {
-    return App\Models\Community::all(); // Debug apakah tabel communities bisa diakses
-});
+Route::get('/communities/export', [CommunityController::class, 'exportToExcel'])->name('communities.export');
 
 
 //untuk tombol logout
