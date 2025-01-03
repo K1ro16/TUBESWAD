@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class EventReq extends Model
 {
     use HasFactory;
-
-    // Specify the table name if it doesn't follow the default pluralization convention
     protected $table = 'eventreq';
 
     protected $fillable = [
@@ -24,13 +22,13 @@ class EventReq extends Model
         'category',
     ];
 
-    // Add the wishlists relationship
+    // menambah relasi wishlist
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class, 'eventreq_id');
     }
 
-    // Buat relasi one-to-one dengan model payment pada kolom harga
+    // Buat relasi dengan model payment di kolom harga
     public function payment()
     {
         return $this->hasOne(Payment::class, 'harga', 'harga');

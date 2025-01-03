@@ -89,7 +89,7 @@
   <div style="margin-top: 50px;"></div>
 
   <style>
-    /* Hero Event Image Section */
+    /* Hero Event Image */
     .event-hero {
         position: relative;
         height: 400px;
@@ -109,7 +109,7 @@
         transform: scale(1.05);
     }
 
-    /* Event Details Card */
+    /* card detail */
     .event-details-card {
         background: #ffffff;
         border-radius: 20px;
@@ -129,7 +129,7 @@
         background: #2196F3;
     }
 
-    /* Event Title */
+    /*  Title */
     .event-title {
         font-size: 2.5rem;
         font-weight: 700;
@@ -137,7 +137,7 @@
         margin-bottom: 1.5rem;
     }
 
-    /* Meta Information Icons */
+    /* meta info Icons */
     .meta-info {
         display: flex;
         align-items: center;
@@ -218,7 +218,7 @@
         background: #f8f9fa;
     }
 
-    /* Description Section */
+    /* Deskripsi */
     .description-section {
         background: white;
         border-radius: 16px;
@@ -296,7 +296,7 @@
     }
 </style>
 
-<!-- Update your HTML structure -->
+
 <div class="container mt-5">
     <div class="event-hero">
         @if($event->poster)
@@ -349,7 +349,6 @@
     </div>
 </div>
 
-  <!-- ... existing footer ... -->
   <div style="margin-top: 55px;"></div>
 
 <footer id="footer" class="footer light-background">

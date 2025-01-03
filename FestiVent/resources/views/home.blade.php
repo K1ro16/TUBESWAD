@@ -114,7 +114,7 @@
               <p class="description">A space for community meetups, from casual discussions to collaborative events, fostering connections and togetherness.</p>
             </div>
           </div>
-          <!--End Icon Box -->
+          <!--End -->
 
           <div class="col-md-2 col-md-3" data-aos="zoom-out" data-aos-delay="100">
             <div class="icon-box">
@@ -131,7 +131,7 @@
               <p class="description">Experience the excitement of live performances, from art and comedy to inspiring shows and entertainment.</p>
             </div>
           </div>
-          <!--End Icon Box -->
+          <!--End -->
 
           <div class="col-md-2 col-md-3" data-aos="zoom-out" data-aos-delay="300">
             <div class="icon-box">
@@ -140,7 +140,7 @@
               <p class="description">Feel the rhythm and enjoy live music events, concerts, and festivals featuring local and international artists.</p>
             </div>
           </div>
-          <!--End Icon Box -->
+          <!--End-->
 
           <div class="col-md-2 col-md-3" data-aos="zoom-out" data-aos-delay="400">
             <div class="icon-box">
@@ -149,22 +149,20 @@
               <p class="description">Discover vibrant festivals filled with culture, food, and entertainment for unforgettable experiences.</p>
             </div>
           </div>
-          <!--End Icon Box -->
+          <!--End-->
 
         </div>
       </div>
     </div>
 
     </section>
-    <!-- /Hero Section -->
-    <!-- About Section -->
-    <!-- Services/Recommendation Section -->
+    <!-- Recommendation -->
     <section id="services" class="services section light-background">
         <div class="container section-title" data-aos="fade-up">
             <h2>Recommendation</h2>
             <p>Discover exciting events tailored just for you</p>
 
-            <!-- Add Event Button (Only Visible After Login) -->
+            <!-- button event (Harus login dulu) -->
             @if(session('account_id'))
                 <div class="mt-4 mb-3 align-items-center">
                     <a href="{{ route('eventreq.index') }}" class="btn btn-primary">
@@ -174,7 +172,7 @@
             @endif
         </div>
 
-        <!-- Swiper Container -->
+        <!-- Swiper -->
         <div class="swiper init-swiper">
             <!-- Swiper Configuration -->
             <script type="application/json" class="swiper-config">
@@ -205,7 +203,7 @@
                 @forelse($eventreqs as $eventreq)
                     <div class="swiper-slide">
                         <div class="card shadow border-0 rounded-lg p-4 hover-card">
-                            <!-- Wishlist Button -->
+                            <!-- Button wishlist -->
                             <div class="d-flex justify-content-end mb-2">
                                 <form action="{{ route('wishlist.toggle', $eventreq->id) }}" method="POST">
                                     @csrf
@@ -215,7 +213,7 @@
                                 </form>
                             </div>
 
-                            <!-- Event Image -->
+                            <!-- image event -->
                             <a href="{{ route('tabevent.show', $eventreq->id) }}" class="text-decoration-none text-inherit">
                                 @if($eventreq->poster)
                                     <img src="{{ Storage::url($eventreq->poster) }}"
@@ -228,7 +226,7 @@
                                 @endif
                             </a>
 
-                            <!-- Event Details -->
+                            <!-- detail event -->
                             <div class="text-center">
                                 <h5 class="fw-bold text-primary">{{ $eventreq->nama_event }}</h5>
                                 <div class="event-info">
@@ -258,7 +256,7 @@
     <!-- Visual Separator -->
     <div style="height: 80px;"></div>
 
-    <!-- Community Section -->
+    <!-- Community -->
     <section id="community" class="section">
         <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center mb-5">
@@ -267,7 +265,7 @@
                     The community feature on the Festivent platform allows users to connect, interact,
                     and share their excitement with other event attendees, creating a more engaging and social ticketing experience.
                 </p>
-                <!-- Add Community Button (Only Visible After Login) -->
+                <!-- button community (harus login dulu) -->
                 @if(session('account_id'))
                     <div class="mt-4 mb-3 align-items-center">
                         <a href="{{ route('communities.index') }}" class="btn btn-primary">
@@ -277,7 +275,7 @@
                 @endif
             </div>
 
-            <!-- End Section Title -->
+            <!-- End -->
             </div>
 
             <!-- Swiper Container -->
@@ -322,13 +320,13 @@
                   <div class="swiper-slide">
                     <div class="community-item">
                       <div class="card shadow border-0 rounded-lg p-4 hover-card">
-                        <!-- Community Image -->
+                        <!-- Image community -->
                         <img src="{{ $community->image_path ? asset('storage/' . $community->image_path) : asset('default-logo.png') }}"
                             alt="{{ $community->name }}"
                             class="community-image mx-auto mb-3"
                             style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
 
-                        <!-- Community Details -->
+                        <!-- Detail community -->
                         <div class="card-body text-center">
                           <h5 class="fw-bold text-primary">{{ $community->name }}</h5>
                           <p class="text-muted mb-1"><strong>Category:</strong> {{ $community->category }}</p>
@@ -442,8 +440,7 @@
       }
     </script>
 
-<!-- /Community Section -->
-    <!-- Feedback Section -->
+    <!-- Feedback -->
     <section id="call-to-action" class="call-to-action section accent-background">
 
       <div class="container">
@@ -459,16 +456,15 @@
       </div>
 
     </section>
-    <!-- Feedback Section -->
+    <!-- Feedback end-->
 
-    <!-- Faq Section -->
+    <!-- Faq -->
     <section id="faq" class="faq section light-background">
 
-      <!-- Section Title -->
+      <!-- Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Frequently Asked Questions</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+      </div><!-- End -->
 
       <div class="container">
 
@@ -528,7 +524,8 @@
 
             </div>
 
-          </div><!-- End Faq Column-->
+          </div>
+          <!-- End Faq Column-->
 
         </div>
 
@@ -542,9 +539,9 @@
         <p>Festivent is a trusted ticketing platform for various events, including concerts, festivals, sports, and seminars. With an easy-to-use interface and secure transaction system, we make it simple for you to discover and purchase tickets for your special moments.
           We are committed to delivering the best service to ensure every event becomes an unforgettable experience. Festivent – find, buy, and enjoy the excitement of your favorite events!</p>
         <p><strong>Support Communities, Enliven Local Events, and Build More Meaningful Connections.</strong></p>
-        </div><!-- End Section Title -->
+        </div><!-- End -->
 
-      <!-- Stats Section -->
+      <!-- Stats -->
       <section id="stats" class="stats section light-background">
         <div class="container" data-aos="fade-up" data-aos-delay="100">
           <div class="row justify-content-center gy-4">
@@ -554,42 +551,43 @@
 
                 <p>Community</p>
               </div>
-            </div><!-- End Stats Item -->
+            </div>
+            <!-- End -->
 
             <div class="col-lg-3 col-md-6 d-flex justify-content-center">
               <div class="stats-item text-center w-100 h-100">
                 <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
                 <p>Events</p>
               </div>
-            </div><!-- End Stats Item -->
+            </div><!-- End -->
 
             <div class="col-lg-3 col-md-6 d-flex justify-content-center">
               <div class="stats-item text-center w-100 h-100">
                 <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
                 <p>Users</p>
               </div>
-            </div><!-- End Stats Item -->
+            </div><!-- End -->
 
           </div>
         </div>
       </section>
 
-    </section><!-- /Faq Section -->
+    </section>
 
-    <!-- Contact Section -->
+    <!-- Contact  -->
     <section id="contact" class="contact section">
 
-      <!-- Section Title -->
+      <!-- Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
         <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+      </div><!-- End -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
           <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.304493095284!2d107.62777107628614!3d-6.973357268285083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9adf177bf8d%3A0x437398556f9fa03!2sUniversitas%20Telkom!5e0!3m2!1sid!2sid!4v1734595123265!5m2!1sid!2sid" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div><!-- End Google Maps -->
+        </div><!-- End Gmaps -->
 
         <div class="container text-center">
           <div class="row">
@@ -625,7 +623,7 @@
 
       </div>
 
-    </section><!-- /Contact Section -->
+    </section>
 
   </main>
 

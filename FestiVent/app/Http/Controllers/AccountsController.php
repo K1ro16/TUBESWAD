@@ -105,7 +105,7 @@ class AccountsController extends Controller
         'password' => 'required|string|min:6',
     ]);
 
-    // Check for admin credentials
+    // Check admin login
     if ($request->email === 'admin@gmail.com' && $request->password === 'admin123') {
         session(['account_id' => 'admin']);
         return redirect('/admin/communities');
@@ -118,16 +118,16 @@ class AccountsController extends Controller
     }
     session(['account_id' => $account->id]);
 
-    $adminEmail = 'admin@gmail.com'; // Replace with the actual admin email
+    $adminEmail = 'admin@gmail.com';
     if ($account->email === $adminEmail) {
-        return redirect()->route('communities.index'); // Redirect to communities.index for admin
+        return redirect()->route('communities.index');
     }
     return redirect()->route('home')->with('success', 'Login successful');
     }
 
     public function logout()
     {
-        session()->forget('account_id');  // Remove the account_id from the session
+        session()->forget('account_id');  // Remove the account_id
         return redirect()->route('home')->with('success', 'Logged out successfully');
     }
 

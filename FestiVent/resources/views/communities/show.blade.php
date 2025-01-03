@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <!-- Optional: Add button to go back to communities list -->
+        <!-- button balik ke list community -->
         <div class="text-center mt-4">
             <a href="{{ route('communities.index') }}" class="btn btn-secondary">Back to Communities</a>
         </div>

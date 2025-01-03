@@ -43,14 +43,14 @@
             </div>
         </nav>
 
-        <!-- Main content -->
+        <!-- ISI -->
         <div id="content" class="p-4 p-md-5 pt-5">
             <h1>Dashboard</h1>
 
             <div class="card shadow p-4 border-0 rounded">
                 <h4 class="mb-4 text-dark fw-bold">List of Communities</h4>
 
-                <!-- Export XLS Button -->
+                <!-- Button Export XLS -->
                 <a href="{{ route('communities.export') }}" class="btn btn-success mb-3">
                     <i class="fa fa-file-excel-o"></i> Export to XLS
                 </a>
@@ -104,8 +104,8 @@
                 </table>
             </div>
 
-        </div> <!-- End of Content -->
-    </div> <!-- End of Wrapper -->
+        </div>
+    </div><!-- Akhir Body -->
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>

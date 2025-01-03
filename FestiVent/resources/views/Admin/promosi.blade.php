@@ -77,7 +77,7 @@
                 </form>
             </div>
 
-            <!-- Looping all data from databse promosi to a table -->
+            <!-- looping data dari database promosi ke dalam tabel -->
             <div class="container mt-5">
                 <h2 class="mb-4">Daftar Promosi</h2>
                 <table class="table">
@@ -104,7 +104,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
-                                    <!-- add edit button for update data promosi -->
+                                    <!-- edit button untuk update data promosi -->
                                     <a href="{{ route('promosi.edit', $promo->id) }}" class="btn btn-primary">Edit</a>
                                 </form>
                             </td>
@@ -115,8 +115,8 @@
             </div>
             
 
-        </div> <!-- End of Content -->
-    </div> <!-- End of Wrapper -->
+        </div> 
+    </div> <!-- End -->
     <script>
         @if(session('success'))
             Swal.fire({

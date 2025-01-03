@@ -33,7 +33,7 @@ class Promosi extends Model
      */
     protected $table = 'promosi';
 
-    // relasi one to many ke model payment kolom judul
+    // relasi ke model payment
     public function payment()
     {
         return $this->hasMany(Payment::class, 'kode', 'id');

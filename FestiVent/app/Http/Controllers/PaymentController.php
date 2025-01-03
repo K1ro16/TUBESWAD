@@ -17,13 +17,13 @@ class PaymentController extends Controller
         // Fetch all payments
         $payments = Payment::with(['eventreq', 'promosi'])->get();
 
-        // Fetch all events
+        // mengambil semua event
         $events = EventReq::all();
 
-        // Fetch all promos
+        // mengambil semua promosi
         $promosi = Promosi::all();
 
-        // Fetch selected event if eventId is passed
+        // ambil data event yang dipilih
         $eventreq = null;
         if ($eventId) {
             $eventreq = EventReq::findOrFail($eventId);
@@ -36,7 +36,7 @@ class PaymentController extends Controller
     public function create()
     {
         $promosi = Promosi::all();
-        return view('payment.index', compact('promosi')); // Tambahkan data promosi
+        return view('payment.index', compact('promosi')); // nambah data promosi
     }
 
     /**

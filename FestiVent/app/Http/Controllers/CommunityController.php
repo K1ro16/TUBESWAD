@@ -142,7 +142,7 @@ class CommunityController extends Controller
 
     public function showAdminDashboard()
     {
-        $community = Community::all(); // Fetch events from your database
+        $community = Community::all(); // mengambil event dari database
         return view('admin.communities', compact('communities'));
     }
 

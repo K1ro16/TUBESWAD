@@ -25,17 +25,17 @@ Route::middleware('web')->group(function () {
 
 
 Route::get('/admin/event', function () {
-    $events = \App\Models\EventReq::all(); // Fetch all events
+    $events = \App\Models\EventReq::all(); // mengambil semua data event
     return view('admin.event', compact('events'));
 });
 
 Route::get('/admin/communities', function () {
-    $communities = \App\Models\Community::all(); // Fetch all communities
+    $communities = \App\Models\Community::all(); // mengambil semua data komunitas
     return view('admin.communities', compact('communities'));
 });
 
 Route::get('/admin/promosi', function () {
-    $promosi = \App\Models\promosi::all(); // Fetch all promosi
+    $promosi = \App\Models\promosi::all(); // mengambil semua data promosi
     return view('admin.promosi', compact('promosi'));
 });
 
@@ -53,10 +53,12 @@ Route::post('/accounts/login', [AccountsController::class, 'login'])->name('acco
 Route::get('/communities/create', [CommunityController::class, 'create'])->name('communities.create');
 Route::post('/communities/store', [CommunityController::class, 'store'])->name('communities.store');
 Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
-// Routes for community edit and update
+
+// Routes community edit dan update
 Route::get('/communities/{community}/edit', [CommunityController::class, 'edit'])->name('communities.edit');
 Route::put('/communities/{community}', [CommunityController::class, 'update'])->name('communities.update');
 Route::delete('/communities/destroy/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
+
 // Route::get('/home', [CommunityController::class, 'home'])->name('home');
 // routes/web.php
 Route::get('/community/{id}', [CommunityController::class, 'show'])->name('communities.show');
@@ -66,7 +68,8 @@ Route::get('/communities/export', [CommunityController::class, 'exportToExcel'])
 
 //untuk tombol logout
 Route::post('/accounts/logout', [AccountsController::class, 'logout'])->name('accounts.logout');
-// Routes for event handling
+
+// Routes event handling
 Route::get('/eventreq', [EventReqController::class, 'index'])->name('eventreq.index');
 Route::post('/eventreq', [EventReqController::class, 'store'])->name('eventreq.store');
 Route::get('/eventreq/{id}/edit', [EventReqController::class, 'edit'])->name('eventreq.edit');
@@ -75,6 +78,7 @@ Route::delete('/eventreq/{id}', [EventReqController::class, 'destroy'])->name('e
 Route::get('/eventreq/{id}', [EventReqController::class, 'show'])->name('eventreq.show');
 Route::get('/eventreqs/export', [EventReqController::class, 'exportToExcel'])->name('eventreqs.export');
 
+// Routes wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/toggle/{eventreq}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 Route::delete('/wishlist/remove/{eventreq}', [WishlistController::class, 'remove'])->name('wishlist.remove');
@@ -83,11 +87,13 @@ Route::post('/wishlist/{wishlist}/move', [WishlistController::class, 'moveToGrou
 Route::delete('/wishlist/groups/{group}', [WishlistController::class, 'deleteGroup'])->name('wishlist.deleteGroup');
 Route::get('/wishlist/group/{group}/print', [WishlistController::class, 'printGroup'])->name('wishlist.group.print');
 
+// Routes tabevent
 Route::get('/tabevent/{id}', function ($id) {
     $event = \App\Models\EventReq::findOrFail($id);
     return view('eventreq.tabevent', compact('event'));
 })->name('tabevent.show');
-// go to feedback
+
+// Routes feedback
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
 Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
 Route::get('/feedback/print', [FeedbackController::class, 'print'])->name('feedback.print');
@@ -98,7 +104,7 @@ Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])->n
 Route::patch('/feedback/{feedback}/reply', [FeedbackController::class, 'reply'])->name('feedback.reply');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
-// go to promotion
+// Routes promotion
 Route::get('/promosi', [PromosiController::class, 'index'])->name('promosi.index');
 Route::get('/promosi/create', [PromosiController::class, 'create'])->name('promosi.create');
 Route::post('/promosi', [PromosiController::class, 'store'])->name('promosi.store');
@@ -108,11 +114,12 @@ Route::put('/promosi/{promosi}', [PromosiController::class, 'update'])->name('pr
 Route::delete('/promosi/{promosi}', [PromosiController::class, 'destroy'])->name('promosi.destroy');
 
 Route::get('/category/{category?}', [EventReqController::class, 'showCategory'])->name('category.show');
-// go to payment
+
+// Routes payment
 Route::get('/payment/{eventId?}', [PaymentController::class, 'index'])->name('payment.index');
 Route::get('/payment/{payment}', [PaymentController::class, 'show'])->name('payment.show');
 Route::get('/payment/{payment}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
 Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
 
-// Admin Dashboard Route
+// Routes admin dashboard
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

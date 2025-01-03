@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Community extends Model
 {
     use HasFactory;
-
-    // Mass assignable fields
+    
     protected $fillable = [
         'name',
         'city',

@@ -110,7 +110,7 @@
                 <i class="fa fa-file-excel-o"></i> Export to XLS
             </a>
 
-            <!-- Event List Section -->
+            <!-- Event List -->
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="mb-4">List of Events</h4>
