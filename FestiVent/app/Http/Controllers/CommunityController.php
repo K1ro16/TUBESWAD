@@ -119,20 +119,25 @@ class CommunityController extends Controller
 
         // Simpan perubahan ke database
         $community->save();
-
-        return redirect()->route('communities.index')->with('success', 'Community updated successfully');
+        if ($request->has('redirect')) {
+            return redirect($request->get('redirect'));
+        }
+        return redirect()->route('communities.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, $id)
     {
         // Hapus data komunitas berdasarkan ID
         $community = Community::findOrFail($id);
         $community->delete();
 
-        return redirect()->route('communities.index')->with('success', 'Community deleted successfully!');
+        if ($request->has('redirect')) {
+            return redirect($request->get('redirect'));
+        }
+        return redirect()->route('communities.index');
     }
 
     public function showAdminDashboard()

@@ -158,7 +158,7 @@
                                                     Edit
                                                 </a>
 
-                                                <form action="{{ route('eventreq.destroy', $event->id) }}"
+                                                <form action="{{ route('eventreq.destroy', $event->id) }}?redirect=/admin/event"
                                                       method="POST"
                                                       class="d-inline">
                                                     @csrf

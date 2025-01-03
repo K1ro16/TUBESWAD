@@ -28,6 +28,9 @@
                         <option value="Art">Art</option>
                         <option value="Sport">Sport</option>
                         <option value="Technology">Technology</option>
+                        <option value="Communiy Gathering">Communiy Gathering</option>
+                        <option value="Live Show">Live Show</option>
+                        <option value="Festival">Festival</option>
                     </select>
                 </div>
 
