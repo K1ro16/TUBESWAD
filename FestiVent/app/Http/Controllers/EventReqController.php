@@ -86,10 +86,14 @@ class EventReqController extends Controller
 
         $event->update($validatedData);
 
-        return redirect()->route('eventreq.index', $event->id)->with('success', 'Event updated successfully!');
+        if ($request->has('redirect')) {
+            return redirect($request->get('redirect'));
+        }
+        
+        return redirect()->route('eventreq.index');
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request, $id)
     {
         $event = EventReq::findOrFail($id);
 
@@ -99,7 +103,11 @@ class EventReqController extends Controller
 
         $event->delete();
 
-        return redirect()->route('eventreq.index')->with('success', 'Event deleted successfully!');
+        if ($request->has('redirect')) {
+            return redirect($request->get('redirect'));
+        }
+        
+        return redirect()->route('eventreq.index');
     }
 
     public function showAdminDashboard()

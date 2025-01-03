@@ -86,10 +86,10 @@
                                     <a href="{{ route('communities.edit', $community->id) }}" class="btn btn-warning btn-sm me-1">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('communities.destroy', $community->id) }}" method="POST" style="display:inline-block;">
+                                    <form action="{{ route('communities.destroy', $community->id) }}?redirect=/admin/communities" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this community?')">
                                             <i class="fas fa-trash"></i> Delete
                                         </button>
                                     </form>

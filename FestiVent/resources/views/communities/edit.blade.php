@@ -11,9 +11,9 @@
     <!-- Form Edit Komunitas -->
     <div class="card shadow-sm p-4 mb-5">
         <h4 class="mb-4" style="color: #000; font-weight: bold;">Edit Community Data</h4>
-        <form action="{{ route('communities.update', $community->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('communities.update', $community->id) }}?redirect=/admin/communities" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT') <!-- Menambahkan method PUT karena ini adalah update -->
+            @method('PUT')<!-- Menambahkan method PUT karena ini adalah update -->
 
             <div class="row">
                 <!-- Nama Komunitas -->
@@ -30,6 +30,9 @@
                         <option value="Art" {{ $community->category == 'Art' ? 'selected' : '' }}>Art</option>
                         <option value="Sport" {{ $community->category == 'Sport' ? 'selected' : '' }}>Sport</option>
                         <option value="Technology" {{ $community->category == 'Technology' ? 'selected' : '' }}>Technology</option>
+                        <option value="Communiy Gathering" {{ $community->category == 'Communiy Gathering' ? 'selected' : '' }}>Communiy Gathering</option>
+                        <option value="Live Show" {{ $community->category == 'Live Show' ? 'selected' : '' }}>Live Show</option>
+                        <option value="Festival" {{ $community->category == 'Festival' ? 'selected' : '' }}>Festival</option>
                     </select>
                 </div>
 

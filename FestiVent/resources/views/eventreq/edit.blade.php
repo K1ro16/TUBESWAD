@@ -203,7 +203,7 @@
                     </div>
 
                     <div class="text-end mt-4">
-                        <button type="submit" class="submit-btn btn btn-primary rounded-pill">
+                        <button type="submit" class="submit-btn btn btn-primary rounded-pill" onclick="this.form.action = '{{ route('eventreq.update', $event->id) }}?redirect=/admin/event'">
                             <i class="fas fa-save me-2"></i> Update Event ✨
                         </button>
                     </div>
