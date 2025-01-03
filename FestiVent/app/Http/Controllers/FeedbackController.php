@@ -87,4 +87,15 @@ class FeedbackController extends Controller
         return redirect()->route('feedback.index')
                         ->with('success', 'Reply added successfully!');
     }
+
+    public function print($id = null)
+    {
+        if ($id) {
+            $feedbacks = Feedback::where('id', $id)->get();
+        } else {
+            $feedbacks = Feedback::orderBy('created_at', 'desc')->get();
+        }
+        
+        return view('Feedback.print', compact('feedbacks'));
+    }
 }
