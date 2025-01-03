@@ -92,7 +92,7 @@
                         <h3 class="text-primary fw-bold mb-1">Register Your Community</h3>
                         <p class="text-muted mb-0 fs-8">FestiVent - Community System Management</p>
                     </div>
-                    <a href="#" class="btn btn-secondary btn-sm">
+                    <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
                         <i class="fas fa-arrow-left"></i> Back to Home
                     </a>
                 </div>
@@ -102,7 +102,8 @@
     <div class="mx-auto" style="max-width: 1200px;">
         <div class="fun-card shadow p-5 animate__animated animate__fadeInUp">
             <h4 class="mb-4 text-dark fw-bold">Community Data ✨</h4>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('communities.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="row g-4">
                     <div class="col-md-6 position-relative">
                         <input type="text" name="name" class="form-control" placeholder=" " required>
