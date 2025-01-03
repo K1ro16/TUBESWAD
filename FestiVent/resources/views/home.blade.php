@@ -113,7 +113,8 @@
               <h4 class="title"><a href="{{ route('category.show', 'Community Gathering') }}">Community Gathering</a></h4>
               <p class="description">A space for community meetups, from casual discussions to collaborative events, fostering connections and togetherness.</p>
             </div>
-          </div><!--End Icon Box -->
+          </div>
+          <!--End Icon Box -->
 
           <div class="col-md-2 col-md-3" data-aos="zoom-out" data-aos-delay="100">
             <div class="icon-box">
@@ -129,7 +130,8 @@
               <h4 class="title"><a href="{{ route('category.show', 'Live Show') }}">Live Show</a></h4>
               <p class="description">Experience the excitement of live performances, from art and comedy to inspiring shows and entertainment.</p>
             </div>
-          </div><!--End Icon Box -->
+          </div>
+          <!--End Icon Box -->
 
           <div class="col-md-2 col-md-3" data-aos="zoom-out" data-aos-delay="300">
             <div class="icon-box">
@@ -137,7 +139,8 @@
               <h4 class="title"><a href="{{ route('category.show', 'Music') }}">Music</a></h4>
               <p class="description">Feel the rhythm and enjoy live music events, concerts, and festivals featuring local and international artists.</p>
             </div>
-          </div><!--End Icon Box -->
+          </div>
+          <!--End Icon Box -->
 
           <div class="col-md-2 col-md-3" data-aos="zoom-out" data-aos-delay="400">
             <div class="icon-box">
@@ -145,14 +148,15 @@
               <h4 class="title"><a href="{{ route('category.show', 'Festival') }}">Festival</a></h4>
               <p class="description">Discover vibrant festivals filled with culture, food, and entertainment for unforgettable experiences.</p>
             </div>
-          </div><!--End Icon Box -->
+          </div>
+          <!--End Icon Box -->
 
         </div>
       </div>
     </div>
 
-    </section><!-- /Hero Section -->
-
+    </section>
+    <!-- /Hero Section -->
     <!-- About Section -->
     <!-- Services/Recommendation Section -->
     <section id="services" class="services section light-background">

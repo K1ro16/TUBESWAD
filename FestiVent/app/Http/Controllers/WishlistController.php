@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
+    // Menampilkan halaman utama wishlist
     public function index()
     {
         $accounts_id = 1;
@@ -21,6 +22,7 @@ class WishlistController extends Controller
         return view('Wishlist.index', compact('groups', 'ungrouped_items'));
     }
 
+    // Menambah/menghapus event dari wishlist
     public function toggle($eventreq_id)
     {
         $accounts_id = 1;
@@ -43,6 +45,7 @@ class WishlistController extends Controller
         return back()->with('success', $message);
     }
 
+    // Membuat grup wishlist
     public function createGroup(Request $request)
     {
         $accounts_id = 1;
@@ -59,6 +62,7 @@ class WishlistController extends Controller
         return back()->with('success', 'Group created successfully');
     }
 
+    // Memindahkan item wishlist ke grup
     public function moveToGroup(Request $request, $wishlist_id)
     {
         $wishlist = Wishlist::findOrFail($wishlist_id);
@@ -67,9 +71,10 @@ class WishlistController extends Controller
         return back()->with('success', 'Item moved to group');
     }
 
+    // Menghapus event dari wishlist
     public function remove($eventreq_id)
     {
-        $accounts_id = 1; // Or however you're getting the account ID
+        $accounts_id = 1;
         
         $wishlist = Wishlist::where('accounts_id', $accounts_id)
             ->where('eventreq_id', $eventreq_id)
@@ -80,9 +85,9 @@ class WishlistController extends Controller
         return back()->with('success', 'Event removed from wishlist');
     }
 
+    // print daftar wishlist dalam grup
     public function printGroup(WishlistGroup $group)
     {
-        // Load the group with its wishlists and event details
         $group->load(['wishlists.event']);
         
         return view('Wishlist.print.group', [
