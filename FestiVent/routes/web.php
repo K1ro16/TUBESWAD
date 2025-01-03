@@ -90,12 +90,13 @@ Route::get('/tabevent/{id}', function ($id) {
 // go to feedback
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
 Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
-Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+Route::get('/feedback/print', [FeedbackController::class, 'print'])->name('feedback.print');
 Route::get('/feedback/{feedback}', [FeedbackController::class, 'show'])->name('feedback.show');
 Route::get('/feedback/{feedback}/edit', [FeedbackController::class, 'edit'])->name('feedback.edit');
 Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
 Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
 Route::patch('/feedback/{feedback}/reply', [FeedbackController::class, 'reply'])->name('feedback.reply');
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 // go to promotion
 Route::get('/promosi', [PromosiController::class, 'index'])->name('promosi.index');

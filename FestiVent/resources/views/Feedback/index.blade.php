@@ -95,7 +95,10 @@
                         <p class="text-muted">See what others are saying about our events</p>
                     </div>
                 </div>
-                <div class="col-md-3 text-end">
+                <div class="col-md-6 text-end">
+                    <a href="{{ route('feedback.print') }}" class="btn btn-add-feedback">
+                        <i class="bi bi-printer me-2"></i>Print Feedback
+                    </a>
                     <a href="{{ route('feedback.create') }}" class="btn btn-add-feedback">
                         <i class="bi bi-plus-circle me-2"></i>Add Feedback
                     </a>
