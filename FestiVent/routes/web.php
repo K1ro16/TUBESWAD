@@ -94,6 +94,7 @@ Route::get('/feedback/{feedback}', [FeedbackController::class, 'show'])->name('f
 Route::get('/feedback/{feedback}/edit', [FeedbackController::class, 'edit'])->name('feedback.edit');
 Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
 Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
+Route::patch('/feedback/{feedback}/reply', [FeedbackController::class, 'reply'])->name('feedback.reply');
 
 // go to promotion
 Route::get('/promosi', [PromosiController::class, 'index'])->name('promosi.index');

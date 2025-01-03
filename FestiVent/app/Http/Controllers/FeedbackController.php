@@ -72,4 +72,19 @@ class FeedbackController extends Controller
         return redirect()->route('feedback.index')
                         ->with('success', 'Feedback deleted successfully!');
     }
+
+    public function reply(Request $request, Feedback $feedback)
+    {
+        $request->validate([
+            'reply' => 'required'
+        ]);
+
+        $feedback->update([
+            'reply' => $request->reply,
+            'replied_at' => now()
+        ]);
+
+        return redirect()->route('feedback.index')
+                        ->with('success', 'Reply added successfully!');
+    }
 }

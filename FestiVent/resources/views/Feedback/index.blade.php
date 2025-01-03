@@ -112,6 +112,17 @@
                                 {{ $feedback->pesan }}
                                 <i class="bi bi-quote quote-icon-right"></i>
                             </p>
+                            
+                            @if($feedback->reply)
+                                <div class="reply-content mb-3">
+                                    <h5 class="reply-header">Reply:</h5>
+                                    <p class="reply-text">{{ $feedback->reply }}</p>
+                                    <small class="text-muted">
+                                        Replied on: {{ $feedback->replied_at ? \Carbon\Carbon::parse($feedback->replied_at)->format('d M Y, H:i') : '' }}
+                                    </small>
+                                </div>
+                            @endif
+
                             <div class="rating mb-3">
                                 @for($i = 0; $i < $feedback->rating; $i++)
                                     <i class="bi bi-star-fill"></i>
@@ -120,6 +131,7 @@
                                     <i class="bi bi-star"></i>
                                 @endfor
                             </div>
+                            
                             <div class="row align-items-center">
                                 <div class="col-8">
                                     <div class="feedback-profile">
@@ -128,6 +140,9 @@
                                     </div>
                                 </div>
                                 <div class="col-4 text-end">
+                                    <button class="btn btn-action btn-reply border border-secondary" data-bs-toggle="modal" data-bs-target="#replyModal{{ $feedback->id }}">
+                                        <i class="bi bi-reply"></i>
+                                    </button>
                                     <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-action btn-edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
@@ -224,6 +239,34 @@
   <!-- Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Reply Modals -->
+  @foreach ($feedbacks as $feedback)
+  <div class="modal fade" id="replyModal{{ $feedback->id }}" tabindex="-1" aria-labelledby="replyModalLabel{{ $feedback->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="replyModalLabel{{ $feedback->id }}">Reply to {{ $feedback->nama }}'s Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('feedback.reply', $feedback->id) }}" method="POST">
+          @csrf
+          @method('PATCH')
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="reply" class="form-label">Your Reply</label>
+              <textarea class="form-control" id="reply" name="reply" rows="3" required>{{ $feedback->reply }}</textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit Reply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  @endforeach
 
 </body>
 
