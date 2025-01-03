@@ -1,13 +1,20 @@
 <div class="card h-100">
+    <!-- nampilin gambar poster event -->
     @if($item->event->poster)
         <img src="{{ Storage::url($item->event->poster) }}" class="card-img-top" alt="{{ $item->event->nama_event }}">
     @else
+        <!-- nampilin gambar placeholder jika tidak ada poster -->
         <img src="/api/placeholder/400/200" class="card-img-top" alt="No Image Available">
     @endif
+    
+    <!-- Bikin card body -->
     <div class="card-body">
+        <!-- Judul event -->
         <h5 class="card-title">{{ $item->event->nama_event }}</h5>
+        <!-- Deskripsi event -->
         <p class="card-text">{{ Str::limit($item->event->deskripsi, 100) }}</p>
         
+        <!-- Informasi detail event -->
         <div class="mb-3">
             <small class="text-muted">
                 <i class="bi bi-geo-alt"></i> {{ $item->event->lokasi }}<br>
@@ -17,11 +24,12 @@
             </small>
         </div>
         
-        <!-- Group Selection -->
+        <!-- nampilin group -->
         @if(isset($groups))
             <form action="{{ route('wishlist.moveToGroup', $item->id) }}" method="POST" class="mb-2">
                 @csrf
                 <div class="input-group">
+                    <!-- Dropdown milih grup -->
                     <select name="group_id" class="form-select">
                         <option value="">Select Group</option>
                         @foreach($groups as $group)
@@ -33,7 +41,7 @@
             </form>
         @endif
         
-        <!-- Remove Button -->
+        <!-- button hapus wishlist -->
         <form action="{{ route('wishlist.remove', $item->event->id) }}" method="POST" class="d-inline">
             @csrf
             @method('DELETE')

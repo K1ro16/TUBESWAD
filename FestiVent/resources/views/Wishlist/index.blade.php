@@ -85,20 +85,22 @@
         </div>
     @endif
 
-    <!-- Create Group Form -->
+    <!-- form buat grup wishlist baru -->
     <div class="mb-4">
         <form action="{{ route('wishlist.createGroup') }}" method="POST" class="row g-3">
             @csrf
+            <!-- input nama group -->
             <div class="col-auto">
                 <input type="text" name="name" class="form-control" placeholder="New Group Name" required>
             </div>
+            <!-- submit button -->
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">Create Group</button>
             </div>
         </form>
     </div>
 
-    <!-- Groups -->
+    <!-- nampilin group wishlist -->
     @foreach($groups as $group)
         <div class="mb-4">
             <div class="d-flex justify-content-between align-items-center">
@@ -111,7 +113,7 @@
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @forelse($group->wishlists as $item)
-                    <!-- Wishlist Item Card -->
+                    <!-- Wishlist Card -->
                     <div class="col">
                         @include('Wishlist.partials.wishlist-card', ['item' => $item])
                     </div>
@@ -124,7 +126,7 @@
         </div>
     @endforeach
 
-    <!-- Ungrouped Items -->
+    <!-- Ungrouped wishlist -->
     <div class="mb-4">
         <h3>Ungrouped Items</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
