@@ -88,91 +88,266 @@
 
   <div style="margin-top: 50px;"></div>
 
-  <div class="container mt-5 py-5">
-    <div class="row">
-      <!-- Left Column - Poster -->
-      <div class="col-md-5">
-        <div style="top: 100px; height: fit-content;">
-          @if($event->poster)
-            <img src="{{ Storage::url($event->poster) }}"
-                 alt="{{ $event->nama_event }}"
-                 class="img-fluid rounded shadow-sm"
-                 style="width: 100%; max-height: calc(100vh - 200px); object-fit: contain;">
-          @else
-            <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
-              <p class="text-muted">No Image Available</p>
-            </div>
-          @endif
-        </div>
-      </div>
+  <style>
+    /* Hero Event Image Section */
+    .event-hero {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 20px;
+        margin-top: 80px;
+    }
 
-      <!-- Right Column - Event Details -->
-      <div class="col-md-7">
-        <!-- Event Title -->
-        <h2 class="mb-4">{{ $event->nama_event }}</h2>
+    .event-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
 
-        <!-- Event Meta Information -->
-        <div class="mb-4">
-          <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
-            <span>{{ $event->lokasi }}</span>
-          </div>
-          <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-calendar-event text-primary me-2"></i>
-            <span>{{ \Carbon\Carbon::parse($event->tanggal)->format('l, d F Y') }}</span>
-          </div>
-          <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-clock text-success me-2"></i>
-            <span>{{ \Carbon\Carbon::parse($event->waktu)->format('H:i') }} WIB</span>
-          </div>
-        </div>
+    .event-hero:hover img {
+        transform: scale(1.05);
+    }
 
-        <!-- Price and Action Button -->
-        <div class="card border-0 shadow-sm mb-4">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p class="text-muted mb-0">Starting from</p>
-                <h3 class="mb-0">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
-              </div>
+    /* Event Details Card */
+    .event-details-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
 
-              {{-- add button to go to payment --}}
-              <a href="{{ route('payment.index', $event->id) }}" class="btn btn-primary">Buy Ticket</a>
-            </div>
-          </div>
-        </div>
+    .event-details-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: #2196F3;
+    }
 
-        <!-- Event Description -->
-        <div class="mb-4">
-          <h4 class="mb-3">About This Event</h4>
-          <div class="card border-0 shadow-sm">
-            <div class="card-body">
-              <p class="text-muted mb-0">{{ $event->deskripsi }}</p>
-            </div>
-          </div>
-        </div>
+    /* Event Title */
+    .event-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2196F3;
+        margin-bottom: 1.5rem;
+    }
 
-        <!-- Event Organizer -->
-        <div class="mb-4">
-          <h4 class="mb-3">Event Organizer</h4>
-          <div class="card border-0 shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center">
-                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3"
-                     style="width: 50px; height: 50px;">
-                  <i class="bi bi-building text-primary"></i>
-                </div>
-                <div>
-                  <h5 class="mb-1">{{ $event->penyelenggara }}</h5>
-                  <p class="text-muted mb-0">Event Organizer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    /* Meta Information Icons */
+    .meta-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .meta-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .meta-info i {
+        font-size: 1.5rem;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #f8f9fa;
+    }
+
+    /* Price Card */
+    .price-card {
+        background: #2196F3;
+        border-radius: 16px;
+        padding: 2rem;
+        color: white;
+        margin-bottom: 2rem;
+    }
+
+    .price-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .price-amount {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+        color: #ffffff;
+    }
+
+    .price-amount::before {
+        font-size: 1.5rem;
+        font-weight: 600;
+        opacity: 0.9;
+        color: #ffffff;
+    }
+
+    /* Buy Button */
+    .btn-buy {
+        background: white;
+        color: #2196F3;
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-buy:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(33, 150, 243, 0.2);
+        background: #f8f9fa;
+    }
+
+    /* Description Section */
+    .description-section {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #2196F3;
+    }
+
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: #2196F3;
+        border-radius: 4px;
+    }
+
+    /* Organizer Card */
+    .organizer-card {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .organizer-icon {
+        width: 60px;
+        height: 60px;
+        background: #2196F3;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .organizer-info h5 {
+        margin: 0;
+        font-weight: 600;
+        color: #2196F3;
+    }
+
+    .organizer-info p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .event-hero {
+            height: 300px;
+        }
+
+        .event-title {
+            font-size: 2rem;
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<!-- Update your HTML structure -->
+<div class="container mt-5">
+    <div class="event-hero">
+        @if($event->poster)
+            <img src="{{ Storage::url($event->poster) }}" alt="{{ $event->nama_event }}">
+        @else
+            <div class="no-image">No Image Available</div>
+        @endif
     </div>
-  </div>
+
+    <div class="event-details-card mt-4">
+        <h1 class="event-title">{{ $event->nama_event }}</h1>
+
+        <div class="meta-info">
+            <i class="bi bi-geo-alt-fill text-danger"></i>
+            <span>{{ $event->lokasi }}</span>
+        </div>
+
+        <div class="meta-info">
+            <i class="bi bi-calendar-event text-primary"></i>
+            <span>{{ \Carbon\Carbon::parse($event->tanggal)->format('l, d F Y') }}</span>
+        </div>
+
+        <div class="meta-info">
+            <i class="bi bi-clock text-success"></i>
+            <span>{{ \Carbon\Carbon::parse($event->waktu)->format('H:i') }} WIB</span>
+        </div>
+
+        <div class="price-card mt-4">
+            <p class="price-label">Starting from</p>
+            <h3 class="price-amount">Rp {{ number_format($event->harga, 0, ',', '.') }}</h3>
+            <a href="{{ route('payment.index', $event->id) }}" class="btn btn-buy">
+                Buy Ticket
+            </a>
+        </div>
+
+        <div class="description-section">
+            <h4 class="section-title">About This Event</h4>
+            <p class="text-muted">{{ $event->deskripsi }}</p>
+        </div>
+
+        <div class="organizer-card">
+            <div class="organizer-icon">
+                <i class="bi bi-building"></i>
+            </div>
+            <div class="organizer-info">
+                <h5>{{ $event->penyelenggara }}</h5>
+                <p>Event Organizer</p>
+            </div>
+        </div>
+    </div>
+</div>
 
   <!-- ... existing footer ... -->
   <div style="margin-top: 55px;"></div>

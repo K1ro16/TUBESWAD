@@ -160,14 +160,13 @@
                     <div class="col-md-4">
                         <div class="position-relative">
                             <input type="date" name="tanggal" class="form-control" required>
-                            <!-- <span class="floating-label">📅 Date</span> -->
+
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="position-relative">
                             <input type="time" name="waktu" class="form-control" required>
-                            <!-- <span class="floating-label">⏰ Time</span> -->
                         </div>
                     </div>
 
@@ -178,7 +177,7 @@
                 </div>
 
                 <div class="text-end mt-4">
-                    <button type="submit" class="submit-btn btn btn-primary rounded-pill">
+                    <button type="submit" class="submit-btn btn btn-primary rounded-pill" onclick="triggerConfetti()">
                         <i class="fas fa-paper-plane me-2"></i> Create Event ✨
                     </button>
                 </div>
@@ -190,6 +189,19 @@
 <!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<!-- untuk confetti -->
+<script>
+function triggerConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+</script>
 
 </body>
 </html>

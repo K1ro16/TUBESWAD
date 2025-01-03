@@ -7,6 +7,65 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/style_dash.css') }}">
+
+    <style>
+        .custom-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .custom-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .custom-btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .custom-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .custom-btn-edit {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        .custom-btn-delete {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 1rem;
+        }
+
+        .d-flex.gap-2 {
+            gap: 0.75rem !important;
+        }
+
+        .custom-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
 
@@ -92,15 +151,23 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <div class="btn-group">
-                                                <a href="{{ route('eventreq.edit', $event->id) }}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
+                                            <div class="d-flex gap-2">
+                                                <a href="{{ route('eventreq.edit', $event->id) }}"
+                                                   class="btn btn-sm custom-btn custom-btn-edit">
+                                                    <i class="fa fa-pencil me-1"></i>
+                                                    Edit
                                                 </a>
-                                                <form action="{{ route('eventreq.destroy', $event->id) }}" method="POST" class="d-inline">
+
+                                                <form action="{{ route('eventreq.destroy', $event->id) }}"
+                                                      method="POST"
+                                                      class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
+                                                    <button type="submit"
+                                                            class="btn btn-sm custom-btn custom-btn-delete"
+                                                            onclick="return confirm('Are you sure you want to delete this event?')">
+                                                        <i class="fa fa-trash me-1"></i>
+                                                        Delete
                                                     </button>
                                                 </form>
                                             </div>
@@ -117,8 +184,8 @@
                 </div>
             </div>
 
-        </div> <!-- End of Content -->
-    </div> <!-- End of Wrapper -->
+        </div>
+    </div>
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>
