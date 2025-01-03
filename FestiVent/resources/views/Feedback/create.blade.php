@@ -65,7 +65,7 @@
 
 <body class="index-page">
 
-    <!-- Feedback Section -->
+    <!-- Feedback -->
     <div class="container-fluid px-4 py-5">
         <div class="row mb-4">
             <div class="col-12">
@@ -111,7 +111,7 @@
                           </div>
                       </div>
               
-                      <!-- section rating -->
+                      <!-- rating -->
                       <div class="col-md-6">
                         <select name="rating" class="form-select" required>
                             <option value="" disabled selected>Rate your experience</option>

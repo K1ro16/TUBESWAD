@@ -43,7 +43,7 @@
             </div>
         </nav>
 
-        <!-- Main content -->
+        <!-- ISI -->
         <div id="content" class="p-4 p-md-5 pt-5">
             <h1 class="mb-4">Admin Dashboard</h1>
 
@@ -115,7 +115,7 @@
                 </div>
             </div>
 
-            <!-- Active Promotions -->
+            <!-- Active promo -->
             <div class="card shadow">
                 <div class="card-header">
                     <h5 class="m-0 font-weight-bold">Active Promotions</h5>
@@ -144,8 +144,8 @@
                 </div>
             </div>
 
-        </div> <!-- End of Content -->
-    </div> <!-- End of Wrapper -->
+        </div>
+    </div> <!-- ISI -->
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>

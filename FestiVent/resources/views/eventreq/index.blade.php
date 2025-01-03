@@ -88,7 +88,7 @@
 <body>
 
 <div class="container-fluid px-4 py-5">
-    <!-- Original Header -->
+    <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="bg-light p-2 rounded-3 shadow-sm">
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <!-- Form Container -->
+    <!-- Container Form  -->
     <div class="mx-auto" style="max-width: 1200px;">
         <div class="fun-card shadow p-5 animate_animated animate_fadeInUp">
             <h4 class="mb-4 text-dark fw-bold">Event Data ✨</h4>

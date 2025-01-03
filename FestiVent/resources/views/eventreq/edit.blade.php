@@ -282,7 +282,7 @@
 </div>
 
 <!-- Formulir Hapus Tersembunyi -->
-<form id="deleteForm" action="{{ route('eventreq.destroy', $event->id) }}" method="POST" class="d-none">
+<form id="deleteForm" action="{{ route('eventreq.destroy', $event->id) }}?redirect=/admin/event" method="POST" class="d-none">
     @csrf
     @method('DELETE')
 </form>

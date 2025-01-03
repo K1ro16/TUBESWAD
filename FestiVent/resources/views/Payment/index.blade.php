@@ -167,7 +167,7 @@
             padding: 20px;
         }
 
-        /* Input Group Styling */
+        /* Group Styling */
         .input-group-text {
             background-color: #f8f9fa;
             border: 2px solid #e0e0e0;
@@ -175,7 +175,7 @@
             border-radius: 15px 0 0 15px;
         }
 
-        /* Hover Effects */
+        /* efek Hover */
         .list-group-item {
             border-radius: 15px !important;
             margin-bottom: 10px;
@@ -198,7 +198,7 @@
                     </div>
                     <div class="card-body">
                         @if($eventreq)
-                            <!-- Event Details -->
+                            <!-- Detail event -->
                             <div class="event-details">
                                 <h5 class="mb-3"><i class="fas fa-calendar-alt me-2"></i>Event Information</h5>
                                 <p class="mb-2"><strong>Event:</strong> {{ $eventreq->nama_event }}</p>
@@ -206,13 +206,13 @@
                                 <p class="mb-0"><strong>Time:</strong> {{ \Carbon\Carbon::parse($eventreq->waktu)->format('H:i') }} WIB</p>
                             </div>
 
-                            <!-- Price Display -->
+                            <!-- Harga -->
                             <div class="price-display">
                                 <p class="text-muted mb-1">Price per ticket</p>
                                 <h3 class="mb-0">Rp {{ number_format($eventreq->harga, 0, ',', '.') }}</h3>
                             </div>
 
-                            <!-- Discount Display -->
+                            <!-- Diskon -->
                             <div class="price-display" id="discount-container" style="display: none;">
                                 <p class="text-muted mb-1">Discount Applied</p>
                                 <h3 id="discount-amount" class="mb-0 text-success">- Rp 0</h3>
@@ -242,7 +242,7 @@
                                     <input type="number" id="jml_tiket" name="jml_tiket" class="form-control" min="1" required>
                                 </div>
 
-                                <!-- Add payment method selection -->
+                                <!-- select metode bayar -->
                                 <div class="mb-3">
                                     <label for="opsi_pay" class="form-label">Payment Method</label>
                                     <select id="opsi_pay" name="opsi_pay" class="form-control" required>
@@ -253,7 +253,7 @@
                                     </select>
                                 </div>
 
-                                <!-- Optional promo code -->
+                                <!-- select promo -->
                                 <div class="mb-3">
                                     <label for="kode" class="form-label">Promo Code (Optional)</label>
                                     <select id="kode" name="kode" class="form-control">
@@ -274,7 +274,7 @@
                                 </button>
                             </form>
                         @else
-                            <!-- Display list of events to choose from -->
+                            <!-- display list event -->
                             <h5 class="mb-3">Select an Event</h5>
                             <div class="list-group">
                                 @foreach($events as $event)
@@ -294,7 +294,7 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
+    <!--  -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -308,11 +308,11 @@
                         <h4 class="mt-2">Thank you for your purchase!</h4>
                     </div>
 
-                    <!-- Receipt Details -->
+                    <!-- Detail recipt -->
                     <div class="receipt-container border rounded p-3">
                         <h5 class="border-bottom pb-2">Purchase Receipt</h5>
                         
-                        <!-- Event Details -->
+                        <!-- Detail event -->
                         <div class="mb-3">
                             <h6 class="text-muted">Event Details</h6>
                             <p class="mb-1"><strong>Event:</strong> <span id="receipt-event">{{ $eventreq->nama_event }}</span></p>
@@ -320,7 +320,7 @@
                             <p class="mb-1"><strong>Time:</strong> <span>{{ \Carbon\Carbon::parse($eventreq->waktu)->format('H:i') }} WIB</span></p>
                         </div>
 
-                        <!-- Customer Details -->
+                        <!-- detail customer -->
                         <div class="mb-3">
                             <h6 class="text-muted">Customer Details</h6>
                             <p class="mb-1"><strong>Name:</strong> <span id="receipt-name"></span></p>
@@ -328,7 +328,7 @@
                             <p class="mb-1"><strong>Phone:</strong> <span id="receipt-phone"></span></p>
                         </div>
 
-                        <!-- Payment Details -->
+                        <!-- detail payment -->
                         <div class="mb-3">
                             <h6 class="text-muted">Payment Details</h6>
                             <p class="mb-1"><strong>Number of Tickets:</strong> <span id="receipt-tickets"></span></p>
@@ -361,10 +361,10 @@
             let subtotal = basePrice * quantity;
             let discount = 0;
 
-            // Get selected promotion discount
+            // mendapatkan opsi yang dipilih
             const selectedOption = promoSelect.options[promoSelect.selectedIndex];
             if (selectedOption.value) {
-                // Find the discount percentage from the option text
+                // mencari persentase diskon
                 const discountText = selectedOption.text;
                 const discountMatch = discountText.match(/(\d+)%/);
                 if (discountMatch) {
@@ -372,12 +372,12 @@
                     discount = (subtotal * discountPercentage) / 100;
                     subtotal -= discount;
                     
-                    // Show discount container and update amount
+                    // menampilkan diskon (kalau milih diskon)
                     discountContainer.style.display = 'block';
                     discountAmount.textContent = `- Rp ${discount.toLocaleString('id-ID')}`;
                 }
             } else {
-                // Hide discount container if no promotion selected
+                // hide discount container (kalau ngak ada diskon yang dipilih)
                 discountContainer.style.display = 'none';
             }
 
@@ -391,7 +391,7 @@
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Get form data
+            // mengambil data dari form
             const formData = {
                 name: document.getElementById('nama').value,
                 email: document.getElementById('email').value,
@@ -404,14 +404,14 @@
                 pricePerTicket: `Rp {{ number_format($eventreq->harga, 0, ',', '.') }}`
             };
 
-            // Populate receipt with form data
+            // menampilkan data yang sudah diisi
             document.getElementById('receipt-name').textContent = formData.name;
             document.getElementById('receipt-email').textContent = formData.email;
             document.getElementById('receipt-phone').textContent = formData.phone;
             document.getElementById('receipt-tickets').textContent = formData.tickets;
             document.getElementById('receipt-payment').textContent = formData.paymentMethod;
             
-            // Handle promo code and discount
+            // promo dan diskon
             if (formData.promoCode && formData.promoCode !== 'Select Promo Code') {
                 document.getElementById('receipt-promo').textContent = formData.promoCode;
                 document.getElementById('receipt-discount').textContent = formData.discount;
@@ -420,7 +420,7 @@
                 document.getElementById('receipt-discount').textContent = '-';
             }
 
-            // Update total amount
+            // update total
             document.getElementById('receipt-total').textContent = formData.total;
 
             // Show modal

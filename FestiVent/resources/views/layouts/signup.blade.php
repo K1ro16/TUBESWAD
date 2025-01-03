@@ -41,7 +41,7 @@
 
 <script>
 document.getElementById('register-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Always prevent default first
+    event.preventDefault(); // prevent default
 
     const agreeTerm = document.getElementById('agree-term');
 
