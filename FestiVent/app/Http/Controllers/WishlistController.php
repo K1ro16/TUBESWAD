@@ -79,4 +79,14 @@ class WishlistController extends Controller
         
         return back()->with('success', 'Event removed from wishlist');
     }
+
+    public function printGroup(WishlistGroup $group)
+    {
+        // Load the group with its wishlists and event details
+        $group->load(['wishlists.event']);
+        
+        return view('Wishlist.print.group', [
+            'group' => $group
+        ]);
+    }
 } 

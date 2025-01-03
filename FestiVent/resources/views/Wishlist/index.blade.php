@@ -101,7 +101,14 @@
     <!-- Groups -->
     @foreach($groups as $group)
         <div class="mb-4">
-            <h3>{{ $group->name }}</h3>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>{{ $group->name }}</h3>
+                <a href="{{ route('wishlist.group.print', $group->id) }}" 
+                   class="btn btn-sm btn-success" 
+                   target="_blank">
+                    <i class="bi bi-printer"></i> Print Group
+                </a>
+            </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @forelse($group->wishlists as $item)
                     <!-- Wishlist Item Card -->
