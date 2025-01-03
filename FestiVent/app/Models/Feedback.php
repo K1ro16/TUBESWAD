@@ -15,5 +15,13 @@ class Feedback extends Model
         'email',
         'pesan',
         'rating',
+        'reply',
+        'replied_at'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'replied_at'
     ];
 }
