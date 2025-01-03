@@ -5,12 +5,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Feedback</title>
     
-    <!-- Existing CSS -->
+    <!-- CSS Files -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- New Enhanced Styles -->
+    <!-- CSS Internal -->
     <style>
         body {
             background-color: #f8f9fa;
@@ -65,22 +65,8 @@
 
 <body class="index-page">
 
-    <!-- Keep existing header -->
-    <header id="header" class="header d-flex align-items-center sticky-top">
-        <!-- Header content remains the same -->
-    </header>
-
-    <!-- Enhanced Feedback Section -->
+    <!-- Feedback Section -->
     <div class="container-fluid px-4 py-5">
-        <!-- Add Alert Section -->
-        @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle me-2"></i>
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
         <div class="row mb-4">
             <div class="col-12">
                 <div class="bg-light p-2 rounded-3 shadow-sm">
@@ -97,6 +83,7 @@
             </div>
         </div>
 
+        {{-- Section Form Feedback --}}
         <div class="mx-auto" style="max-width: 1200px;">
             <div class="fun-card shadow p-5 animate__animated animate__fadeInUp">
                 <h4 class="mb-4 text-dark fw-bold">Feedback Form ✨</h4>
@@ -124,7 +111,7 @@
                           </div>
                       </div>
               
-                      <!-- Rating select remains the same -->
+                      <!-- section rating -->
                       <div class="col-md-6">
                         <select name="rating" class="form-select" required>
                             <option value="" disabled selected>Rate your experience</option>
@@ -135,7 +122,6 @@
                             <option value="1">⭐ Poor</option>
                         </select>
                     </div>
-                      <!-- Rest of the form remains the same -->
                     <div class="col-12 text-end">
                       <button type="submit" class="submit-btn btn btn-primary rounded-pill">
                           <i class="bi bi-send me-2"></i> Send Feedback ✨
@@ -148,23 +134,7 @@
         </div>
     </div>
 
-    <!-- Keep existing footer -->
-    <footer id="footer" class="footer light-background">
-        <!-- Footer content remains the same -->
-    </footer>
-
-    <!-- Keep existing scripts -->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
-    <script>
-        // Initialize Bootstrap alerts
-        document.addEventListener('DOMContentLoaded', function() {
-            var alerts = document.querySelectorAll('.alert');
-            alerts.forEach(function(alert) {
-                new bootstrap.Alert(alert);
-            });
-        });
-    </script>
 </body>
 </html>
