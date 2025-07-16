@@ -9,9 +9,7 @@ class Promosi extends Model
 {
     use HasFactory;
 
-    /**
-     * Properti yang dapat diisi secara massal.
-     */
+    
     protected $fillable = [
         'judul',
         'deskripsi',
@@ -20,20 +18,19 @@ class Promosi extends Model
         'tanggal_selesai',
     ];
 
-    /**
-     * Konversi atribut menjadi tipe data yang sesuai.
-     */
+    
     protected $casts = [
         'tanggal_mulai' => 'date',
         'tanggal_selesai' => 'date',
     ];
+    
 
-    /**
-     * Specify the table name.
-     */
     protected $table = 'promosi';
 
     // relasi ke model payment
+
+
+
     public function payment()
     {
         return $this->hasMany(Payment::class, 'kode', 'id');

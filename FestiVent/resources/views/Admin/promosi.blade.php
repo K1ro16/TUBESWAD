@@ -44,7 +44,7 @@
             </div>
         </nav>
 
-        <!-- Main content -->
+      
         <div id="content" class="p-4 p-md-5 pt-5">
             <h1>Promotion</h1>
 
@@ -77,7 +77,7 @@
                 </form>
             </div>
 
-            <!-- looping data dari database promosi ke dalam tabel -->
+            <!-- Looping all data from databse promosi to a table -->
             <div class="container mt-5">
                 <h2 class="mb-4">Daftar Promosi</h2>
                 <table class="table">
@@ -104,7 +104,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
-                                    <!-- edit button untuk update data promosi -->
+                                    <!-- add edit button for update data promosi -->
                                     <a href="{{ route('promosi.edit', $promo->id) }}" class="btn btn-primary">Edit</a>
                                 </form>
                             </td>
@@ -115,13 +115,13 @@
             </div>
             
 
-        </div> 
-    </div> <!-- End -->
+        </div> <!-- End of Content -->
+    </div> <!-- End of Wrapper -->
     <script>
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil!',
+                title: 'selamat',
                 text: '{{ session("success") }}',
                 confirmButtonText: 'OK'
             });
